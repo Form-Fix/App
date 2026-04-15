@@ -2,82 +2,102 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM & FIX | Elite Personal Trainer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FORM & FIX | Elite Performance</title>
     <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="dark-theme">
 
-    <section id="onboarding" class="screen">
-        <div class="hero-bg"></div>
+    <section id="onboarding" class="screen active">
+        <div class="glow-bg"></div>
         <div class="content">
-            <h1 class="logo-text">FORM<span>&FIX</span></h1>
-            <p class="tagline">Physio-led precision training.</p>
+            <h1 class="premium-logo">FORM<span>&FIX</span></h1>
+            <p class="subtitle">AI-Powered Physical Therapy</p>
             
-            <form id="user-form" class="glass-card">
-                <div class="input-group">
-                    <input type="number" id="age" placeholder="Age" required>
-                    <input type="number" id="weight" placeholder="Weight (kg)" required>
-                </div>
-                
-                <label>Select Your Focus</label>
-                <div class="goal-grid">
-                    <input type="radio" name="goal" value="physio" id="g1" checked>
-                    <label for="g1" class="goal-item"><span>🧘</span>Recovery</label>
-                    
-                    <input type="radio" name="goal" value="strength" id="g2">
-                    <label for="g2" class="goal-item"><span>⚡</span>Strength</label>
+            <form id="user-form" class="glass-box">
+                <div class="input-grid">
+                    <div class="field">
+                        <label>Age</label>
+                        <input type="number" id="age" value="28" required>
+                    </div>
+                    <div class="field">
+                        <label>Weight (kg)</label>
+                        <input type="number" id="weight" value="70" required>
+                    </div>
                 </div>
 
-                <select id="duration">
-                    <option value="15">15 Minutes Session</option>
-                    <option value="30">30 Minutes Session</option>
-                    <option value="45">45 Minutes Session</option>
-                </select>
+                <div class="selector-group">
+                    <label>Training Focus</label>
+                    <div class="chip-grid">
+                        <input type="radio" name="goal" value="physio" id="physio" checked>
+                        <label for="physio" class="chip">Physio Recovery</label>
+                        
+                        <input type="radio" name="goal" value="strength" id="strength">
+                        <label for="strength" class="chip">Elite Strength</label>
+                    </div>
+                </div>
 
-                <button type="submit" class="btn-primary">CREATE MY PLAN</button>
+                <div class="field">
+                    <label>Session Duration</label>
+                    <select id="duration">
+                        <option value="5">Short Burst (5 min)</option>
+                        <option value="15" selected>Standard (15 min)</option>
+                        <option value="30">Elite Session (30 min)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary-glow">GENERATE PROGRAM</button>
             </form>
         </div>
     </section>
 
-    <section id="workout-hub" class="screen" style="display: none;">
-        <div class="header-hub">
-            <h2>Today's <span>Program</span></h2>
-            <p id="program-type">Physio Mobility Alpha</p>
-        </div>
-        
-        <div class="workout-list" id="exercise-list-ul">
+    <section id="workout-hub" class="screen">
+        <div class="hub-header">
+            <div class="badge">Session Ready</div>
+            <h2 id="hub-title">Daily Mobility</h2>
+            <div class="hub-stats">
+                <span id="hub-count">0 Exercises</span> • <span id="hub-time">0 min</span>
             </div>
+        </div>
 
-        <div class="footer-action">
-            <button id="start-workout-btn" class="btn-float">START SESSION</button>
+        <div class="scroll-area">
+            <div id="exercise-list-ul" class="premium-list">
+                </div>
+        </div>
+
+        <div class="sticky-footer">
+            <button id="start-workout-btn" class="btn-main-action">START ALL</button>
         </div>
     </section>
 
-    <section id="dashboard" class="screen" style="display: none;">
-        <div class="top-bar">
-            <button class="btn-exit" onclick="location.reload()">✕</button>
-            <div class="session-info">
-                <span id="current-ex-index">1/12</span>
-                <p id="current-ex-name">Cat-Cow Stretch</p>
+    <section id="dashboard" class="screen">
+        <div class="dash-header">
+            <button class="close-session" onclick="location.reload()">✕</button>
+            <div class="center-meta">
+                <span id="progress-text">Exercise 1 of 10</span>
+                <h3 id="current-ex-name">Loading...</h3>
             </div>
-            <div id="exercise-timer">00:45</div>
+            <div id="exercise-timer">00:00</div>
         </div>
 
-        <div class="canvas-wrapper">
-            <canvas id="canvas"></canvas> </div>
+        <div class="rive-stage">
+            <canvas id="canvas"></canvas>
+            <div class="stage-shadow"></div>
+        </div>
 
-        <div class="bottom-controls">
-            <div class="progress-container">
+        <div class="dash-footer">
+            <div class="progress-bar-container">
                 <div id="progress-fill"></div>
             </div>
-            <div class="control-btns">
-                <button id="play-pause-btn">PAUSE</button>
-                <button id="skip-btn">SKIP →</button>
+            <div class="controls-row">
+                <button id="play-pause-btn" class="btn-circle">PAUSE</button>
+                <button id="skip-btn" class="btn-text">SKIP →</button>
             </div>
-            <div class="next-up">Next: <span id="next-ex-name">Dead Bug</span></div>
+            <div class="next-preview">
+                UP NEXT: <span id="next-ex-name">Squats</span>
+            </div>
         </div>
     </section>
 
