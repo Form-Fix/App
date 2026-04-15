@@ -1,69 +1,46 @@
 :root {
     --nike-black: #000000;
-    --nike-white: #ffffff;
-    --nike-grey: #0c0c0c;
-    --p-purp: #8b5cf6;
-    --p-pink: #d946ef;
-    --p-oran: #f97316;
+    --p-purp: #8b5cf6; --p-pink: #d946ef; --p-oran: #f97316;
     --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
 }
 
-body { margin: 0; background: var(--nike-black); color: var(--nike-white); font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden; }
+body { margin: 0; background: var(--nike-black); color: white; font-family: 'Inter', sans-serif; overflow: hidden; }
 
-/* GRADIENT BACK BUTTON */
-.back-minimal {
-    background: var(--nike-gradient); -webkit-background-clip: text; color: transparent;
-    border: none; font-size: 2.5rem; font-weight: 900; cursor: pointer; padding: 0;
-}
-
-/* CUSTOM SCROLLBAR SA SLIKE */
-.custom-scroll-bar::-webkit-scrollbar { width: 18px; }
-.custom-scroll-bar::-webkit-scrollbar-track { background: #111; border-radius: 10px; border: 2px solid #000; }
+/* FIX: Sidebar (Scrollbar) sa strelicama */
+.custom-scroll-bar { overflow-y: auto; scrollbar-gutter: stable; }
+.custom-scroll-bar::-webkit-scrollbar { width: 16px; }
+.custom-scroll-bar::-webkit-scrollbar-track { background: #0a0a0a; border-radius: 10px; }
 .custom-scroll-bar::-webkit-scrollbar-thumb { 
-    background: var(--nike-gradient); border-radius: 20px; border: 4px solid #111; 
+    background: var(--nike-gradient); border-radius: 20px; border: 3px solid #0a0a0a; 
 }
-.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical {
-    background-color: var(--p-oran); display: block; border-radius: 10px; height: 15px;
-    background-size: 8px; background-repeat: no-repeat; background-position: center;
-}
-.custom-scroll-bar::-webkit-scrollbar-button:vertical:decrement {
-    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,20 10,80 90,80" fill="black"/></svg>');
-}
-.custom-scroll-bar::-webkit-scrollbar-button:vertical:increment {
-    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,80 10,20 90,20" fill="black"/></svg>');
+.custom-scroll-bar::-webkit-scrollbar-button:single-button {
+    background-color: #1a1a1a; display: block; border-radius: 4px; height: 12px;
 }
 
-/* AGE, KG, LEVEL CARDS */
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+/* Moderni Dropdown Fix */
+.modern-select {
+    background: transparent; border: none; color: white; font-size: 1rem;
+    font-weight: 900; width: 100%; appearance: none; cursor: pointer; text-align: center;
+}
+.modern-select option { background: #111; color: white; }
+
 .stat-card {
-    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 12px;
+    background: #0c0c0c; border: 1px solid #1a1a1a; padding: 10px;
     border-radius: 12px; display: flex; flex-direction: column; align-items: center;
 }
-.stat-card label { font-size: 0.6rem; color: #555; font-weight: 900; margin-bottom: 5px; }
-.stat-card input, .stat-card select {
-    background: transparent; border: none; color: white; font-size: 1.2rem;
-    font-weight: 900; text-align: center; outline: none; width: 100%;
-}
 
-/* PROGRAM BUTTONS */
+/* Uklonjene tačkice i radio krugovi */
+input[type="radio"] { display: none; }
 .program-btn {
-    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 18px;
+    background: #0c0c0c; border: 1px solid #1a1a1a; padding: 18px;
     border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    gap: 15px; cursor: pointer; font-weight: 900; margin-bottom: 10px;
+    gap: 15px; cursor: pointer; font-weight: 900; margin-bottom: 8px; transition: 0.3s;
 }
-input[type="radio"]:checked + .program-btn { border-color: var(--p-pink); background: rgba(217, 70, 239, 0.05); }
-
-/* HUB LIST EXERCISES */
-.n-item {
-    background: var(--nike-grey); padding: 20px; border-radius: 15px;
-    margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
-    border: 1px solid #111;
+input[type="radio"]:checked + .program-btn { 
+    border-color: var(--p-pink); background: rgba(217, 70, 239, 0.1); 
 }
 
-.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; display: inline-block; }
-.gradient-bg { background: var(--nike-gradient); }
-
-.screen { display: none; height: 100vh; padding: 20px; flex-direction: column; }
-.screen.active { display: flex; }
+.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; }
 .nike-btn-grad { background: var(--nike-gradient); color: white; border: none; padding: 20px; border-radius: 12px; font-weight: 900; width: 100%; cursor: pointer; }
-.nike-btn-grad.pill { border-radius: 50px; width: 80%; align-self: center; margin-bottom: 20px; }
+.screen { display: none; height: 100vh; padding: 20px; flex-direction: column; box-sizing: border-box; }
+.screen.active { display: flex; }
