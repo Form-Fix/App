@@ -2,63 +2,68 @@
     --nike-black: #000000;
     --nike-white: #ffffff;
     --nike-grey: #0c0c0c;
-    /* Cyber Sunset Colors */
-    --p-purp: #8b5cf6; /* Ljubičasta */
-    --p-pink: #d946ef; /* Roze */
-    --p-oran: #f97316; /* Narandžasta */
-    /* Puni Gradijent */
+    --p-purp: #8b5cf6;
+    --p-pink: #d946ef;
+    --p-oran: #f97316;
     --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
 }
 
 body { margin: 0; background: var(--nike-black); color: var(--nike-white); font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden; }
 
-/* 1. ULTRA-CUSTOM USPRAVNI SCROLLBAR (Kao sa slike) */
-.custom-scroll-bar::-webkit-scrollbar {
-    width: 20px; /* Širina trake */
+/* GRADIENT BACK BUTTON */
+.back-minimal {
+    background: var(--nike-gradient); -webkit-background-clip: text; color: transparent;
+    border: none; font-size: 2.5rem; font-weight: 900; cursor: pointer; padding: 0;
 }
 
-/* Pozadina scrollbar-a (tamna linija) */
-.custom-scroll-bar::-webkit-scrollbar-track {
-    background: #111;
-    border-radius: 10px;
-    border: 2px solid #000; /* Tanak okvir za dubinu */
+/* CUSTOM SCROLLBAR SA SLIKE */
+.custom-scroll-bar::-webkit-scrollbar { width: 18px; }
+.custom-scroll-bar::-webkit-scrollbar-track { background: #111; border-radius: 10px; border: 2px solid #000; }
+.custom-scroll-bar::-webkit-scrollbar-thumb { 
+    background: var(--nike-gradient); border-radius: 20px; border: 4px solid #111; 
 }
-
-/* Klizač (zaobljeni pravougaonik koji se pomera) */
-.custom-scroll-bar::-webkit-scrollbar-thumb {
-    background: var(--nike-gradient);
-    border-radius: 20px;
-    border: 4px solid #111; /* Prostor oko klizača */
-}
-
-/* 2. CUSTOM STRELICE NA VRHU I DNU */
 .custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical {
-    background: var(--p-oran); /* Narandžasta za strelice */
-    background-size: 10px;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 20px; height: 16px;
-    border-radius: 10px; /* Zaobljene na kraju */
+    background-color: var(--p-oran); display: block; border-radius: 10px; height: 15px;
+    background-size: 8px; background-repeat: no-repeat; background-position: center;
+}
+.custom-scroll-bar::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,20 10,80 90,80" fill="black"/></svg>');
+}
+.custom-scroll-bar::-webkit-scrollbar-button:vertical:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,80 10,20 90,20" fill="black"/></svg>');
 }
 
-/* Strelica nagore */
-.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical:decrement {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="50,15 10,85 90,85" fill="black"/></svg>');
+/* AGE, KG, LEVEL CARDS */
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.stat-card {
+    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 12px;
+    border-radius: 12px; display: flex; flex-direction: column; align-items: center;
+}
+.stat-card label { font-size: 0.6rem; color: #555; font-weight: 900; margin-bottom: 5px; }
+.stat-card input, .stat-card select {
+    background: transparent; border: none; color: white; font-size: 1.2rem;
+    font-weight: 900; text-align: center; outline: none; width: 100%;
 }
 
-/* Strelica nadole */
-.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical:increment {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="50,85 10,15 90,15" fill="black"/></svg>');
+/* PROGRAM BUTTONS */
+.program-btn {
+    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 18px;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    gap: 15px; cursor: pointer; font-weight: 900; margin-bottom: 10px;
+}
+input[type="radio"]:checked + .program-btn { border-color: var(--p-pink); background: rgba(217, 70, 239, 0.05); }
+
+/* HUB LIST EXERCISES */
+.n-item {
+    background: var(--nike-grey); padding: 20px; border-radius: 15px;
+    margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #111;
 }
 
-/* 3. VODORAVNI SCROLLBAR (Za kartice) */
-.h-scroll { overflow-x: auto; display: flex; gap: 15px; padding-bottom: 10px; }
-.h-scroll::-webkit-scrollbar { height: 6px; }
-.h-scroll::-webkit-scrollbar-track { background: #111; }
-.h-scroll::-webkit-scrollbar-thumb { background: var(--p-oran); border-radius: 10px; }
+.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; display: inline-block; }
+.gradient-bg { background: var(--nike-gradient); }
 
-/* LAYOUT ELEMENTI (Zadržani) */
-.screen { display: none; height: 100vh; padding: 25px; box-sizing: border-box; flex-direction: column; }
+.screen { display: none; height: 100vh; padding: 20px; flex-direction: column; }
 .screen.active { display: flex; }
-.v-scroll { flex: 1; overflow-y: auto; padding-right: 5px; margin-top: 20px; padding-bottom: 100px; }
-/* ... (Ostali stilovi su isti) */
+.nike-btn-grad { background: var(--nike-gradient); color: white; border: none; padding: 20px; border-radius: 12px; font-weight: 900; width: 100%; cursor: pointer; }
+.nike-btn-grad.pill { border-radius: 50px; width: 80%; align-self: center; margin-bottom: 20px; }
