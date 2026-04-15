@@ -31,3 +31,40 @@ input, select { background: #0f172a; border: 1px solid #334155; padding: 12px; b
 .controls { display: flex; gap: 15px; width: 80%; }
 .btn-side { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; background: white; cursor: pointer; }
 .btn-main { flex: 2; padding: 15px; border-radius: 12px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
+
+/* ... tvoji stari stilovi ... */
+
+.list-card {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 400px;
+}
+
+#exercise-list-ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    text-align: left;
+}
+
+#exercise-list-ul li {
+    padding: 10px;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    justify-content: space-between;
+}
+
+.timers { text-align: right; }
+#exercise-timer {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6366f1;
+}
+#total-timer { font-size: 0.8rem; color: #64748b; }
+
+#rive-canvas { width: 100%; height: 100%; }
+
+.btn-main { background: #6366f1; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.btn-side { background: #e2e8f0; color: #1e293b; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; }
