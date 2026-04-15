@@ -11,53 +11,60 @@ body {
     font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden;
 }
 
-.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* CUSTOM VERTICAL SCROLLBAR */
+.v-scroll::-webkit-scrollbar { width: 4px; }
+.v-scroll::-webkit-scrollbar-track { background: #000; }
+.v-scroll::-webkit-scrollbar-thumb { background: var(--nike-gradient); border-radius: 10px; }
+
+.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
 .gradient-bg { background: var(--nike-gradient); }
 
-/* MODERN INPUT GROUP */
-.modern-input-group {
-    display: flex; background: var(--nike-grey); border-radius: 15px;
-    padding: 15px; border: 1px solid #1a1a1a; margin-bottom: 30px;
-}
-.m-field { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.m-field span { font-size: 0.65rem; font-weight: 900; color: #444; margin-bottom: 5px; }
-.m-field input { 
-    background: transparent; border: none; color: white; text-align: center;
-    font-size: 1.5rem; font-weight: 900; width: 60px; outline: none;
-}
-.m-divider { width: 1px; background: #222; margin: 0 10px; }
+.hero-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; line-height: 0.8; text-align: center; margin: 20px 0; }
 
-/* CATEGORY CARDS (No circles) */
-.category-stack { display: flex; flex-direction: column; gap: 10px; }
-.cat-card-wide {
-    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 20px;
-    border-radius: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.2s;
+.screen { display: none; height: 100vh; padding: 20px; box-sizing: border-box; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* MODERN STATS (AGE/KG) */
+.stats-row {
+    display: flex; background: var(--nike-grey); padding: 15px; border-radius: 15px;
+    border: 1px solid #1a1a1a; margin-bottom: 25px;
 }
-.cat-card-wide .emoji { font-size: 1.4rem; }
-.cat-card-wide .text { font-weight: 900; font-size: 0.85rem; letter-spacing: 1px; }
+.stat-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.stat-box label { font-size: 0.6rem; font-weight: 900; color: #444; margin-bottom: 5px; }
+.stat-box input { background: transparent; border: none; color: white; text-align: center; font-size: 1.4rem; font-weight: 900; width: 60px; outline: none; }
+.stat-divider { width: 1px; background: #222; margin: 0 10px; }
+
+/* PROGRAM BUTTONS (Iz tvog screenshota) */
+.program-stack { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+.program-btn {
+    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 18px;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    gap: 15px; cursor: pointer; font-weight: 900; font-size: 0.8rem; letter-spacing: 1px;
+}
+.program-btn .emoji { font-size: 1.2rem; }
 
 input[type="radio"] { display: none; }
-input[type="radio"]:checked + .cat-card-wide {
-    border-color: #d946ef; background: rgba(217, 70, 239, 0.05);
+input[type="radio"]:checked + .program-btn {
+    border: 1px solid #d946ef;
+    background: rgba(217, 70, 239, 0.05);
 }
 
 /* BUTTONS */
 .nike-btn-grad {
     background: var(--nike-gradient); color: white; border: none; padding: 22px;
-    font-weight: 900; border-radius: 12px; width: 100%; cursor: pointer; margin-top: 20px;
+    font-weight: 900; width: 100%; border-radius: 12px; cursor: pointer; font-size: 1rem;
+}
+.nike-btn-grad.pill { border-radius: 50px; width: 85%; align-self: center; margin-bottom: 20px; }
+
+/* HUB LIST */
+.nike-list { flex: 1; overflow-y: auto; padding-right: 5px; margin-top: 20px; }
+.n-item { 
+    background: var(--nike-grey); margin-bottom: 10px; padding: 20px; 
+    border-radius: 15px; display: flex; justify-content: space-between; align-items: center;
+    border: 1px solid #111; cursor: pointer;
 }
 
 /* DASHBOARD CONTROLS */
-.dash-controls { display: flex; gap: 10px; padding: 20px 0; }
-.control-btn { 
-    flex: 1; padding: 20px; border-radius: 50px; border: 1px solid #333;
-    background: transparent; color: white; font-weight: 900; cursor: pointer;
-}
-.control-btn.main { background: white; color: black; border: none; }
-
-/* SCROLLBAR */
-.v-scroll::-webkit-scrollbar { width: 3px; }
-.v-scroll::-webkit-scrollbar-thumb { background: var(--nike-gradient); }
-
-.screen { display: none; height: 100vh; padding: 30px; flex-direction: column; box-sizing: border-box; }
-.screen.active { display: flex; }
+.dash-controls { display: flex; gap: 10px; margin-top: 20px; }
+.ctrl-btn { flex: 1; padding: 20px; border-radius: 50px; border: 1px solid #333; background: transparent; color: white; font-weight: 900; cursor: pointer; }
+.ctrl-btn.main { background: white; color: black; border: none; }
