@@ -3,54 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM & FIX | Snaga i Oporavak</title>
+    <title>FORM & FIX | Trening</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="onboarding" class="screen">
         <div class="form-card">
-            <header>
-                <h1>FORM <span>& FIX</span></h1>
-                <p>Personalizovani fizio-trening</p>
-            </header>
+            <h1>FORM <span>& FIX</span></h1>
             <form id="user-form">
                 <div class="form-row">
-                    <input type="number" id="age" placeholder="Godine" required>
-                    <input type="number" id="weight" placeholder="Težina (kg)" required>
-                    <input type="number" id="height" placeholder="Visina (cm)" required>
+                    <input type="number" id="age" placeholder="God" required>
+                    <input type="number" id="weight" placeholder="kg" required>
+                    <input type="number" id="height" placeholder="cm" required>
                 </div>
-                <select id="goal" required>
-                    <option value="" disabled selected>Izaberi cilj...</option>
+                <select id="goal">
                     <option value="physio">Fizijatrijski oporavak</option>
-                    <option value="strength">Funkcionalna snaga</option>
-                    <option value="stretching">Istezanje</option>
+                    <option value="strength">Snaga</option>
                 </select>
-                <select id="duration" required>
-                    <option value="10">10 Minuta</option>
-                    <option value="20" selected>20 Minuta</option>
-                    <option value="45">45 Minuta</option>
+                <select id="duration">
+                    <option value="5">5 Minuta (Test)</option>
+                    <option value="20">20 Minuta</option>
                 </select>
-                <button type="submit" id="start-btn">GENERISATI PROGRAM</button>
+                <button type="submit">PRIPREMI VJEŽBE</button>
             </form>
+        </div>
+    </div>
+
+    <div id="workout-list-screen" class="screen" style="display: none;">
+        <div class="list-card">
+            <h2>Tvoj Plan Treninga</h2>
+            <ul id="exercise-list-ul"></ul>
+            <button id="start-workout-btn">ZAPOČNI SVE REDOM</button>
         </div>
     </div>
 
     <div id="dashboard" class="screen" style="display: none;">
         <header class="dash-nav">
             <div class="logo-small">FORM <span>& FIX</span></div>
-            <div id="timer">19:59</div>
+            <div class="timers">
+                <div id="total-timer">Ukupno: 20:00</div>
+                <div id="exercise-timer">00:45</div>
+            </div>
         </header>
         <main class="exercise-display">
             <div class="rive-placeholder">
-                <div class="character-circle"></div>
-                <h2 id="current-ex-name">Mačka-Krava</h2>
-            </div>
-            <div class="progress-container">
-                <div class="progress-bar"></div>
+                <div class="character-circle">
+                    <canvas id="rive-canvas"></canvas>
+                </div>
+                <h2 id="current-ex-name">Naziv vježbe</h2>
             </div>
             <div class="controls">
-                <button class="btn-side">Pauza</button>
-                <button class="btn-main">Sledeća →</button>
+                <button id="play-pause-btn" class="btn-main">PAUZA</button>
+                <button id="skip-btn" class="btn-side">PRESKOČI →</button>
             </div>
         </main>
     </div>
