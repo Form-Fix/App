@@ -1,79 +1,113 @@
 :root {
-    --primary: #6366f1;
-    --accent: #2dd4bf;
-    --bg-dark: #020617;
-    --glass: rgba(15, 23, 42, 0.8);
-    --white: #f8fafc;
+    --nike-black: #000000;
+    --nike-white: #ffffff;
+    --nike-grey: #111111;
+    /* Cyber Sunset Colors */
+    --p-purp: #8b5cf6; /* Ljubičasta */
+    --p-pink: #d946ef; /* Roze */
+    --p-oran: #f97316; /* Narandžasta */
+    /* Puni Gradijent */
+    --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
 }
 
-body { margin: 0; font-family: 'Outfit', sans-serif; background: var(--bg-dark); color: var(--white); height: 100vh; }
-
-.screen { 
-    display: none; 
-    flex-direction: column; 
-    height: 100vh; 
-    width: 100vw; 
-    padding: 24px; 
-    box-sizing: border-box; 
+body { 
+    margin: 0; 
+    background: var(--nike-black); 
+    color: var(--nike-white);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
     overflow: hidden;
 }
+
+/* GRADIENT TEXT - Ključ za premium izgled */
+.gradient-text {
+    background: var(--nike-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+/* GRADIENT BG - Ključ za dugmad i progres bar */
+.gradient-bg {
+    background: var(--nike-gradient);
+}
+
+.hero-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 4rem;
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
+.screen { display: none; height: 100vh; width: 100vw; flex-direction: column; padding: 25px; box-sizing: border-box; }
 .screen.active { display: flex; }
 
-/* Glow Background */
-.glow-bg {
-    position: absolute; top: -10%; left: -10%; width: 50%; height: 50%;
-    background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
-    z-index: -1;
-}
-
-/* Glass UI */
-.glass-box {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 32px;
-    padding: 32px;
-}
-
-.premium-logo { font-size: 3rem; font-weight: 900; letter-spacing: -2px; text-align: center; }
-.premium-logo span { color: var(--primary); }
-
-/* List Cards */
-.workout-card {
-    background: rgba(30, 41, 59, 0.5);
-    border-radius: 20px;
-    padding: 16px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid rgba(255,255,255,0.03);
-}
-
-.play-small-btn {
-    background: var(--primary);
-    border: none;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-}
-
-/* Dashboard Rive Stage */
-.rive-stage {
-    flex: 1;
+/* Nike Cards - Ažuriran border */
+.nike-card { 
+    background: var(--nike-grey); 
+    padding: 30px; 
+    border-radius: 4px; 
     position: relative;
-    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
 }
-#canvas { width: 100%; height: 80%; }
-
-.btn-primary-glow {
-    background: linear-gradient(135deg, var(--primary), #4f46e5);
-    color: white; border: none; padding: 20px; border-radius: 20px;
-    font-weight: 700; width: 100%; box-shadow: 0 0 30px rgba(99,102,241,0.4);
+.nike-card::after { /* Gornja gradijent linija */
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--nike-gradient);
 }
 
-.btn-main-action {
-    background: white; color: black; border: none; padding: 22px;
-    border-radius: 24px; font-weight: 800; width: 100%; font-size: 1.1rem;
+.n-field label { font-weight: 900; font-size: 0.7rem; display: block; margin-bottom: 5px; color: #666; }
+input, select { background: transparent; border: none; border-bottom: 2px solid #333; color: white; padding: 10px 0; width: 100%; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+select:focus { outline: none; border-bottom-color: var(--p-pink); }
+
+/* Buttons - Sada su u gradijentu */
+.nike-btn-grad { 
+    background: var(--nike-gradient); 
+    color: var(--nike-white); 
+    border: none; 
+    padding: 20px; 
+    font-weight: 900; 
+    cursor: pointer; 
+    width: 100%; 
+    font-size: 1.1rem; 
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
+
+/* Dugme u Hub-u */
+.fixed-bottom {
+    position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px; box-sizing: border-box;
+    display: flex; justify-content: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.nike-btn-white { 
+    background: transparent; color: var(--nike-white); border: 2px solid var(--nike-white); 
+    padding: 18px 40px; font-weight: 900; width: 80%; font-size: 1.2rem; border-radius: 50px; cursor: pointer;
+}
+
+/* Hub List - Strelica je sada gradijent */
+.nike-list { overflow-y: auto; flex: 1; padding-bottom: 100px; }
+.n-item { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 25px 0; border-bottom: 1px solid #222; cursor: pointer;
+}
+.n-item:hover { background: #080808; }
+.n-item h4 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+.n-item-arrow { 
+    font-size: 1.5rem; 
+    background: var(--nike-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Dashboard - Tajmer je sada gradijent */
+.dash-top { display: flex; justify-content: space-between; align-items: flex-start; }
+#exercise-timer { font-family: 'Archivo Black', sans-serif; font-size: 4.5rem; line-height: 1; }
+#progress-text { font-weight: 700; font-size: 0.8rem; color: var(--p-purp); }
+
+.stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#canvas { width: 100%; height: 70%; max-height: 400px; }
+#current-ex-name { font-size: 2.5rem; font-weight: 900; margin-top: 20px; text-transform: uppercase;}
+
+.n-progress-bar { height: 4px; background: #222; margin-bottom: 20px; position: relative; }
+#progress-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; transition: 0.3s; }
