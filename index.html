@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM & FIX | Trening</title>
+    <title>FORM & FIX | Pro Workout</title>
+    <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,49 +17,56 @@
                     <input type="number" id="weight" placeholder="kg" required>
                     <input type="number" id="height" placeholder="cm" required>
                 </div>
-                <select id="goal">
+                <select id="goal" required>
                     <option value="physio">Fizijatrijski oporavak</option>
-                    <option value="strength">Snaga</option>
+                    <option value="strength">Funkcionalna snaga</option>
                 </select>
-                <select id="duration">
-                    <option value="5">5 Minuta (Test)</option>
+                <select id="duration" required>
+                    <option value="5">5 Minuta</option>
                     <option value="20">20 Minuta</option>
                 </select>
-                <button type="submit">PRIPREMI VJEŽBE</button>
+                <button type="submit">PRIPREMI PROGRAM</button>
             </form>
         </div>
     </div>
 
     <div id="workout-list-screen" class="screen" style="display: none;">
         <div class="list-card">
-            <h2>Tvoj Plan Treninga</h2>
+            <div class="list-header">
+                <h2>Tvoj Plan Treninga</h2>
+                <span id="list-total-time">10 min</span>
+            </div>
             <ul id="exercise-list-ul"></ul>
-            <button id="start-workout-btn">ZAPOČNI SVE REDOM</button>
+            <button id="start-workout-btn">ZAPOČNI TRENING</button>
         </div>
     </div>
 
     <div id="dashboard" class="screen" style="display: none;">
+        <div class="progress-global-bar"><div id="global-progress-fill"></div></div>
+        
         <header class="dash-nav">
-            <div class="logo-small">FORM <span>& FIX</span></div>
-            <div class="timers">
-                <div id="total-timer">Ukupno: 20:00</div>
-                <div id="exercise-timer">00:45</div>
+            <div class="nav-left">
+                <span id="current-index-display">1 / 10</span>
+                <h3 id="current-ex-name">Mačka-Krava</h3>
             </div>
+            <div id="exercise-timer">00:45</div>
         </header>
-        <main class="exercise-display">
-            <div class="rive-placeholder">
-                <div class="character-circle">
-                    <canvas id="rive-canvas"></canvas>
-                </div>
-                <h2 id="current-ex-name">Naziv vježbe</h2>
-            </div>
-            <div class="controls">
-                <button id="play-pause-btn" class="btn-main">PAUZA</button>
-                <button id="skip-btn" class="btn-side">PRESKOČI →</button>
+
+        <main class="workout-main">
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas> </div>
+            
+            <div class="ui-overlay">
+                <div class="next-up">Sledeće: <span id="next-ex-name">-</span></div>
             </div>
         </main>
+
+        <footer class="controls-footer">
+            <button id="play-pause-btn" class="ctrl-btn main">PAUZA</button>
+            <button id="skip-btn" class="ctrl-btn secondary">SLEDEĆA →</button>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <audio id="beep-sound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
 </body>
 </html>
