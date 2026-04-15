@@ -14,57 +14,57 @@
         <div class="main-content">
             <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
             
-            <form id="user-form" class="nike-card">
-                <div class="input-row">
-                    <div class="n-field">
-                        <label>AGE</label>
-                        <input type="number" id="age" placeholder="--">
+            <div class="nike-card">
+                <div class="modern-input-group">
+                    <div class="m-field">
+                        <span>AGE</span>
+                        <input type="number" id="age" placeholder="00">
                     </div>
-                    <div class="n-field">
-                        <label>KG</label>
-                        <input type="number" id="weight" placeholder="--">
+                    <div class="m-divider"></div>
+                    <div class="m-field">
+                        <span>KG</span>
+                        <input type="number" id="weight" placeholder="00">
                     </div>
                 </div>
 
                 <div class="n-selector">
-                    <label>SELECT PROGRAM</label>
-                    <div class="category-grid">
+                    <label class="section-label">SELECT PROGRAM</label>
+                    <div class="category-stack">
                         <input type="radio" name="goal" value="physio" id="physio" checked>
-                        <label for="physio" class="cat-card"><span>🧘</span>PHYSIO</label>
+                        <label for="physio" class="cat-card-wide">
+                            <span class="emoji">🧘</span>
+                            <span class="text">PHYSIO RECOVERY</span>
+                        </label>
                         
                         <input type="radio" name="goal" value="office" id="office">
-                        <label for="office" class="cat-card"><span>💻</span>OFFICE</label>
+                        <label for="office" class="cat-card-wide">
+                            <span class="emoji">💻</span>
+                            <span class="text">OFFICE RELIEF</span>
+                        </label>
 
                         <input type="radio" name="goal" value="strength" id="strength">
-                        <label for="strength" class="cat-card"><span>⚡</span>STRENGTH</label>
-
-                        <input type="radio" name="goal" value="yoga" id="yoga">
-                        <label for="yoga" class="cat-card"><span>☯</span>YOGA</label>
-
-                        <input type="radio" name="goal" value="stretch" id="stretch">
-                        <label for="stretch" class="cat-card"><span>↔</span>STRETCH</label>
-
-                        <input type="radio" name="goal" value="pilates" id="pilates">
-                        <label for="pilates" class="cat-card"><span>⭕</span>PILATES</label>
+                        <label for="strength" class="cat-card-wide">
+                            <span class="emoji">⚡</span>
+                            <span class="text">ELITE STRENGTH</span>
+                        </label>
                     </div>
                 </div>
 
-                <button type="submit" class="nike-btn-grad">GENERATE SESSION</button>
-            </form>
+                <button id="generate-btn" class="nike-btn-grad">GENERATE SESSION</button>
+            </div>
         </div>
     </section>
 
     <section id="workout-hub" class="screen">
         <div class="hub-nav">
             <button class="back-btn-glass" onclick="location.reload()">← BACK</button>
-            <span class="logo-small gradient-text">ELITE PLAN</span>
         </div>
         <div class="hub-hero">
-            <h2 id="hub-title" class="gradient-text">TODAY'S<br>LINEUP</h2>
-            <div class="hub-meta"><span id="hub-count">0 EX</span> • <span id="hub-time">0 MIN</span></div>
+            <h2 id="hub-title" class="gradient-text">LINEUP</h2>
+            <div class="hub-meta"><span id="hub-count">0</span> EXERCISES</div>
         </div>
         <div id="exercise-list-ul" class="nike-list v-scroll"></div>
-        <div class="fixed-bottom"><button id="start-workout-btn" class="nike-btn-grad pill">START TRAINING</button></div>
+        <div class="fixed-bottom"><button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button></div>
     </section>
 
     <section id="dashboard" class="screen">
@@ -79,8 +79,8 @@
         <div class="dash-bottom">
             <div class="n-progress-bar"><div id="progress-fill" class="gradient-bg"></div></div>
             <div class="dash-controls">
-                <button id="play-pause-btn" class="n-circle-btn">PAUSE</button>
-                <button id="skip-btn" class="n-next-btn">NEXT →</button>
+                <button id="play-pause-btn" class="control-btn main">PAUSE</button>
+                <button id="skip-btn" class="control-btn">NEXT</button>
             </div>
         </div>
     </section>
