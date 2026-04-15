@@ -1,69 +1,39 @@
 const nikeDatabase = [
-    // OFFICE (Anti-Sitting)
-    { name: "Neck Retractions", duration: 30, goal: "office", art: "Neck" },
+    { name: "Neck Retraction", duration: 30, goal: "office", art: "Neck" },
     { name: "Thoracic Opening", duration: 45, goal: "office", art: "Thoracic" },
-    { name: "Shoulder Rolls", duration: 30, goal: "office", art: "Shoulders" },
-    { name: "Seated Spine Twist", duration: 45, goal: "office", art: "Twist" },
     { name: "Wrist Stretch", duration: 30, goal: "office", art: "Wrist" },
-    { name: "Chin Tucks", duration: 30, goal: "office", art: "Chin" },
-    
-    // PHYSIO
     { name: "Cat-Cow Stretch", duration: 60, goal: "physio", art: "CatCow" },
-    { name: "Dead Bug Core", duration: 60, goal: "physio", art: "DeadBug" },
-    { name: "Bird-Dog Balance", duration: 45, goal: "physio", art: "BirdDog" },
-    { name: "Glute Bridge", duration: 60, goal: "physio", art: "Bridge" },
-    { name: "Clamshells L/R", duration: 60, goal: "physio", art: "Clams" },
-    { name: "Pelvic Tilts", duration: 45, goal: "physio", art: "Pelvic" },
-
-    // YOGA
-    { name: "Downward Dog", duration: 60, goal: "yoga", art: "DownDog" },
-    { name: "Warrior I", duration: 45, goal: "yoga", art: "Warrior1" },
-    { name: "Warrior II", duration: 45, goal: "yoga", art: "Warrior2" },
-    { name: "Child's Pose", duration: 60, goal: "yoga", art: "Child" },
-    { name: "Cobra Pose", duration: 45, goal: "yoga", art: "Cobra" },
-
-    // STRENGTH
-    { name: "Bodyweight Squat", duration: 45, goal: "strength", art: "Squat" },
-    { name: "Diamond Pushups", duration: 30, goal: "strength", art: "Pushup" },
-    { name: "Reverse Lunges", duration: 45, goal: "strength", art: "Lunge" },
-    { name: "Plank Hold", duration: 60, goal: "strength", art: "Plank" },
-    { name: "Superman Raise", duration: 45, goal: "strength", art: "Superman" }
+    { name: "Dead Bug Core", duration: 45, goal: "physio", art: "DeadBug" },
+    { name: "Bodyweight Squat", duration: 45, goal: "strength", art: "Squat" }
 ];
 
 let workoutQueue = [];
 let currentIdx = 0;
+let timeLeft = 0;
+let isPaused = false;
 let timerInterval;
 
-// MEMORY LOGIC
-window.addEventListener('load', () => {
-    const sAge = localStorage.getItem('userAge');
-    const sWeight = localStorage.getItem('userWeight');
-    if(sAge) document.getElementById('age').value = sAge;
-    if(sWeight) document.getElementById('weight').value = sWeight;
-});
+// Memory
+window.onload = () => {
+    document.getElementById('age').value = localStorage.getItem('age') || "";
+    document.getElementById('weight').value = localStorage.getItem('weight') || "";
+};
 
-// FORM FIX
-document.getElementById('user-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+document.getElementById('generate-btn').onclick = () => {
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
-    localStorage.setItem('userAge', age);
-    localStorage.setItem('userWeight', weight);
+    localStorage.setItem('age', age);
+    localStorage.setItem('weight', weight);
 
     const goal = document.querySelector('input[name="goal"]:checked').value;
     workoutQueue = nikeDatabase.filter(ex => ex.goal === goal);
     
-    if(workoutQueue.length > 0) {
-        renderHub();
-        switchScreen('workout-hub');
-    }
-});
+    renderHub();
+    switchScreen('workout-hub');
+};
 
 function renderHub() {
-    document.getElementById('hub-count').innerText = `${workoutQueue.length} EXERCISES`;
-    document.getElementById('hub-time').innerText = `${workoutQueue.length} MIN`;
-    
+    document.getElementById('hub-count').innerText = workoutQueue.length;
     const list = document.getElementById('exercise-list-ul');
     list.innerHTML = workoutQueue.map((ex, i) => `
         <div class="n-item" onclick="startAt(${i})">
@@ -79,6 +49,7 @@ function renderHub() {
 
 window.startAt = function(idx) {
     currentIdx = idx;
+    isPaused = false;
     switchScreen('dashboard');
     loadExercise(idx);
 };
@@ -87,7 +58,7 @@ document.getElementById('start-workout-btn').onclick = () => startAt(0);
 
 function loadExercise(idx) {
     if (idx >= workoutQueue.length) {
-        alert("GOAL REACHED. NO LIMITS.");
+        alert("GOAL REACHED.");
         location.reload();
         return;
     }
@@ -95,23 +66,44 @@ function loadExercise(idx) {
     const ex = workoutQueue[idx];
     document.getElementById('current-ex-name').innerText = ex.name;
     document.getElementById('progress-fill').style.width = `${(idx / workoutQueue.length) * 100}%`;
-    startTimer(ex.duration);
+    
+    timeLeft = ex.duration;
+    startTimer();
 }
 
-function startTimer(duration) {
-    let timeLeft = duration;
+function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
-        timeLeft--;
-        const m = Math.floor(timeLeft/60);
-        const s = timeLeft%60;
-        document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-        if(timeLeft <= 0) {
-            clearInterval(timerInterval);
-            loadExercise(currentIdx + 1);
+        if (!isPaused) {
+            timeLeft--;
+            updateTimerUI();
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                loadExercise(currentIdx + 1);
+            }
         }
     }, 1000);
 }
+
+function updateTimerUI() {
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// FIX: Play/Pause
+document.getElementById('play-pause-btn').onclick = function() {
+    isPaused = !isPaused;
+    this.innerText = isPaused ? "RESUME" : "PAUSE";
+    this.style.background = isPaused ? "var(--nike-gradient)" : "white";
+    this.style.color = isPaused ? "white" : "black";
+};
+
+// FIX: Skip
+document.getElementById('skip-btn').onclick = () => {
+    clearInterval(timerInterval);
+    loadExercise(currentIdx + 1);
+};
 
 function switchScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
