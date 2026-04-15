@@ -1,74 +1,42 @@
-const db = {
-    physio: [
-        { name: "Bird-Dog", duration: 45, level: "beginner", day: 1 },
-        { name: "Dead Bug", duration: 60, level: "beginner", day: 1 },
-        { name: "Glute Bridge", duration: 45, level: "pro", day: 1 }
-    ],
-    office: [
-        { name: "Neck Tuck", duration: 30, level: "beginner", day: 1 },
-        { name: "Wrist Stretch", duration: 30, level: "beginner", day: 1 },
-        { name: "Wall Slides", duration: 45, level: "pro", day: 1 }
-    ],
-    strength: [
-        { name: "Air Squats", duration: 45, level: "beginner", day: 1 },
-        { name: "Pushups", duration: 40, level: "intermediate", day: 1 },
-        { name: "Plank Hold", duration: 60, level: "beginner", day: 1 }
-    ]
+const exerciseDB = {
+    physio: ["Cat-Cow", "Bird-Dog", "Glute Bridge", "Pelvic Tilt", "Dead Bug", "Child's Pose"],
+    office: ["Neck Stretch", "Wrist Rolls", "Shoulder Shrugs", "Thoracic Twist", "Desk Plank"],
+    strength: ["Air Squats", "Pushups", "Lunges", "Plank", "Diamond Pushups", "Superman"],
+    yoga: ["Downward Dog", "Cobra", "Warrior I", "Warrior II", "Tree Pose"],
+    stretch: ["Hamstring Stretch", "Cobra Stretch", "Butterfly Fold", "Quad Stretch"],
+    pilates: ["The Hundred", "Leg Circles", "Roll Up", "Plank Leg Lift"]
 };
-
-let workoutQueue = [];
-let currentIdx = 0;
-let timerInterval;
 
 document.getElementById('main-start-btn').onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked').value;
-    const level = document.getElementById('user-level').value;
+    const totalMinutes = parseInt(document.getElementById('user-duration').value);
     
-    // Filtriranje prema kategoriji i nivou
-    workoutQueue = db[goal].filter(ex => ex.level === level || ex.level === "beginner");
+    // Svaka vežba mora da traje 2 min (120 sec)
+    const exerciseDuration = 120; 
+    const numberOfExercises = Math.floor((totalMinutes * 60) / exerciseDuration);
     
-    renderHub();
-    switchScreen('workout-hub');
+    let pool = exerciseDB[goal];
+    let selected = [];
+    
+    for(let i = 0; i < numberOfExercises; i++) {
+        // Uzimamo vežbe iz baze (ako ponestane, ponavljamo krug)
+        selected.push(pool[i % pool.length]);
+    }
+
+    renderHub(selected, exerciseDuration);
+    document.querySelector('.screen.active').classList.remove('active');
+    document.getElementById('workout-hub').classList.add('active');
 };
 
-function renderHub() {
+function renderHub(exercises, duration) {
     const list = document.getElementById('exercise-list-ul');
-    list.innerHTML = workoutQueue.map((ex, i) => `
-        <div class="n-item" onclick="startAt(${i})">
+    list.innerHTML = exercises.map((ex, i) => `
+        <div class="n-item" style="background:#0c0c0c; padding:20px; border-radius:15px; margin-bottom:10px; border:1px solid #1a1a1a; display:flex; justify-content:space-between; align-items:center;">
             <div>
-                <span style="color:#444; font-weight:900">${i+1}. ${ex.name}</span>
-                <br><small style="color:#555">${ex.duration} Seconds</small>
+                <span style="font-weight:900; color:white;">${i+1}. ${ex.toUpperCase()}</span>
+                <br><small style="color:#555">Duration: 2:00 MIN</small>
             </div>
-            <div class="gradient-text">▶</div>
+            <div class="gradient-text" style="font-weight:900">▶</div>
         </div>
     `).join('');
-}
-
-function startAt(idx) {
-    currentIdx = idx;
-    switchScreen('dashboard');
-    runTimer(workoutQueue[idx].duration);
-}
-
-function runTimer(sec) {
-    clearInterval(timerInterval);
-    let time = sec;
-    document.getElementById('current-ex-name').innerText = workoutQueue[currentIdx].name;
-    
-    timerInterval = setInterval(() => {
-        time--;
-        let m = Math.floor(time/60);
-        let s = time%60;
-        document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-        
-        if(time <= 0) {
-            clearInterval(timerInterval);
-            if(currentIdx < workoutQueue.length - 1) startAt(currentIdx + 1);
-        }
-    }, 1000);
-}
-
-function switchScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
 }
