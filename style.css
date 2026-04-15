@@ -2,112 +2,58 @@
     --nike-black: #000000;
     --nike-white: #ffffff;
     --nike-grey: #111111;
-    /* Cyber Sunset Colors */
-    --p-purp: #8b5cf6; /* Ljubičasta */
-    --p-pink: #d946ef; /* Roze */
-    --p-oran: #f97316; /* Narandžasta */
-    /* Puni Gradijent */
-    --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
+    --nike-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #f97316 100%);
+    --glass: rgba(255, 255, 255, 0.1);
 }
 
 body { 
-    margin: 0; 
-    background: var(--nike-black); 
-    color: var(--nike-white);
-    font-family: 'Inter', sans-serif;
-    text-transform: uppercase;
-    overflow: hidden;
+    margin: 0; background: var(--nike-black); color: var(--nike-white);
+    font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden;
 }
 
-/* GRADIENT TEXT - Ključ za premium izgled */
-.gradient-text {
-    background: var(--nike-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
+/* GRADIENTS */
+.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+.gradient-bg { background: var(--nike-gradient); }
+
+/* PREMIUM BACK BUTTON */
+.back-btn-glass {
+    background: var(--glass); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1); color: white;
+    padding: 10px 20px; border-radius: 50px; cursor: pointer;
+    font-weight: 700; font-size: 0.8rem; transition: 0.3s;
+}
+.back-btn-glass.circle { width: 45px; height: 45px; padding: 0; }
+.back-btn-glass:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+
+/* HORIZONTAL CATEGORY SCROLL */
+.category-scroll {
+    display: flex; overflow-x: auto; gap: 10px; padding: 15px 0;
+    scrollbar-width: none; -ms-overflow-style: none;
+}
+.category-scroll::-webkit-scrollbar { display: none; }
+
+.cat-chip {
+    flex: 0 0 auto; padding: 12px 25px; background: var(--nike-grey);
+    border: 1px solid #333; border-radius: 4px; font-weight: 900; font-size: 0.8rem;
+}
+input[type="radio"]:checked + .cat-chip {
+    background: var(--nike-gradient); border-color: transparent;
 }
 
-/* GRADIENT BG - Ključ za dugmad i progres bar */
-.gradient-bg {
-    background: var(--nike-gradient);
-}
-
-.hero-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 4rem;
-    line-height: 0.9;
-    margin-bottom: 20px;
-}
-
-.screen { display: none; height: 100vh; width: 100vw; flex-direction: column; padding: 25px; box-sizing: border-box; }
-.screen.active { display: flex; }
-
-/* Nike Cards - Ažuriran border */
-.nike-card { 
-    background: var(--nike-grey); 
-    padding: 30px; 
-    border-radius: 4px; 
-    position: relative;
-    overflow: hidden;
-}
-.nike-card::after { /* Gornja gradijent linija */
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-    background: var(--nike-gradient);
-}
-
-.n-field label { font-weight: 900; font-size: 0.7rem; display: block; margin-bottom: 5px; color: #666; }
-input, select { background: transparent; border: none; border-bottom: 2px solid #333; color: white; padding: 10px 0; width: 100%; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-select:focus { outline: none; border-bottom-color: var(--p-pink); }
-
-/* Buttons - Sada su u gradijentu */
+/* CARDS & UI */
+.nike-card { background: #080808; padding: 30px; border-radius: 20px; border: 1px solid #1a1a1a; }
 .nike-btn-grad { 
-    background: var(--nike-gradient); 
-    color: var(--nike-white); 
-    border: none; 
-    padding: 20px; 
-    font-weight: 900; 
-    cursor: pointer; 
-    width: 100%; 
-    font-size: 1.1rem; 
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    background: var(--nike-gradient); color: white; border: none; padding: 20px;
+    font-weight: 900; width: 100%; font-size: 1.1rem; cursor: pointer;
 }
+.nike-btn-grad.pill { border-radius: 50px; width: 80%; }
 
-/* Dugme u Hub-u */
-.fixed-bottom {
-    position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px; box-sizing: border-box;
-    display: flex; justify-content: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-.nike-btn-white { 
-    background: transparent; color: var(--nike-white); border: 2px solid var(--nike-white); 
-    padding: 18px 40px; font-weight: 900; width: 80%; font-size: 1.2rem; border-radius: 50px; cursor: pointer;
-}
-
-/* Hub List - Strelica je sada gradijent */
-.nike-list { overflow-y: auto; flex: 1; padding-bottom: 100px; }
 .n-item { 
     display: flex; justify-content: space-between; align-items: center; 
-    padding: 25px 0; border-bottom: 1px solid #222; cursor: pointer;
-}
-.n-item:hover { background: #080808; }
-.n-item h4 { margin: 0; font-size: 1.4rem; font-weight: 900; }
-.n-item-arrow { 
-    font-size: 1.5rem; 
-    background: var(--nike-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    padding: 20px; border-bottom: 1px solid #111;
 }
 
-/* Dashboard - Tajmer je sada gradijent */
-.dash-top { display: flex; justify-content: space-between; align-items: flex-start; }
-#exercise-timer { font-family: 'Archivo Black', sans-serif; font-size: 4.5rem; line-height: 1; }
-#progress-text { font-weight: 700; font-size: 0.8rem; color: var(--p-purp); }
-
+/* DASHBOARD */
+#exercise-timer { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; }
 .stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#canvas { width: 100%; height: 70%; max-height: 400px; }
-#current-ex-name { font-size: 2.5rem; font-weight: 900; margin-top: 20px; text-transform: uppercase;}
-
-.n-progress-bar { height: 4px; background: #222; margin-bottom: 20px; position: relative; }
-#progress-fill { position: absolute; top: 0; left: 0; height: 100%; width: 0%; transition: 0.3s; }
+#canvas { width: 100%; height: 60%; }
