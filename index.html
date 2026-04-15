@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FORM & FIX | Elite Performance</title>
+    <title>FORM & FIX | Premium Workout</title>
     <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -11,80 +11,76 @@
 <body class="nike-theme">
 
     <section id="onboarding" class="screen active">
-        <div class="video-overlay"></div>
         <div class="main-content">
-            <h1 class="hero-title gradient-text">MOVE<br>WITHOUT<br>LIMITS</h1>
+            <h1 class="hero-title gradient-text">FORM<br><span>&</span><br>FIX</h1>
             
             <form id="user-form" class="nike-card">
                 <div class="input-row">
                     <div class="n-field">
                         <label>AGE</label>
-                        <input type="number" id="age" value="25">
+                        <input type="number" id="age" placeholder="--">
                     </div>
                     <div class="n-field">
                         <label>KG</label>
-                        <input type="number" id="weight" value="75">
+                        <input type="number" id="weight" placeholder="--">
                     </div>
                 </div>
 
                 <div class="n-selector">
-                    <label>SELECT GOAL</label>
-                    <div class="n-grid">
+                    <label>PROGRAM CATEGORY</label>
+                    <div class="category-scroll">
                         <input type="radio" name="goal" value="physio" id="physio" checked>
-                        <label for="physio" class="n-chip">RECOVERY</label>
+                        <label for="physio" class="cat-chip">PHYSIO</label>
                         
                         <input type="radio" name="goal" value="strength" id="strength">
-                        <label for="strength" class="n-chip">STRENGTH</label>
+                        <label for="strength" class="cat-chip">STRENGTH</label>
+
+                        <input type="radio" name="goal" value="stretch" id="stretch">
+                        <label for="stretch" class="cat-chip">STRETCH</label>
+
+                        <input type="radio" name="goal" value="pilates" id="pilates">
+                        <label for="pilates" class="cat-chip">PILATES</label>
+
+                        <input type="radio" name="goal" value="yoga" id="yoga">
+                        <label for="yoga" class="cat-chip">YOGA</label>
+
+                        <input type="radio" name="goal" value="office" id="office">
+                        <label for="office" class="cat-chip">OFFICE</label>
                     </div>
                 </div>
 
-                <div class="n-field">
-                    <label>DURATION</label>
-                    <select id="duration">
-                        <option value="15">15 MIN SESSION</option>
-                        <option value="30">30 MIN SESSION</option>
-                        <option value="45">45 MIN SESSION</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="nike-btn-grad">GET STARTED</button>
+                <button type="submit" class="nike-btn-grad">START SESSION</button>
             </form>
         </div>
     </section>
 
     <section id="workout-hub" class="screen">
         <div class="hub-nav">
-            <button class="back-btn" onclick="location.reload()">← BACK</button>
+            <button class="back-btn-glass" onclick="location.reload()">← BACK</button>
             <span class="logo-small gradient-text">FORM & FIX</span>
         </div>
         
         <div class="hub-hero">
-            <h2 id="hub-title" class="gradient-text">DAILY<br>MOBILITY</h2>
-            <div class="hub-meta">
-                <span id="hub-count">12 EXERCISES</span> • <span id="hub-time">15 MIN</span>
-            </div>
+            <h2 id="hub-title" class="gradient-text">SELECTED<br>PROGRAM</h2>
         </div>
 
         <div id="exercise-list-ul" class="nike-list">
             </div>
 
-        <div class="fixed-bottom gradient-bg">
-            <button id="start-workout-btn" class="nike-btn-white">START WORKOUT</button>
+        <div class="fixed-bottom">
+            <button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button>
         </div>
     </section>
 
     <section id="dashboard" class="screen">
         <div class="dash-top">
-            <div class="timer-wrap">
-                <div id="exercise-timer" class="gradient-text">00:45</div>
-                <div id="progress-text">EXERCISE 1 OF 12</div>
-            </div>
-            <button class="close-btn" onclick="location.reload()">✕</button>
+            <div id="exercise-timer" class="gradient-text">00:00</div>
+            <button class="back-btn-glass circle" onclick="location.reload()">✕</button>
         </div>
 
         <div class="stage">
             <canvas id="canvas"></canvas>
-            <h2 id="current-ex-name">CAT-COW</h2>
+            <h2 id="current-ex-name" class="gradient-text">LOADING</h2>
         </div>
 
         <div class="dash-bottom">
@@ -93,7 +89,6 @@
                 <button id="play-pause-btn" class="n-circle-btn">PAUSE</button>
                 <button id="skip-btn" class="n-next-btn">NEXT →</button>
             </div>
-            <div class="up-next-label">NEXT: <span id="next-ex-name">DEAD BUG</span></div>
         </div>
     </section>
 
