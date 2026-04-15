@@ -1,70 +1,30 @@
 :root {
     --primary: #6366f1;
-    --bg-dark: #0f172a;
-    --card-dark: #1e293b;
-    --text-white: #f8fafc;
-    --text-dark: #1e293b;
+    --bg: #f8fafc;
+    --dark: #0f172a;
 }
 
-body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-white); overflow: hidden; }
+body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); }
 
-/* Onboarding Stilovi */
-.screen { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
-.form-card { background: var(--card-dark); padding: 40px; border-radius: 30px; width: 90%; max-width: 450px; text-align: center; }
-h1 span { color: var(--primary); }
-.form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-input, select { background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; width: 100%; box-sizing: border-box; }
-#start-btn { width: 100%; padding: 15px; background: var(--primary); border: none; border-radius: 10px; color: white; font-weight: bold; margin-top: 20px; cursor: pointer; }
+/* Global Progress na vrhu ekrana */
+.progress-global-bar { position: fixed; top: 0; width: 100%; height: 6px; background: #e2e8f0; z-index: 100; }
+#global-progress-fill { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
 
-/* Dashboard Stilovi */
-#dashboard { background: #f8fafc; color: var(--text-dark); flex-direction: column; justify-content: flex-start; }
-.dash-nav { width: 100%; padding: 20px; display: flex; justify-content: space-between; box-sizing: border-box; border-bottom: 1px solid #e2e8f0; }
-.logo-small { font-weight: bold; }
-#timer { background: #fee2e2; color: #ef4444; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+.screen { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; position: absolute; }
 
-.exercise-display { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
-.character-circle { width: 280px; height: 280px; background: white; border-radius: 50%; box-shadow: 0 10px 40px rgba(0,0,0,0.05); margin-bottom: 20px; }
-#current-ex-name { color: var(--primary); margin-bottom: 40px; }
+/* Dashboard UI */
+#dashboard { background: white; flex-direction: column; justify-content: space-between; }
 
-.progress-container { width: 80%; height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 30px; }
-.progress-bar { width: 20%; height: 100%; background: var(--primary); border-radius: 3px; }
-.controls { display: flex; gap: 15px; width: 80%; }
-.btn-side { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; background: white; cursor: pointer; }
-.btn-main { flex: 2; padding: 15px; border-radius: 12px; border: none; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
+.dash-nav { width: 100%; padding: 30px 25px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; }
+#exercise-timer { font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--primary); }
 
-/* ... tvoji stari stilovi ... */
+.canvas-container { flex: 1; width: 100%; max-width: 500px; display: flex; align-items: center; justify-content: center; }
+#canvas { width: 100%; height: 100%; }
 
-.list-card {
-    background: #1e293b;
-    padding: 30px;
-    border-radius: 20px;
-    width: 80%;
-    max-width: 400px;
-}
+.ui-overlay { padding: 20px; text-align: center; }
+.next-up { background: #f1f5f9; padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; color: #64748b; }
 
-#exercise-list-ul {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-    text-align: left;
-}
-
-#exercise-list-ul li {
-    padding: 10px;
-    border-bottom: 1px solid #334155;
-    display: flex;
-    justify-content: space-between;
-}
-
-.timers { text-align: right; }
-#exercise-timer {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #6366f1;
-}
-#total-timer { font-size: 0.8rem; color: #64748b; }
-
-#rive-canvas { width: 100%; height: 100%; }
-
-.btn-main { background: #6366f1; color: white; border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; }
-.btn-side { background: #e2e8f0; color: #1e293b; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; }
+.controls-footer { width: 100%; padding: 30px; display: flex; gap: 15px; box-sizing: border-box; }
+.ctrl-btn { padding: 20px; border-radius: 18px; border: none; font-weight: bold; cursor: pointer; font-size: 1rem; }
+.ctrl-btn.main { flex: 2; background: var(--dark); color: white; }
+.ctrl-btn.secondary { flex: 1; background: #e2e8f0; color: var(--dark); }
