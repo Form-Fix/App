@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FORM & FIX | Premium Workout</title>
+    <title>FORM & FIX | Elite</title>
     <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -12,7 +12,7 @@
 
     <section id="onboarding" class="screen active">
         <div class="main-content">
-            <h1 class="hero-title gradient-text">FORM<br><span>&</span><br>FIX</h1>
+            <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
             
             <form id="user-form" class="nike-card">
                 <div class="input-row">
@@ -27,29 +27,29 @@
                 </div>
 
                 <div class="n-selector">
-                    <label>PROGRAM CATEGORY</label>
-                    <div class="category-scroll">
+                    <label>SELECT PROGRAM</label>
+                    <div class="category-grid">
                         <input type="radio" name="goal" value="physio" id="physio" checked>
-                        <label for="physio" class="cat-chip">PHYSIO</label>
+                        <label for="physio" class="cat-card"><span>🧘</span>PHYSIO</label>
                         
+                        <input type="radio" name="goal" value="office" id="office">
+                        <label for="office" class="cat-card"><span>💻</span>OFFICE</label>
+
                         <input type="radio" name="goal" value="strength" id="strength">
-                        <label for="strength" class="cat-chip">STRENGTH</label>
-
-                        <input type="radio" name="goal" value="stretch" id="stretch">
-                        <label for="stretch" class="cat-chip">STRETCH</label>
-
-                        <input type="radio" name="goal" value="pilates" id="pilates">
-                        <label for="pilates" class="cat-chip">PILATES</label>
+                        <label for="strength" class="cat-card"><span>⚡</span>STRENGTH</label>
 
                         <input type="radio" name="goal" value="yoga" id="yoga">
-                        <label for="yoga" class="cat-chip">YOGA</label>
+                        <label for="yoga" class="cat-card"><span>☯</span>YOGA</label>
 
-                        <input type="radio" name="goal" value="office" id="office">
-                        <label for="office" class="cat-chip">OFFICE</label>
+                        <input type="radio" name="goal" value="stretch" id="stretch">
+                        <label for="stretch" class="cat-card"><span>↔</span>STRETCH</label>
+
+                        <input type="radio" name="goal" value="pilates" id="pilates">
+                        <label for="pilates" class="cat-card"><span>⭕</span>PILATES</label>
                     </div>
                 </div>
 
-                <button type="submit" class="nike-btn-grad">START SESSION</button>
+                <button type="submit" class="nike-btn-grad">GENERATE SESSION</button>
             </form>
         </div>
     </section>
@@ -57,19 +57,14 @@
     <section id="workout-hub" class="screen">
         <div class="hub-nav">
             <button class="back-btn-glass" onclick="location.reload()">← BACK</button>
-            <span class="logo-small gradient-text">FORM & FIX</span>
+            <span class="logo-small gradient-text">ELITE PLAN</span>
         </div>
-        
         <div class="hub-hero">
-            <h2 id="hub-title" class="gradient-text">SELECTED<br>PROGRAM</h2>
+            <h2 id="hub-title" class="gradient-text">TODAY'S<br>LINEUP</h2>
+            <div class="hub-meta"><span id="hub-count">0 EX</span> • <span id="hub-time">0 MIN</span></div>
         </div>
-
-        <div id="exercise-list-ul" class="nike-list">
-            </div>
-
-        <div class="fixed-bottom">
-            <button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button>
-        </div>
+        <div id="exercise-list-ul" class="nike-list v-scroll"></div>
+        <div class="fixed-bottom"><button id="start-workout-btn" class="nike-btn-grad pill">START TRAINING</button></div>
     </section>
 
     <section id="dashboard" class="screen">
@@ -77,12 +72,10 @@
             <div id="exercise-timer" class="gradient-text">00:00</div>
             <button class="back-btn-glass circle" onclick="location.reload()">✕</button>
         </div>
-
         <div class="stage">
             <canvas id="canvas"></canvas>
-            <h2 id="current-ex-name" class="gradient-text">LOADING</h2>
+            <h2 id="current-ex-name" class="gradient-text">READY</h2>
         </div>
-
         <div class="dash-bottom">
             <div class="n-progress-bar"><div id="progress-fill" class="gradient-bg"></div></div>
             <div class="dash-controls">
