@@ -1,9 +1,22 @@
 const nikeDatabase = [
-    { name: "Neck Retraction", duration: 30, goal: "office", art: "Neck" },
+    // OFFICE (Fokus na vrat, leđa, ručne zglobove)
+    { name: "Neck Retractions", duration: 30, goal: "office", art: "Neck" },
     { name: "Thoracic Opening", duration: 45, goal: "office", art: "Thoracic" },
-    { name: "Wrist Stretch", duration: 30, goal: "office", art: "Wrist" },
+    { name: "Wrist Circles", duration: 30, goal: "office", art: "Wrist" },
+    { name: "Seated Spine Twist", duration: 45, goal: "office", art: "Twist" },
+    { name: "Shoulder Shrugs", duration: 30, goal: "office", art: "Shrugs" },
+    { name: "Standing Desk Stretch", duration: 60, goal: "office", art: "Desk" },
+    
+    // PHYSIO
     { name: "Cat-Cow Stretch", duration: 60, goal: "physio", art: "CatCow" },
-    { name: "Dead Bug Core", duration: 45, goal: "physio", art: "DeadBug" },
+    { name: "Dead Bug Core", duration: 60, goal: "physio", art: "DeadBug" },
+    { name: "Bird-Dog Balance", duration: 45, goal: "physio", art: "BirdDog" },
+    { name: "Glute Bridge", duration: 60, goal: "physio", art: "Bridge" },
+    { name: "Clamshells L/R", duration: 60, goal: "physio", art: "Clams" },
+
+    // YOGA / PILATES / STRENGTH (Dopuni po želji)
+    { name: "Downward Dog", duration: 45, goal: "yoga", art: "DownDog" },
+    { name: "Plank Hold", duration: 60, goal: "strength", art: "Plank" },
     { name: "Bodyweight Squat", duration: 45, goal: "strength", art: "Squat" }
 ];
 
@@ -13,13 +26,13 @@ let timeLeft = 0;
 let isPaused = false;
 let timerInterval;
 
-// Memory
+// Memory (Pamćenje unosa)
 window.onload = () => {
     document.getElementById('age').value = localStorage.getItem('age') || "";
     document.getElementById('weight').value = localStorage.getItem('weight') || "";
 };
 
-document.getElementById('generate-btn').onclick = () => {
+document.getElementById('main-start-btn').onclick = (e) => {
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
     localStorage.setItem('age', age);
@@ -28,21 +41,22 @@ document.getElementById('generate-btn').onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked').value;
     workoutQueue = nikeDatabase.filter(ex => ex.goal === goal);
     
-    renderHub();
-    switchScreen('workout-hub');
+    if(workoutQueue.length > 0) {
+        renderHub();
+        switchScreen('workout-hub');
+    }
 };
 
 function renderHub() {
-    document.getElementById('hub-count').innerText = workoutQueue.length;
     const list = document.getElementById('exercise-list-ul');
     list.innerHTML = workoutQueue.map((ex, i) => `
         <div class="n-item" onclick="startAt(${i})">
             <div>
                 <span class="gradient-text" style="font-weight:900">0${i+1}</span>
                 <h4 style="margin:5px 0">${ex.name}</h4>
-                <small style="color:#555">${ex.duration} SEC</small>
+                <small style="color:#444">${ex.duration} SECONDS</small>
             </div>
-            <div class="gradient-text">→</div>
+            <div class="gradient-text" style="font-size:1.2rem">▶</div>
         </div>
     `).join('');
 }
@@ -58,7 +72,7 @@ document.getElementById('start-workout-btn').onclick = () => startAt(0);
 
 function loadExercise(idx) {
     if (idx >= workoutQueue.length) {
-        alert("GOAL REACHED.");
+        alert("SESSION COMPLETE. NO LIMITS.");
         location.reload();
         return;
     }
@@ -76,7 +90,7 @@ function startTimer() {
     timerInterval = setInterval(() => {
         if (!isPaused) {
             timeLeft--;
-            updateTimerUI();
+            updateUI();
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
                 loadExercise(currentIdx + 1);
@@ -85,21 +99,20 @@ function startTimer() {
     }, 1000);
 }
 
-function updateTimerUI() {
+function updateUI() {
     const m = Math.floor(timeLeft / 60);
     const s = timeLeft % 60;
     document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
 }
 
-// FIX: Play/Pause
+// Play/Pause Fix
 document.getElementById('play-pause-btn').onclick = function() {
     isPaused = !isPaused;
     this.innerText = isPaused ? "RESUME" : "PAUSE";
-    this.style.background = isPaused ? "var(--nike-gradient)" : "white";
-    this.style.color = isPaused ? "white" : "black";
+    this.classList.toggle('main'); // Menja boju tastera
 };
 
-// FIX: Skip
+// Skip Fix
 document.getElementById('skip-btn').onclick = () => {
     clearInterval(timerInterval);
     loadExercise(currentIdx + 1);
