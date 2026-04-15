@@ -1,9 +1,9 @@
 :root {
     --nike-black: #000000;
     --nike-white: #ffffff;
-    --nike-grey: #111111;
+    --nike-grey: #080808;
     --nike-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #f97316 100%);
-    --glass: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255, 255, 255, 0.07);
 }
 
 body { 
@@ -11,49 +11,48 @@ body {
     font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden;
 }
 
-/* GRADIENTS */
+/* CUSTOM VERTICAL SCROLLBAR */
+.v-scroll::-webkit-scrollbar { width: 4px; }
+.v-scroll::-webkit-scrollbar-track { background: #111; }
+.v-scroll::-webkit-scrollbar-thumb { background: var(--nike-gradient); border-radius: 10px; }
+
 .gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
 .gradient-bg { background: var(--nike-gradient); }
 
-/* PREMIUM BACK BUTTON */
+.hero-title { font-family: 'Archivo Black', sans-serif; font-size: 3.8rem; line-height: 0.8; text-align: center; margin: 30px 0; }
+
+.screen { display: none; height: 100vh; padding: 25px; box-sizing: border-box; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* GRID LAYOUT FOR CATEGORIES */
+.category-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0;
+}
+
+.cat-card {
+    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 20px 10px;
+    border-radius: 12px; text-align: center; font-weight: 900; font-size: 0.7rem; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.cat-card span { font-size: 1.4rem; }
+
+input[type="radio"]:checked + .cat-card {
+    border-color: #d946ef; background: rgba(217, 70, 239, 0.1);
+}
+
+.nike-card { background: #050505; padding: 25px; border-radius: 20px; border: 1px solid #111; }
+
+/* PREMIUM BUTTONS */
+.nike-btn-grad {
+    background: var(--nike-gradient); color: white; border: none; padding: 22px;
+    font-weight: 900; font-size: 1rem; width: 100%; border-radius: 8px; cursor: pointer;
+}
+.nike-btn-grad.pill { border-radius: 50px; width: 85%; align-self: center; }
+
 .back-btn-glass {
-    background: var(--glass); backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1); color: white;
-    padding: 10px 20px; border-radius: 50px; cursor: pointer;
-    font-weight: 700; font-size: 0.8rem; transition: 0.3s;
-}
-.back-btn-glass.circle { width: 45px; height: 45px; padding: 0; }
-.back-btn-glass:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
-
-/* HORIZONTAL CATEGORY SCROLL */
-.category-scroll {
-    display: flex; overflow-x: auto; gap: 10px; padding: 15px 0;
-    scrollbar-width: none; -ms-overflow-style: none;
-}
-.category-scroll::-webkit-scrollbar { display: none; }
-
-.cat-chip {
-    flex: 0 0 auto; padding: 12px 25px; background: var(--nike-grey);
-    border: 1px solid #333; border-radius: 4px; font-weight: 900; font-size: 0.8rem;
-}
-input[type="radio"]:checked + .cat-chip {
-    background: var(--nike-gradient); border-color: transparent;
+    background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1);
+    color: white; padding: 12px 20px; border-radius: 50px; font-weight: 700; cursor: pointer;
 }
 
-/* CARDS & UI */
-.nike-card { background: #080808; padding: 30px; border-radius: 20px; border: 1px solid #1a1a1a; }
-.nike-btn-grad { 
-    background: var(--nike-gradient); color: white; border: none; padding: 20px;
-    font-weight: 900; width: 100%; font-size: 1.1rem; cursor: pointer;
-}
-.nike-btn-grad.pill { border-radius: 50px; width: 80%; }
-
-.n-item { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 20px; border-bottom: 1px solid #111;
-}
-
-/* DASHBOARD */
-#exercise-timer { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; }
-.stage { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-#canvas { width: 100%; height: 60%; }
+.nike-list { flex: 1; overflow-y: auto; margin-top: 20px; padding-bottom: 100px; }
+.n-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #111; }
