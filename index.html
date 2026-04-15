@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FORM & FIX | Pro Elite</title>
+    <title>FORM & FIX | Elite Performance</title>
     <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -11,37 +11,40 @@
 <body class="nike-theme">
 
     <section id="onboarding" class="screen active">
-        <div class="main-content v-scroll">
+        <div class="main-content v-scroll custom-scroll-bar">
             <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
             
             <div class="nike-card">
-                <div class="stats-row">
-                    <div class="stat-box"><label>AGE</label><input type="number" id="age" placeholder="--"></div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-box"><label>KG</label><input type="number" id="weight" placeholder="--"></div>
+                <div class="input-grid">
+                    <div class="stat-card">
+                        <label>AGE</label>
+                        <input type="number" id="age" placeholder="00">
+                    </div>
+                    <div class="stat-card">
+                        <label>KG</label>
+                        <input type="number" id="weight" placeholder="00">
+                    </div>
                 </div>
 
-                <div class="settings-grid">
-                    <div class="n-field">
+                <div class="input-grid">
+                    <div class="stat-card select-wrapper">
                         <label>LEVEL</label>
                         <select id="user-level">
                             <option value="beginner">BEGINNER</option>
-                            <option value="intermediate">INTERMEDIATE</option>
                             <option value="pro">PRO ELITE</option>
                         </select>
                     </div>
-                    <div class="n-field">
-                        <label>MINUTES</label>
+                    <div class="stat-card select-wrapper">
+                        <label>TIME</label>
                         <select id="user-duration">
-                            <option value="10">10 MIN</option>
-                            <option value="20">20 MIN</option>
+                            <option value="15">15 MIN</option>
                             <option value="30">30 MIN</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="n-selector">
-                    <label class="section-label">PROGRAM</label>
+                    <label class="section-label">PROGRAM CATEGORY</label>
                     <div class="program-stack">
                         <input type="radio" name="goal" value="physio" id="physio" checked>
                         <label for="physio" class="program-btn"><span class="emoji">🧘</span> PHYSIO</label>
@@ -56,7 +59,8 @@
                         <label for="yoga" class="program-btn"><span class="emoji">☯</span> YOGA</label>
                     </div>
                 </div>
-                <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
+
+                <button id="main-start-btn" class="nike-btn-grad">START SESSION</button>
             </div>
         </div>
     </section>
@@ -64,13 +68,18 @@
     <section id="workout-hub" class="screen">
         <div class="hub-nav">
             <button class="back-minimal" onclick="location.reload()">←</button>
-            <span class="day-badge gradient-bg" id="current-day-label">DAY 1</span>
+            <span class="day-indicator gradient-text">DAY 1</span>
         </div>
-        <div class="hub-hero">
-            <h2 id="hub-title" class="gradient-text">DAILY PLAN</h2>
+        <div class="hub-header">
+            <h2 class="gradient-text">DAILY MOBILITY</h2>
+            <div class="hub-meta">0 EXERCISES • 0 MIN</div>
         </div>
-        <div id="exercise-list-ul" class="nike-list v-scroll-arrows"></div>
-        <div class="fixed-bottom"><button id="start-workout-btn" class="nike-btn-grad pill">START SESSION</button></div>
+        
+        <div id="exercise-list-ul" class="nike-list v-scroll custom-scroll-bar"></div>
+
+        <div class="fixed-bottom">
+            <button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button>
+        </div>
     </section>
 
     <section id="dashboard" class="screen">
@@ -78,9 +87,11 @@
             <div id="exercise-timer" class="gradient-text">00:00</div>
             <button class="back-minimal" onclick="location.reload()">✕</button>
         </div>
-        <div class="stage"><canvas id="canvas"></canvas></div>
-        <div class="dash-bottom">
+        <div class="stage">
+            <canvas id="canvas"></canvas>
             <h2 id="current-ex-name" class="gradient-text">READY</h2>
+        </div>
+        <div class="dash-bottom">
             <div class="n-progress-bar"><div id="progress-fill" class="gradient-bg"></div></div>
             <div class="dash-controls">
                 <button id="play-pause-btn" class="ctrl-btn main">PAUSE</button>
