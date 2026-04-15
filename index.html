@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM & FIX | Snaga i Oporavak</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="onboarding" class="screen">
+        <div class="form-card">
+            <header>
+                <h1>FORM <span>& FIX</span></h1>
+                <p>Personalizovani fizio-trening</p>
+            </header>
+            <form id="user-form">
+                <div class="form-row">
+                    <input type="number" id="age" placeholder="Godine" required>
+                    <input type="number" id="weight" placeholder="Težina (kg)" required>
+                    <input type="number" id="height" placeholder="Visina (cm)" required>
+                </div>
+                <select id="goal" required>
+                    <option value="" disabled selected>Izaberi cilj...</option>
+                    <option value="physio">Fizijatrijski oporavak</option>
+                    <option value="strength">Funkcionalna snaga</option>
+                    <option value="stretching">Istezanje</option>
+                </select>
+                <select id="duration" required>
+                    <option value="10">10 Minuta</option>
+                    <option value="20" selected>20 Minuta</option>
+                    <option value="45">45 Minuta</option>
+                </select>
+                <button type="submit" id="start-btn">GENERISATI PROGRAM</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard" class="screen" style="display: none;">
+        <header class="dash-nav">
+            <div class="logo-small">FORM <span>& FIX</span></div>
+            <div id="timer">19:59</div>
+        </header>
+        <main class="exercise-display">
+            <div class="rive-placeholder">
+                <div class="character-circle"></div>
+                <h2 id="current-ex-name">Mačka-Krava</h2>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="controls">
+                <button class="btn-side">Pauza</button>
+                <button class="btn-main">Sledeća →</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
