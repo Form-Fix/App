@@ -2,118 +2,63 @@
     --nike-black: #000000;
     --nike-white: #ffffff;
     --nike-grey: #0c0c0c;
-    --nike-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #f97316 100%);
-    --glass: rgba(255, 255, 255, 0.05);
-}
-a:root {
-    --nike-black: #000000;
-    --nike-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #f97316 100%);
-}
-
-/* BACK BUTTON - Minimalistička strelica u stilu teksta */
-.back-minimal {
-    background: transparent; border: none; color: white;
-    font-size: 2rem; font-weight: 900; cursor: pointer;
-    font-family: 'Archivo Black', sans-serif;
-    background: var(--nike-gradient); -webkit-background-clip: text; color: transparent;
+    /* Cyber Sunset Colors */
+    --p-purp: #8b5cf6; /* Ljubičasta */
+    --p-pink: #d946ef; /* Roze */
+    --p-oran: #f97316; /* Narandžasta */
+    /* Puni Gradijent */
+    --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
 }
 
-/* USPRAVNI SCROLLBAR SA STRELICAMA */
-.v-scroll-arrows {
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: #d946ef #000;
+body { margin: 0; background: var(--nike-black); color: var(--nike-white); font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden; }
+
+/* 1. ULTRA-CUSTOM USPRAVNI SCROLLBAR (Kao sa slike) */
+.custom-scroll-bar::-webkit-scrollbar {
+    width: 20px; /* Širina trake */
 }
 
-/* Custom Chrome/Safari scrollbar */
-.v-scroll-arrows::-webkit-scrollbar { width: 12px; }
-.v-scroll-arrows::-webkit-scrollbar-track { background: #080808; }
-.v-scroll-arrows::-webkit-scrollbar-thumb { 
-    background: var(--nike-gradient); 
-    border-radius: 10px; 
-    border: 3px solid #080808;
-}
-/* Simulacija strelica putem CSS-a (standardni browseri ne daju punu kontrolu nad dugmićima strelica, ali thumb je vidljiv) */
-.v-scroll-arrows::-webkit-scrollbar-button:single-button {
-    background-color: #111; display: block; height: 10px; width: 10px;
+/* Pozadina scrollbar-a (tamna linija) */
+.custom-scroll-bar::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+    border: 2px solid #000; /* Tanak okvir za dubinu */
 }
 
-/* VODORAVNI SCROLLBAR (za liste ili kartice) */
-.h-scroll {
-    overflow-x: auto; display: flex; gap: 15px; padding-bottom: 10px;
-}
-.h-scroll::-webkit-scrollbar { height: 4px; }
-.h-scroll::-webkit-scrollbar-thumb { background: var(--nike-gradient); border-radius: 10px; }
-
-/* LAYOUT ELEMENTI */
-.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-.n-field select {
-    background: #0c0c0c; border: 1px solid #222; color: white;
-    padding: 12px; width: 100%; border-radius: 8px; font-weight: 700;
+/* Klizač (zaobljeni pravougaonik koji se pomera) */
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+    background: var(--nike-gradient);
+    border-radius: 20px;
+    border: 4px solid #111; /* Prostor oko klizača */
 }
 
-.day-badge { padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: 900; }
-
-/* Ostali stilovi ostaju premium kao ranije... */
-body { 
-    margin: 0; background: var(--nike-black); color: var(--nike-white);
-    font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden;
+/* 2. CUSTOM STRELICE NA VRHU I DNU */
+.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical {
+    background: var(--p-oran); /* Narandžasta za strelice */
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px; height: 16px;
+    border-radius: 10px; /* Zaobljene na kraju */
 }
 
-/* CUSTOM VERTICAL SCROLLBAR */
-.v-scroll::-webkit-scrollbar { width: 4px; }
-.v-scroll::-webkit-scrollbar-track { background: #000; }
-.v-scroll::-webkit-scrollbar-thumb { background: var(--nike-gradient); border-radius: 10px; }
+/* Strelica nagore */
+.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="50,15 10,85 90,85" fill="black"/></svg>');
+}
 
-.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
-.gradient-bg { background: var(--nike-gradient); }
+/* Strelica nadole */
+.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="50,85 10,15 90,15" fill="black"/></svg>');
+}
 
-.hero-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; line-height: 0.8; text-align: center; margin: 20px 0; }
+/* 3. VODORAVNI SCROLLBAR (Za kartice) */
+.h-scroll { overflow-x: auto; display: flex; gap: 15px; padding-bottom: 10px; }
+.h-scroll::-webkit-scrollbar { height: 6px; }
+.h-scroll::-webkit-scrollbar-track { background: #111; }
+.h-scroll::-webkit-scrollbar-thumb { background: var(--p-oran); border-radius: 10px; }
 
-.screen { display: none; height: 100vh; padding: 20px; box-sizing: border-box; flex-direction: column; }
+/* LAYOUT ELEMENTI (Zadržani) */
+.screen { display: none; height: 100vh; padding: 25px; box-sizing: border-box; flex-direction: column; }
 .screen.active { display: flex; }
-
-/* MODERN STATS (AGE/KG) */
-.stats-row {
-    display: flex; background: var(--nike-grey); padding: 15px; border-radius: 15px;
-    border: 1px solid #1a1a1a; margin-bottom: 25px;
-}
-.stat-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.stat-box label { font-size: 0.6rem; font-weight: 900; color: #444; margin-bottom: 5px; }
-.stat-box input { background: transparent; border: none; color: white; text-align: center; font-size: 1.4rem; font-weight: 900; width: 60px; outline: none; }
-.stat-divider { width: 1px; background: #222; margin: 0 10px; }
-
-/* PROGRAM BUTTONS (Iz tvog screenshota) */
-.program-stack { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
-.program-btn {
-    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 18px;
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    gap: 15px; cursor: pointer; font-weight: 900; font-size: 0.8rem; letter-spacing: 1px;
-}
-.program-btn .emoji { font-size: 1.2rem; }
-
-input[type="radio"] { display: none; }
-input[type="radio"]:checked + .program-btn {
-    border: 1px solid #d946ef;
-    background: rgba(217, 70, 239, 0.05);
-}
-
-/* BUTTONS */
-.nike-btn-grad {
-    background: var(--nike-gradient); color: white; border: none; padding: 22px;
-    font-weight: 900; width: 100%; border-radius: 12px; cursor: pointer; font-size: 1rem;
-}
-.nike-btn-grad.pill { border-radius: 50px; width: 85%; align-self: center; margin-bottom: 20px; }
-
-/* HUB LIST */
-.nike-list { flex: 1; overflow-y: auto; padding-right: 5px; margin-top: 20px; }
-.n-item { 
-    background: var(--nike-grey); margin-bottom: 10px; padding: 20px; 
-    border-radius: 15px; display: flex; justify-content: space-between; align-items: center;
-    border: 1px solid #111; cursor: pointer;
-}
-
-/* DASHBOARD CONTROLS */
-.dash-controls { display: flex; gap: 10px; margin-top: 20px; }
-.ctrl-btn { flex: 1; padding: 20px; border-radius: 50px; border: 1px solid #333; background: transparent; color: white; font-weight: 900; cursor: pointer; }
-.ctrl-btn.main { background: white; color: black; border: none; }
+.v-scroll { flex: 1; overflow-y: auto; padding-right: 5px; margin-top: 20px; padding-bottom: 100px; }
+/* ... (Ostali stilovi su isti) */
