@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FORM & FIX | Elite</title>
+    <title>FORM & FIX | Elite Performance</title>
     <script src="https://unpkg.com/@rive-app/canvas@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -15,42 +15,54 @@
             <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
             
             <div class="nike-card">
-                <div class="modern-input-group">
-                    <div class="m-field">
-                        <span>AGE</span>
-                        <input type="number" id="age" placeholder="00">
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <label>AGE</label>
+                        <input type="number" id="age" placeholder="--">
                     </div>
-                    <div class="m-divider"></div>
-                    <div class="m-field">
-                        <span>KG</span>
-                        <input type="number" id="weight" placeholder="00">
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <label>KG</label>
+                        <input type="number" id="weight" placeholder="--">
                     </div>
                 </div>
 
                 <div class="n-selector">
                     <label class="section-label">SELECT PROGRAM</label>
-                    <div class="category-stack">
+                    <div class="program-stack">
                         <input type="radio" name="goal" value="physio" id="physio" checked>
-                        <label for="physio" class="cat-card-wide">
-                            <span class="emoji">🧘</span>
-                            <span class="text">PHYSIO RECOVERY</span>
+                        <label for="physio" class="program-btn">
+                            <span class="emoji">🧘</span> PHYSIO
                         </label>
                         
                         <input type="radio" name="goal" value="office" id="office">
-                        <label for="office" class="cat-card-wide">
-                            <span class="emoji">💻</span>
-                            <span class="text">OFFICE RELIEF</span>
+                        <label for="office" class="program-btn">
+                            <span class="emoji">💻</span> OFFICE
                         </label>
 
                         <input type="radio" name="goal" value="strength" id="strength">
-                        <label for="strength" class="cat-card-wide">
-                            <span class="emoji">⚡</span>
-                            <span class="text">ELITE STRENGTH</span>
+                        <label for="strength" class="program-btn">
+                            <span class="emoji">⚡</span> STRENGTH
+                        </label>
+
+                        <input type="radio" name="goal" value="yoga" id="yoga">
+                        <label for="yoga" class="program-btn">
+                            <span class="emoji">☯</span> YOGA
+                        </label>
+
+                        <input type="radio" name="goal" value="stretch" id="stretch">
+                        <label for="stretch" class="program-btn">
+                            <span class="emoji">↔</span> STRETCH
+                        </label>
+
+                        <input type="radio" name="goal" value="pilates" id="pilates">
+                        <label for="pilates" class="program-btn">
+                            <span class="emoji">⭕</span> PILATES
                         </label>
                     </div>
                 </div>
 
-                <button id="generate-btn" class="nike-btn-grad">GENERATE SESSION</button>
+                <button id="main-start-btn" class="nike-btn-grad">START SESSION</button>
             </div>
         </div>
     </section>
@@ -58,13 +70,13 @@
     <section id="workout-hub" class="screen">
         <div class="hub-nav">
             <button class="back-btn-glass" onclick="location.reload()">← BACK</button>
+            <span class="logo-small gradient-text">DAILY MOBILITY</span>
         </div>
-        <div class="hub-hero">
-            <h2 id="hub-title" class="gradient-text">LINEUP</h2>
-            <div class="hub-meta"><span id="hub-count">0</span> EXERCISES</div>
+        <div id="exercise-list-ul" class="nike-list v-scroll">
+            </div>
+        <div class="fixed-bottom">
+            <button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button>
         </div>
-        <div id="exercise-list-ul" class="nike-list v-scroll"></div>
-        <div class="fixed-bottom"><button id="start-workout-btn" class="nike-btn-grad pill">START ALL</button></div>
     </section>
 
     <section id="dashboard" class="screen">
@@ -79,8 +91,8 @@
         <div class="dash-bottom">
             <div class="n-progress-bar"><div id="progress-fill" class="gradient-bg"></div></div>
             <div class="dash-controls">
-                <button id="play-pause-btn" class="control-btn main">PAUSE</button>
-                <button id="skip-btn" class="control-btn">NEXT</button>
+                <button id="play-pause-btn" class="ctrl-btn main">PAUSE</button>
+                <button id="skip-btn" class="ctrl-btn">SKIP →</button>
             </div>
         </div>
     </section>
