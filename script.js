@@ -1,15 +1,10 @@
 const db = {
-    strength: [
-        { name: "Push-ups", muscle: "chest", video: "https://www.youtube.com/embed/IODxDxX7oi4" },
-        { name: "Squats", muscle: "legs", video: "https://www.youtube.com/embed/aclHkVaku9U" },
-        { name: "Plank", muscle: "core", video: "https://www.youtube.com/embed/pSHjTRCQxIw" }
-    ],
-    mobility: [
-        { name: "Hip Flow", muscle: "full", video: "https://www.youtube.com/embed/2pLT-olgUJs" }
-    ],
-    yoga: [
-        { name: "Sun Salutation", muscle: "full", video: "https://www.youtube.com/embed/73sjzvNYyCM" }
-    ]
+    physio: ["Cat-Cow","Bird Dog","Glute Bridge","Dead Bug"],
+    office: ["Neck Stretch","Wrist Rolls","Shoulder Rolls"],
+    strength: ["Push-ups","Squats","Lunges","Plank"],
+    yoga: ["Downward Dog","Cobra","Warrior"],
+    stretch: ["Hamstring Stretch","Quad Stretch"],
+    pilates: ["Hundred","Roll Up","Leg Circles"]
 };
 
 let weeklyPlan = {};
@@ -18,32 +13,41 @@ let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 
-/* populate dropdowns */
-for(let i=18;i<=100;i++){
-    age.innerHTML += `<option>${i}</option>`;
-}
-for(let i=40;i<=140;i++){
-    weight.innerHTML += `<option>${i}</option>`;
-}
+/* FIX DROPDOWN */
+window.onload = () => {
+    const ageSelect = document.getElementById("age");
+    const weightSelect = document.getElementById("weight");
 
-/* stats */
-let stats = JSON.parse(localStorage.getItem("stats")) || {
-    workouts:0,
-    streak:0,
-    lastDate:null
+    for(let i=18;i<=100;i++){
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = i;
+        ageSelect.appendChild(opt);
+    }
+
+    for(let i=40;i<=140;i++){
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = i;
+        weightSelect.appendChild(opt);
+    }
 };
 
-/* generate */
-document.getElementById("main-start-btn").onclick = ()=>{
-    const goal = document.querySelector('input[name="goal"]:checked').value;
-    const level = document.getElementById("user-level").value;
+/* GENERATE PLAN */
+document.getElementById("main-start-btn").onclick = () => {
+    const goal = document.querySelector('input[name="goal"]:checked');
 
-    generatePlan(goal, level);
+    if(!goal){
+        alert("Select category");
+        return;
+    }
+
+    generatePlan(goal.value);
     renderWeekly();
 };
 
-/* AI-like plan */
-function generatePlan(goal, level){
+/* PLAN */
+function generatePlan(goal){
     const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
     const pool = db[goal];
 
@@ -51,120 +55,73 @@ function generatePlan(goal, level){
         weeklyPlan[day] = [];
 
         for(let i=0;i<5;i++){
-            let ex = pool[Math.floor(Math.random()*pool.length)];
-
-            let duration = 60;
-            if(level==="pro") duration=90;
-            if(level==="beginner") duration=45;
-
-            weeklyPlan[day].push({...ex, duration});
+            weeklyPlan[day].push({
+                name: pool[Math.floor(Math.random()*pool.length)],
+                duration: 60
+            });
         }
     });
 }
 
-/* render */
+/* WEEK UI */
 function renderWeekly(){
-    weekly-plan.innerHTML = Object.keys(weeklyPlan).map(day=>`
+    const el = document.getElementById("weekly-plan");
+
+    el.innerHTML = Object.keys(weeklyPlan).map(day=>`
         <div class="n-item" onclick="loadDay('${day}')">
-            ${day} <span>▶</span>
+            ${day} ▶
         </div>
     `).join("");
 }
 
-/* load */
+/* LOAD DAY */
 function loadDay(day){
     workoutQueue = weeklyPlan[day];
     renderWorkout();
     switchScreen("workout-hub");
 }
 
+/* WORKOUT LIST */
 function renderWorkout(){
-    exercise-list-ul.innerHTML = workoutQueue.map((ex,i)=>`
+    const el = document.getElementById("exercise-list-ul");
+
+    el.innerHTML = workoutQueue.map((ex,i)=>`
         <div class="n-item" onclick="startAt(${i})">
-            ${ex.name} <span>▶</span>
+            ${ex.name}
         </div>
     `).join("");
 }
 
-/* start */
+/* START */
+document.getElementById("start-workout-btn").onclick = () => startAt(0);
+
 function startAt(i){
-    currentIdx=i;
-    timeLeft=workoutQueue[i].duration;
+    currentIdx = i;
+    timeLeft = workoutQueue[i].duration;
     switchScreen("dashboard");
-    showVideo(workoutQueue[i].video);
-    renderStats();
     runTimer();
 }
 
-/* video */
-function showVideo(url){
-    let iframe=document.getElementById("video-frame");
-
-    if(!iframe){
-        iframe=document.createElement("iframe");
-        iframe.id="video-frame";
-        document.getElementById("dashboard").prepend(iframe);
-    }
-
-    iframe.src=url+"?autoplay=1&mute=1";
-}
-
-/* timer */
+/* TIMER */
 function runTimer(){
     clearInterval(timer);
 
-    timer=setInterval(()=>{
+    timer = setInterval(()=>{
         timeLeft--;
 
-        exercise-timer.innerText=timeLeft;
-        current-ex-name.innerText=workoutQueue[currentIdx].name;
+        document.getElementById("exercise-timer").innerText = timeLeft;
+        document.getElementById("current-ex-name").innerText = workoutQueue[currentIdx].name;
 
-        let progress=((workoutQueue[currentIdx].duration-timeLeft)/workoutQueue[currentIdx].duration)*100;
-        progress-fill.style.width=progress+"%";
-
-        if(timeLeft<=0){
+        if(timeLeft <= 0){
             currentIdx++;
-            if(currentIdx<workoutQueue.length) startAt(currentIdx);
-            else finish();
+            if(currentIdx < workoutQueue.length) startAt(currentIdx);
+            else alert("DONE");
         }
 
     },1000);
 }
 
-/* finish */
-function finish(){
-    stats.workouts++;
-
-    const today=new Date().toDateString();
-    if(stats.lastDate!==today) stats.streak++;
-
-    stats.lastDate=today;
-
-    localStorage.setItem("stats",JSON.stringify(stats));
-
-    alert("DONE 🔥");
-    location.reload();
-}
-
-/* stats */
-function renderStats(){
-    stats-box.innerHTML=`
-        <div class="stat-card">🔥 ${stats.streak}</div>
-        <div class="stat-card">💪 ${stats.workouts}</div>
-    `;
-}
-
-/* controls */
-skip-btn.onclick=()=>{
-    currentIdx++;
-    if(currentIdx<workoutQueue.length) startAt(currentIdx);
-};
-
-play-pause-btn.onclick=()=>{
-    clearInterval(timer);
-};
-
-/* screen */
+/* SCREEN */
 function switchScreen(id){
     document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
