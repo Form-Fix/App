@@ -1,110 +1,69 @@
 :root {
-    --nike-black: #000;
+    --nike-black: #000000;
     --nike-grey: #0c0c0c;
+    --p-purp: #8b5cf6;
     --p-pink: #d946ef;
     --p-oran: #f97316;
-
-    --nike-gradient: linear-gradient(135deg, #8b5cf6, #d946ef, #f97316);
+    --nike-gradient: linear-gradient(135deg, var(--p-purp) 0%, var(--p-pink) 50%, var(--p-oran) 100%);
 }
 
-body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: 'Inter';
+body { 
+    margin: 0; background: var(--nike-black); color: white; 
+    font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden; 
 }
 
-/* SCREENS */
-.screen { display:none; padding:20px; height:100vh; }
-.screen.active { display:block; }
-
-/* CARD */
-.nike-card {
-    background: linear-gradient(145deg, #0c0c0c, #050505);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+/* CUSTOM SCROLLBAR (Kao sa slike) */
+.custom-scroll-bar { overflow-y: auto; scrollbar-gutter: stable; }
+.custom-scroll-bar::-webkit-scrollbar { width: 16px; }
+.custom-scroll-bar::-webkit-scrollbar-track { background: #0a0a0a; border-radius: 10px; }
+.custom-scroll-bar::-webkit-scrollbar-thumb { 
+    background: var(--nike-gradient); border-radius: 20px; border: 3px solid #0a0a0a; 
+}
+.custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical {
+    background-color: var(--p-oran); display: block; border-radius: 4px; height: 12px;
+    background-size: 8px; background-repeat: no-repeat; background-position: center;
+}
+.custom-scroll-bar::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,20 10,80 90,80" fill="black"/></svg>');
+}
+.custom-scroll-bar::-webkit-scrollbar-button:vertical:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,80 10,20 90,20" fill="black"/></svg>');
 }
 
-/* TEXT */
-.gradient-text {
-    background: var(--nike-gradient);
-    -webkit-background-clip: text;
-    color: transparent;
-}
+/* UI ELEMENTI */
+.gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; display: inline-block; }
+.gradient-bg { background: var(--nike-gradient); }
+.hero-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; line-height: 0.8; text-align: left; margin: 20px 0; }
 
-/* BUTTON */
-.nike-btn-grad {
-    background: var(--nike-gradient);
-    border: none;
-    padding: 20px;
-    border-radius: 12px;
-    font-weight: 900;
-    width: 100%;
-    margin-top: 15px;
-    cursor: pointer;
-}
+.screen { display: none; height: 100vh; padding: 20px; flex-direction: column; box-sizing: border-box; }
+.screen.active { display: flex; }
 
-/* PROGRAM */
-.program-btn {
-    display:block;
-    padding:15px;
-    background:#111;
-    margin:5px 0;
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.3s;
-}
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.stat-card { background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 12px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; }
+.stat-card label { font-size: 0.6rem; color: #555; font-weight: 900; margin-bottom: 5px; }
 
-.program-btn:hover {
-    transform:scale(1.05);
-}
+/* DROPDOWN FIX */
+.modern-select { background: transparent; border: none; color: white; font-size: 1rem; font-weight: 900; width: 100%; text-align-last: center; cursor: pointer; outline: none; }
+.modern-select option { background: #111; color: white; }
 
-/* LIST */
-.n-item {
-    background:#111;
-    padding:15px;
-    margin:10px 0;
-    border-radius:10px;
-    cursor:pointer;
-    display:flex;
-    justify-content:space-between;
-}
+.stat-card input { background: transparent; border: none; color: white; font-size: 1.2rem; font-weight: 900; text-align: center; width: 100%; outline: none; }
 
-/* PROGRESS */
-.n-progress-bar {
-    height:6px;
-    background:#222;
-    border-radius:10px;
+/* PROGRAMI (Uklonjene tačkice) */
+input[type="radio"] { display: none; }
+.program-btn { 
+    background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 20px; border-radius: 12px; 
+    display: flex; align-items: center; justify-content: center; font-weight: 900; margin-bottom: 10px; cursor: pointer; 
 }
+input[type="radio"]:checked + .program-btn { border-color: var(--p-pink); background: rgba(217, 70, 239, 0.1); }
 
-#progress-fill {
-    height:100%;
-    width:0%;
-}
+/* TASTERI */
+.nike-btn-grad { background: var(--nike-gradient); color: white; border: none; padding: 22px; font-weight: 900; border-radius: 12px; cursor: pointer; width: 100%; }
+.nike-btn-grad.pill { border-radius: 50px; width: 85%; align-self: center; }
+.back-minimal { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; border: none; font-size: 2.5rem; font-weight: 900; cursor: pointer; }
 
-/* INPUT GRID */
-.input-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.stat-card {
-    background:#111;
-    padding:10px;
-    border-radius:10px;
-    text-align:center;
-}
-
-input, select {
-    width:100%;
-    background:transparent;
-    border:none;
-    color:white;
-}
-
-iframe {
-    border-radius: 15px;
-    border: none;
-}
+/* DASHBOARD */
+.n-progress-bar { background: #111; height: 6px; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+#progress-fill { height: 100%; width: 0%; transition: 0.3s; }
+.dash-controls { display: flex; gap: 15px; }
+.ctrl-btn { flex: 1; padding: 20px; border-radius: 50px; background: transparent; color: white; border: 1px solid #333; font-weight: 900; cursor: pointer; }
+.ctrl-btn.main { background: white; color: black; border: none; }
