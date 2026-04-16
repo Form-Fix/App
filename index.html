@@ -52,45 +52,40 @@
 
             <div class="program-stack">
                 <label class="program-btn"><input type="radio" name="goal" value="physio" checked> 🧘 PHYSIO</label>
-                <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 OFFICE</label>
-                <label class="program-btn"><input type="radio" name="goal" value="strength"> ⚡ STRENGTH</label>
+                <label class="program-btn"><input type="radio" name="goal" value="weightloss"> ⚡ METABOLIC / WEIGHT</label>
+                <label class="program-btn"><input type="radio" name="goal" value="menopause"> 🌸 HORMONAL BALANCE</label>
+                <label class="program-btn"><input type="radio" name="goal" value="joints"> 🦴 JOINT CARE</label>
+                <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 OFFICE FIX</label>
+                <label class="program-btn"><input type="radio" name="goal" value="strength"> 🦾 STRENGTH</label>
                 <label class="program-btn"><input type="radio" name="goal" value="yoga"> ☯ YOGA</label>
-                <label class="program-btn"><input type="radio" name="goal" value="stretch"> ↔ STRETCH</label>
-                <label class="program-btn"><input type="radio" name="goal" value="pilates"> ⭕ PILATES</label>
             </div>
-            <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
+            <button id="main-start-btn" class="nike-btn-grad">GENERATE PROFESSIONAL PLAN</button>
         </div>
     </section>
 
     <section id="plan-screen" class="screen">
         <button onclick="switchScreen('home-screen')" class="back-btn">← BACK</button>
-        <h2 class="gradient-text" style="font-size: 1.5rem; margin-bottom: 20px;">YOUR WEEKLY PLAN</h2>
+        <h2 class="gradient-text">WEEKLY PROGRAM</h2>
         <div id="weekly-plan-list"></div>
     </section>
 
     <section id="workout-hub" class="screen">
         <button onclick="switchScreen('plan-screen')" class="back-btn">← BACK</button>
         <div id="exercise-list-ul"></div>
-        <button id="start-workout-btn" class="nike-btn-grad">START WORKOUT</button>
+        <button id="start-workout-btn" class="nike-btn-grad">START SESSION</button>
     </section>
 
     <section id="dashboard" class="screen">
         <div id="next-ex-preview"></div>
         <div id="exercise-timer">00:00</div>
-        
         <div class="video-container">
             <iframe id="youtube-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-
         <h2 id="current-ex-name" class="gradient-text"></h2>
         <div class="n-progress-bar"><div id="progress-fill"></div></div>
-        
         <div class="controls-stack">
-            <div class="input-grid">
-                <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
-                <button id="skip-btn" class="nike-btn-grad" style="background: #222;">SKIP ➔</button>
-            </div>
-            <button onclick="location.reload()" class="back-btn" style="width: 100%; text-align: center; margin-top: 15px; font-size: 0.8rem; opacity: 0.5;">CANCEL & EXIT</button>
+            <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
+            <button id="skip-btn" class="nike-btn-grad" style="margin-top:10px; background:#222;">SKIP ➔</button>
         </div>
     </section>
 
