@@ -1,10 +1,10 @@
 const db = {
-    physio: ["Cat-Cow","Bird Dog","Glute Bridge","Dead Bug"],
-    office: ["Neck Stretch","Wrist Rolls","Shoulder Rolls"],
-    strength: ["Push-ups","Squats","Lunges","Plank"],
-    yoga: ["Downward Dog","Cobra","Warrior"],
-    stretch: ["Hamstring Stretch","Quad Stretch"],
-    pilates: ["Hundred","Roll Up","Leg Circles"]
+    physio:["Cat-Cow","Bird Dog","Glute Bridge"],
+    office:["Neck Stretch","Wrist Rolls"],
+    strength:["Push-ups","Squats","Plank"],
+    yoga:["Downward Dog","Cobra"],
+    stretch:["Hamstring Stretch"],
+    pilates:["Hundred","Roll Up"]
 };
 
 let weeklyPlan = {};
@@ -13,21 +13,26 @@ let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 
-/* change input */
-function changeValue(id, delta){
-    const input = document.getElementById(id);
-    let val = parseInt(input.value) || 0;
+/* FIX + - BUTTONS */
+document.querySelectorAll(".num-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+        const id = btn.dataset.target;
+        const step = parseInt(btn.dataset.step);
 
-    val += delta;
+        const input = document.getElementById(id);
+        let val = parseInt(input.value) || 0;
 
-    if(id==="age") val = Math.max(10, Math.min(100, val));
-    if(id==="weight") val = Math.max(30, Math.min(200, val));
+        val += step;
 
-    input.value = val;
-}
+        if(id==="age") val = Math.max(10, Math.min(100,val));
+        if(id==="weight") val = Math.max(30, Math.min(200,val));
 
-/* start */
-document.getElementById("main-start-btn").onclick = () => {
+        input.value = val;
+    });
+});
+
+/* START */
+document.getElementById("main-start-btn").onclick = ()=>{
     const goal = document.querySelector('input[name="goal"]:checked');
 
     if(!goal){
@@ -39,92 +44,71 @@ document.getElementById("main-start-btn").onclick = () => {
     renderWeekly();
 };
 
-/* plan */
+/* PLAN */
 function generatePlan(goal){
-    const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
-    const pool = db[goal];
+    const days=["MON","TUE","WED","THU","FRI","SAT","SUN"];
+    const pool=db[goal];
 
     days.forEach(day=>{
-        weeklyPlan[day] = [];
+        weeklyPlan[day]=[];
 
         for(let i=0;i<5;i++){
             weeklyPlan[day].push({
-                name: pool[Math.floor(Math.random()*pool.length)],
-                duration: 60
+                name:pool[Math.floor(Math.random()*pool.length)],
+                duration:60
             });
         }
     });
 }
 
-/* render */
+/* UI */
 function renderWeekly(){
-    const el = document.getElementById("weekly-plan");
-
-    el.innerHTML = Object.keys(weeklyPlan).map(day=>`
-        <div class="n-item" onclick="loadDay('${day}')">
-            ${day} ▶
-        </div>
+    weekly-plan.innerHTML=Object.keys(weeklyPlan).map(day=>`
+        <div class="n-item" onclick="loadDay('${day}')">${day}</div>
     `).join("");
 }
 
-/* load */
 function loadDay(day){
-    workoutQueue = weeklyPlan[day];
+    workoutQueue=weeklyPlan[day];
     renderWorkout();
     switchScreen("workout-hub");
 }
 
-/* workout */
 function renderWorkout(){
-    const el = document.getElementById("exercise-list-ul");
-
-    el.innerHTML = workoutQueue.map((ex,i)=>`
-        <div class="n-item" onclick="startAt(${i})">
-            ${ex.name}
-        </div>
+    exercise-list-ul.innerHTML=workoutQueue.map((ex,i)=>`
+        <div class="n-item" onclick="startAt(${i})">${ex.name}</div>
     `).join("");
 }
 
-/* start */
-document.getElementById("start-workout-btn").onclick = () => startAt(0);
+/* START */
+document.getElementById("start-workout-btn").onclick=()=>startAt(0);
 
 function startAt(i){
-    currentIdx = i;
-    timeLeft = workoutQueue[i].duration;
+    currentIdx=i;
+    timeLeft=workoutQueue[i].duration;
     switchScreen("dashboard");
     runTimer();
 }
 
-/* timer */
+/* TIMER */
 function runTimer(){
     clearInterval(timer);
 
-    timer = setInterval(()=>{
+    timer=setInterval(()=>{
         timeLeft--;
 
-        document.getElementById("exercise-timer").innerText = timeLeft;
-        document.getElementById("current-ex-name").innerText = workoutQueue[currentIdx].name;
+        exercise-timer.innerText=timeLeft;
+        current-ex-name.innerText=workoutQueue[currentIdx].name;
 
-        if(timeLeft <= 0){
+        if(timeLeft<=0){
             currentIdx++;
-            if(currentIdx < workoutQueue.length) startAt(currentIdx);
+            if(currentIdx<workoutQueue.length) startAt(currentIdx);
             else alert("DONE");
         }
-
     },1000);
 }
 
-/* controls */
-document.getElementById("skip-btn").onclick = ()=>{
-    currentIdx++;
-    if(currentIdx < workoutQueue.length) startAt(currentIdx);
-};
-
-document.getElementById("play-pause-btn").onclick = ()=>{
-    clearInterval(timer);
-};
-
-/* screen */
+/* SCREEN */
 function switchScreen(id){
     document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
