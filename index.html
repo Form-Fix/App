@@ -11,7 +11,6 @@
 
     <section id="home-screen" class="screen active">
         <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
-
         <div class="nike-card">
             <div class="input-grid">
                 <div class="stat-card">
@@ -52,29 +51,15 @@
             </div>
 
             <div class="program-stack">
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="physio" checked> 🧘 PHYSIO
-                </label>
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="office"> 💻 OFFICE
-                </label>
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="strength"> ⚡ STRENGTH
-                </label>
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="yoga"> ☯ YOGA
-                </label>
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="stretch"> ↔ STRETCH
-                </label>
-                <label class="program-btn">
-                    <input type="radio" name="goal" value="pilates"> ⭕ PILATES
-                </label>
+                <label class="program-btn"><input type="radio" name="goal" value="physio" checked> 🧘 PHYSIO</label>
+                <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 OFFICE</label>
+                <label class="program-btn"><input type="radio" name="goal" value="strength"> ⚡ STRENGTH</label>
+                <label class="program-btn"><input type="radio" name="goal" value="yoga"> ☯ YOGA</label>
+                <label class="program-btn"><input type="radio" name="goal" value="stretch"> ↔ STRETCH</label>
+                <label class="program-btn"><input type="radio" name="goal" value="pilates"> ⭕ PILATES</label>
             </div>
-
             <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
         </div>
-
         <div id="weekly-plan-container" style="margin-top: 20px;"></div>
     </section>
 
@@ -87,11 +72,13 @@
     <section id="dashboard" class="screen">
         <div id="next-ex-preview"></div>
         <div id="exercise-timer">00:00</div>
-        <h2 id="current-ex-name" class="gradient-text"></h2>
         
-        <div class="n-progress-bar">
-            <div id="progress-fill"></div>
+        <div class="video-container">
+            <iframe id="youtube-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
+
+        <h2 id="current-ex-name" class="gradient-text"></h2>
+        <div class="n-progress-bar"><div id="progress-fill"></div></div>
         
         <div class="controls-stack">
             <div class="input-grid">
