@@ -5,12 +5,12 @@ const db = {
             { name: "Hip Circles", yt: "mI6S-6C6XyM" }
         ],
         main: [
-            { name: "Sumo Squat", yt: "9ZxQe1Zz_K8" }, // GymRa proveren link
+            { name: "Sumo Squat", yt: "9ZxQe1Zz_K8" }, 
             { name: "Glute Bridge", yt: "wPM8icPu6H8", img: "img/glute-bridge.png" },
             { name: "Wall Push-ups", yt: "a6YHbv9sP9s" },
             { name: "Bird Dog Stability", yt: "wiFNA3sqjCA" },
-            { name: "Dead Bug Core", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" }, // DODATA SLIKA
-            { name: "Clamshells", yt: "mI6S-6C6XyM" },
+            { name: "Dead Bug Core", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" },
+            { name: "Clamshells", yt: "VlwBJE1wtOQ" },
             { name: "Superman Spine", yt: "z6PJn2z3120" },
             { name: "Plank Hold", yt: "ASdvN_XEl_c" },
             { name: "Side Leg Raise", yt: "VlwBJE1wtOQ" },
@@ -72,7 +72,7 @@ const db = {
         ],
         main: [
             { name: "Bird Dog", yt: "wiFNA3sqjCA" },
-            { name: "Dead Bug", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" }, // DODATA SLIKA
+            { name: "Dead Bug", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" },
             { name: "Glute Bridge", yt: "wPM8icPu6H8", img: "img/glute-bridge.png" },
             { name: "Pelvic Tilts", yt: "L_X6_mX0-8A" },
             { name: "Prone Y-Raise", yt: "lG7f1OAt6Xw" },
