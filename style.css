@@ -8,10 +8,10 @@ body {
     margin:0;
     background:#000;
     color:white;
-    font-family:'Inter';
+    font-family:'Inter', sans-serif;
 }
 
-.screen {display:none;padding:20px;}
+.screen {display:none; padding:20px;}
 .screen.active {display:block;}
 
 .nike-card {
@@ -20,28 +20,36 @@ body {
     border-radius:20px;
 }
 
-/* TEXT */
+.hero-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3rem;
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
 .gradient-text {
     background:var(--grad);
     -webkit-background-clip:text;
-    color:transparent;
+    -webkit-text-fill-color:transparent;
 }
 
-/* BUTTON */
 .nike-btn-grad {
     background:var(--grad);
     border:none;
     padding:20px;
     border-radius:12px;
     font-weight:900;
+    color: white;
     width:100%;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-/* GRID */
 .input-grid {
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
+    margin-bottom: 10px;
 }
 
 .stat-card {
@@ -51,7 +59,14 @@ body {
     text-align:center;
 }
 
-/* NUMBER INPUT */
+.stat-card label {
+    font-size: 0.7rem;
+    color: #666;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 5px;
+}
+
 .number-input {
     display:flex;
     align-items:center;
@@ -63,7 +78,7 @@ body {
 }
 
 .number-input input {
-    width:60px;
+    width:100%;
     text-align:center;
     background:transparent;
     border:none;
@@ -83,7 +98,6 @@ body {
     cursor:pointer;
 }
 
-/* PROGRAM */
 .program-btn {
     display:block;
     background:#111;
@@ -92,33 +106,51 @@ body {
     border-radius:12px;
     cursor:pointer;
     border:1px solid #222;
+    font-weight: 700;
 }
 
-.program-btn input {
-    display:none;
-}
+.program-btn input { display:none; }
 
-/* ACTIVE PROGRAM */
 .program-btn:has(input:checked) {
     border-color:var(--p-pink);
     background:rgba(217,70,239,0.1);
 }
 
-/* LIST */
 .n-item {
     background:#111;
-    padding:15px;
+    padding:20px;
     margin:10px 0;
-    border-radius:10px;
+    border-radius:12px;
+    font-weight: 800;
 }
 
-/* PROGRESS */
 .n-progress-bar {
-    height:6px;
+    height:8px;
     background:#222;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 20px;
 }
 
 #progress-fill {
     height:100%;
     width:0%;
+    background: var(--grad);
+    transition: width 0.3s;
+}
+
+#exercise-timer {
+    font-size: 5rem;
+    font-weight: 900;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
