@@ -12,7 +12,7 @@ const db = {
             { name: "Dead Bug Core", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" },
             { name: "Clamshells", yt: "VlwBJE1wtOQ" },
             { name: "Superman Spine", yt: "z6PJn2z3120" },
-            { name: "Plank Hold", yt: "ASdvN_XEl_c" },
+            { name: "Plank Hold", yt: "ASdvN_Y_Y_c" },
             { name: "Side Leg Raise", yt: "VlwBJE1wtOQ" },
             { name: "Wall Sit Hold", yt: "y-wV4Venus" }
         ],
@@ -45,7 +45,7 @@ const db = {
     },
     joints: {
         warmup: [
-            { name: "Ankle Rolls", yt: "mI6S-6C6XyM" },
+            { name: "Ankle Rolls", yt: "mqz6bhQFJe8" },
             { name: "Wrist Mobility", yt: "E-9vVvM_Y_Y" }
         ],
         main: [
@@ -111,77 +111,76 @@ const db = {
     }
 };
 
-let weeklyPlan = [];
-let workoutQueue = [];
-let currentIdx = 0;
-let timeLeft = 0;
-let timer;
-let isPaused = false;
+let weeklyPlan = []; [cite: 17]
+let workoutQueue = []; [cite: 17]
+let currentIdx = 0; [cite: 17]
+let timeLeft = 0; [cite: 17]
+let timer; [cite: 17]
+let isPaused = false; [cite: 18]
 
 // Helpers
 function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
+    return array.sort(() => Math.random() - 0.5); [cite: 19]
 }
 
 function formatTime(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    const m = Math.floor(seconds / 60); [cite: 20]
+    const s = seconds % 60; [cite: 20]
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`; [cite: 20]
 }
 
 // Logic
 function generateWeeklyPlan(goal) {
-    weeklyPlan = [];
-    const cat = db[goal];
-    const totalMin = parseInt(document.getElementById("user-duration").value) || 20;
+    weeklyPlan = []; [cite: 21]
+    const cat = db[goal]; [cite: 21]
+    const totalMin = parseInt(document.getElementById("user-duration").value) || 20; [cite: 21]
 
     for (let i = 1; i <= 7; i++) {
         let session = [
             ...cat.warmup, 
             ...shuffle([...cat.main]), 
             ...cat.coolDown
-        ];
-        
-        const durationPerEx = Math.floor((totalMin * 60) / session.length);
+        ]; [cite: 21]
+        const durationPerEx = Math.floor((totalMin * 60) / session.length); [cite: 22]
         weeklyPlan.push({ 
             day: i, 
             exercises: session.map(ex => ({ ...ex, duration: durationPerEx })) 
-        });
+        }); [cite: 22]
     }
 }
 
 // UI Handlers
 document.querySelectorAll(".num-btn").forEach(btn => {
     btn.onclick = () => {
-        const input = document.getElementById(btn.dataset.target);
+        const input = document.getElementById(btn.dataset.target); [cite: 23]
         if (btn.dataset.type === "list") {
-            const lvls = ["BEGINNER", "INTERMEDIATE", "PRO"];
-            let idx = (lvls.indexOf(input.value) + parseInt(btn.dataset.step) + 3) % 3;
-            input.value = lvls[idx];
+            const lvls = ["BEGINNER", "INTERMEDIATE", "PRO"]; [cite: 23]
+            let idx = (lvls.indexOf(input.value) + parseInt(btn.dataset.step) + 3) % 3; [cite: 23]
+            input.value = lvls[idx]; [cite: 23]
         } else {
-            input.value = Math.max(5, parseInt(input.value) + parseInt(btn.dataset.step));
+            input.value = Math.max(5, parseInt(input.value) + parseInt(btn.dataset.step)); [cite: 24]
         }
     };
 });
 
 document.getElementById("main-start-btn").onclick = () => {
-    const g = document.querySelector('input[name="goal"]:checked');
-    if (!g) return alert("Select program");
-    generateWeeklyPlan(g.value);
-    renderPlan();
-    switchScreen("plan-screen");
+    const g = document.querySelector('input[name="goal"]:checked'); [cite: 25]
+    if (!g) return alert("Select program"); [cite: 25]
+    generateWeeklyPlan(g.value); [cite: 25]
+    renderPlan(); [cite: 25]
+    switchScreen("plan-screen"); [cite: 25]
 };
 
 document.getElementById("exit-workout-btn").onclick = () => {
-    if(confirm("Exit this session and return to exercise list?")) {
-        clearInterval(timer);
-        document.getElementById("youtube-player").src = "";
-        switchScreen("workout-hub");
+    if(confirm("Exit this session and return to exercise list?")) { [cite: 26]
+        clearInterval(timer); [cite: 26]
+        document.getElementById("youtube-player").src = ""; [cite: 27]
+        switchScreen("workout-hub"); [cite: 27]
     }
 };
 
 document.getElementById("start-workout-btn").onclick = () => {
-    startAt(0);
+    startAt(0); [cite: 27]
 };
 
 function renderPlan() {
@@ -189,84 +188,79 @@ function renderPlan() {
         <div class="n-item" onclick="loadDay(${i})" style="cursor:pointer; justify-content:space-between;">
             DAY ${d.day} <span style="color:#555;">${d.exercises.length} EXERCISES ➔</span>
         </div>
-    `).join("");
+    `).join(""); [cite: 28]
 }
 
 function loadDay(i) {
-    workoutQueue = weeklyPlan[i].exercises;
+    workoutQueue = weeklyPlan[i].exercises; [cite: 29]
     document.getElementById("exercise-list-ul").innerHTML = `<h3 style="margin-bottom:20px; color:#555;">DAY ${i+1} PROGRAM</h3>` + 
         workoutQueue.map((ex, idx) => `
             <div class="n-item" onclick="startAt(${idx})" style="cursor:pointer;">
                 ${ex.img ? `<img src="${ex.img}" class="ex-thumb">` : `<div class="ex-thumb" style="display:flex; align-items:center; justify-content:center; background:#1a1a1a; color:#333; font-size:0.6rem;">NO IMAGE</div>`}
                 <span>${idx+1}. ${ex.name}</span>
             </div>
-        `).join("");
-    switchScreen("workout-hub");
+        `).join(""); [cite: 29, 30]
+    switchScreen("workout-hub"); [cite: 30]
 }
 
 function startAt(i) {
-    currentIdx = i;
-    timeLeft = workoutQueue[i].duration;
-    isPaused = false;
-    document.getElementById("play-pause-btn").innerText = "PAUSE";
-    switchScreen("dashboard");
-    updateDashboard();
-    runTimer();
+    currentIdx = i; [cite: 31]
+    timeLeft = workoutQueue[i].duration; [cite: 31]
+    isPaused = false; [cite: 31]
+    document.getElementById("play-pause-btn").innerText = "PAUSE"; [cite: 31]
+    switchScreen("dashboard"); [cite: 31]
+    updateDashboard(); [cite: 31]
+    runTimer(); [cite: 32]
 }
 
 function updateDashboard() {
-    const ex = workoutQueue[currentIdx];
-    document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
-    document.getElementById("current-ex-name").innerText = ex.name;
-    
-    // Video fiks: dodata playlist i loop parametar za stabilnost
-    const ytId = ex.yt;
-    document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&rel=0&playlist=${ytId}&loop=1&modestbranding=1`;
-    
-    // Thumbnail desno na dashboardu
-    const dashThumb = document.getElementById("dashboard-thumb");
+    const ex = workoutQueue[currentIdx]; [cite: 32]
+    document.getElementById("exercise-timer").innerText = formatTime(timeLeft); [cite: 32]
+    document.getElementById("current-ex-name").innerText = ex.name; [cite: 32]
+    const ytId = ex.yt; [cite: 33]
+    document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&rel=0&playlist=${ytId}&loop=1&modestbranding=1`; [cite: 33]
+    const dashThumb = document.getElementById("dashboard-thumb"); [cite: 34]
     if(ex.img) {
-        dashThumb.src = ex.img;
-        dashThumb.style.display = "block";
+        dashThumb.src = ex.img; [cite: 35]
+        dashThumb.style.display = "block"; [cite: 35]
     } else {
-        dashThumb.style.display = "none";
+        dashThumb.style.display = "none"; [cite: 36]
     }
 }
 
 function runTimer() {
-    clearInterval(timer);
+    clearInterval(timer); [cite: 36]
     timer = setInterval(() => {
         if(!isPaused) {
-            timeLeft--;
-            document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
+            timeLeft--; [cite: 37]
+            document.getElementById("exercise-timer").innerText = formatTime(timeLeft); [cite: 37]
             
-            // Progress bar update
-            const total = workoutQueue[currentIdx].duration;
-            document.getElementById("progress-fill").style.width = ((total - timeLeft) / total * 100) + "%";
+            const total = workoutQueue[currentIdx].duration; [cite: 37]
+            document.getElementById("progress-fill").style.width = ((total - timeLeft) / total * 100) + "%"; [cite: 37, 38]
             
             if(timeLeft <= 0) {
                 if(currentIdx + 1 < workoutQueue.length) {
-                    startAt(currentIdx + 1);
+                    startAt(currentIdx + 1); [cite: 38]
                 } else {
-                    clearInterval(timer);
-                    alert("SESSION COMPLETE! GREAT WORK.");
-                    switchScreen("plan-screen");
+                    clearInterval(timer); [cite: 39]
+                    alert("SESSION COMPLETE! GREAT WORK."); [cite: 39]
+                    switchScreen("plan-screen"); [cite: 39]
                 }
             }
         }
-    }, 1000);
+    }, 1000); [cite: 39]
 }
 
 document.getElementById("play-pause-btn").onclick = function() {
-    isPaused = !isPaused;
-    this.innerText = isPaused ? "RESUME" : "PAUSE";
+    isPaused = !isPaused; [cite: 40]
+    this.innerText = isPaused ? "RESUME" : "PAUSE"; [cite: 40]
 };
 
 document.getElementById("skip-btn").onclick = () => {
-    if(currentIdx + 1 < workoutQueue.length) startAt(currentIdx + 1);
+    if(currentIdx + 1 < workoutQueue.length) startAt(currentIdx + 1); [cite: 41]
 };
 
 function switchScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active")); [cite: 42]
+    document.getElementById(id).classList.add("active"); [cite: 42]
 }
