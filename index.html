@@ -11,6 +11,7 @@
 
 <body>
 
+<!-- ONBOARDING -->
 <section id="onboarding" class="screen active">
 
 <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
@@ -18,15 +19,25 @@
 <div class="nike-card">
 
 <div class="input-grid">
+
 <div class="stat-card">
 <label>AGE</label>
-<select id="age" class="modern-select"></select>
+<div class="number-input">
+<button onclick="changeValue('age', -1)">−</button>
+<input type="number" id="age" value="25" min="10" max="100">
+<button onclick="changeValue('age', 1)">+</button>
+</div>
 </div>
 
 <div class="stat-card">
 <label>KG</label>
-<select id="weight" class="modern-select"></select>
+<div class="number-input">
+<button onclick="changeValue('weight', -1)">−</button>
+<input type="number" id="weight" value="70" min="30" max="200">
+<button onclick="changeValue('weight', 1)">+</button>
 </div>
+</div>
+
 </div>
 
 <div class="input-grid">
@@ -50,7 +61,7 @@
 </div>
 </div>
 
-<!-- SVE KATEGORIJE -->
+<!-- PROGRAMI -->
 <div class="program-stack">
 
 <input type="radio" name="goal" value="physio" id="physio" checked>
@@ -81,12 +92,14 @@
 
 </section>
 
+<!-- WORKOUT HUB -->
 <section id="workout-hub" class="screen">
 <button onclick="location.reload()">←</button>
 <div id="exercise-list-ul"></div>
 <button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
 </section>
 
+<!-- DASHBOARD -->
 <section id="dashboard" class="screen">
 <div id="exercise-timer">00</div>
 <h2 id="current-ex-name"></h2>
