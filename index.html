@@ -1,126 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FORM & FIX PRO</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM & FIX PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<section class="screen active">
+    <section id="home-screen" class="screen active">
+        <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
 
-<h1 class="hero-title gradient-text">FORM<br>FIX</h1>
+        <div class="nike-card">
+            <div class="input-grid">
+                <div class="stat-card">
+                    <label>AGE</label>
+                    <div class="number-input">
+                        <button type="button" class="num-btn" data-target="age" data-step="-1">−</button>
+                        <input type="number" id="age" value="25">
+                        <button type="button" class="num-btn" data-target="age" data-step="1">+</button>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <label>KG</label>
+                    <div class="number-input">
+                        <button type="button" class="num-btn" data-target="weight" data-step="-1">−</button>
+                        <input type="number" id="weight" value="70">
+                        <button type="button" class="num-btn" data-target="weight" data-step="1">+</button>
+                    </div>
+                </div>
+            </div>
 
-<div class="nike-card">
+            <div class="input-grid">
+                <div class="stat-card">
+                    <label>LEVEL</label>
+                    <div class="number-input">
+                        <button type="button" class="num-btn" data-target="user-level" data-type="list" data-step="-1">−</button>
+                        <input type="text" id="user-level" value="BEGINNER" readonly>
+                        <button type="button" class="num-btn" data-target="user-level" data-type="list" data-step="1">+</button>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <label>MIN</label>
+                    <div class="number-input">
+                        <button type="button" class="num-btn" data-target="user-duration" data-step="-5">−</button>
+                        <input type="number" id="user-duration" value="20">
+                        <button type="button" class="num-btn" data-target="user-duration" data-step="5">+</button>
+                    </div>
+                </div>
+            </div>
 
-<div class="input-grid">
+            <div class="program-stack">
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="physio" checked> 🧘 PHYSIO
+                </label>
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="office"> 💻 OFFICE
+                </label>
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="strength"> ⚡ STRENGTH
+                </label>
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="yoga"> ☯ YOGA
+                </label>
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="stretch"> ↔ STRETCH
+                </label>
+                <label class="program-btn">
+                    <input type="radio" name="goal" value="pilates"> ⭕ PILATES
+                </label>
+            </div>
 
-<div class="stat-card">
-<label>AGE</label>
-<div class="number-input">
-<button type="button" class="num-btn" data-target="age" data-step="-1">−</button>
-<input type="number" id="age" value="25">
-<button type="button" class="num-btn" data-target="age" data-step="1">+</button>
-</div>
-</div>
+            <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
+        </div>
 
-<div class="stat-card">
-<label>KG</label>
-<div class="number-input">
-<button type="button" class="num-btn" data-target="weight" data-step="-1">−</button>
-<input type="number" id="weight" value="70">
-<button type="button" class="num-btn" data-target="weight" data-step="1">+</button>
-</div>
-</div>
+        <div id="weekly-plan-container" style="margin-top: 20px;"></div>
+    </section>
 
-</div>
+    <section id="workout-hub" class="screen">
+        <button onclick="location.reload()" class="back-btn">← NAZAD</button>
+        <div id="exercise-list-ul"></div>
+        <button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
+    </section>
 
-<div class="input-grid">
-<div class="stat-card">
-<label>LEVEL</label>
-<select id="user-level" class="modern-select">
-<option value="beginner">BEGINNER</option>
-<option value="intermediate">INTERMEDIATE</option>
-<option value="pro">PRO</option>
-</select>
-</div>
+    <section id="dashboard" class="screen">
+        <div id="exercise-timer">00</div>
+        <h2 id="current-ex-name" class="gradient-text"></h2>
+        <div class="n-progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+        <div style="margin-top:20px; display:flex; gap:10px;">
+            <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
+        </div>
+    </section>
 
-<div class="stat-card">
-<label>TIME</label>
-<select id="user-duration" class="modern-select">
-<option value="10">10 MIN</option>
-<option value="20">20 MIN</option>
-<option value="30">30 MIN</option>
-<option value="45">45 MIN</option>
-</select>
-</div>
-</div>
-
-<!-- PROGRAMI -->
-<div class="program-stack">
-
-<label class="program-btn">
-<input type="radio" name="goal" value="physio" checked>
-🧘 PHYSIO
-</label>
-
-<label class="program-btn">
-<input type="radio" name="goal" value="office">
-💻 OFFICE
-</label>
-
-<label class="program-btn">
-<input type="radio" name="goal" value="strength">
-⚡ STRENGTH
-</label>
-
-<label class="program-btn">
-<input type="radio" name="goal" value="yoga">
-☯ YOGA
-</label>
-
-<label class="program-btn">
-<input type="radio" name="goal" value="stretch">
-↔ STRETCH
-</label>
-
-<label class="program-btn">
-<input type="radio" name="goal" value="pilates">
-⭕ PILATES
-</label>
-
-</div>
-
-<button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
-
-</div>
-
-<div id="weekly-plan"></div>
-
-</section>
-
-<section id="workout-hub" class="screen">
-<button onclick="location.reload()">←</button>
-<div id="exercise-list-ul"></div>
-<button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
-</section>
-
-<section id="dashboard" class="screen">
-<div id="exercise-timer">00</div>
-<h2 id="current-ex-name"></h2>
-
-<div class="n-progress-bar">
-<div id="progress-fill"></div>
-</div>
-
-<button id="play-pause-btn">PAUSE</button>
-<button id="skip-btn">SKIP</button>
-</section>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
