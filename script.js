@@ -1,9 +1,9 @@
 const db = {
-    menopause: { warmup: [{ name: "Shoulder Flossing", yt: "6IInLsc8w_k" }], main: [{ name: "Sumo Squat", yt: "9ZxQe1Zz_K8" }, { name: "Glute Bridge", yt: "wPM8icPu6H8" }], coolDown: [{ name: "Box Breathing", yt: "8_86q8Y_Y6E" }] },
-    weightloss: { warmup: [{ name: "Jumping Jacks", yt: "1b98WR72isY" }], main: [{ name: "Modified Burpees", yt: "dZgVxmf6jkA" }, { name: "Mountain Climbers", yt: "nmwgirgXLYM" }], coolDown: [{ name: "Psoas Release", yt: "6_v-37p7S9o" }] },
-    joints: { warmup: [{ name: "Ankle Rolls", yt: "mI6S-6C6XyM" }], main: [{ name: "Isometric Wall Sit", yt: "y-wV4Venus" }, { name: "Straight Leg Raise", yt: "6IInLsc8w_k" }], coolDown: [{ name: "Gentle Cat-Cow", yt: "kqnua4rHVp8" }] },
-    physio: { warmup: [{ name: "Thoracic Rotation", yt: "Y8ZInX-7O_o" }], main: [{ name: "Bird Dog", yt: "wiFNA3sqjCA" }, { name: "Dead Bug", yt: "4XLEnwUr1gc" }], coolDown: [{ name: "Child Pose", yt: "qYvYs83-7_M" }] },
-    office: { warmup: [{ name: "Neck Rolls", yt: "I6A_N_D_V8U" }], main: [{ name: "Chin Tucks", yt: "6_v-37p7S9o" }, { name: "Seated Twist", yt: "Is7S-H6hS_k" }], coolDown: [{ name: "Eye Palming", yt: "8_86q8Y_Y6E" }] }
+    menopause: { warmup: [{name:"Shoulder Flossing",yt:"6IInLsc8w_k"}], main: [{name:"Sumo Squat",yt:"9ZxQe1Zz_K8"},{name:"Glute Bridge",yt:"wPM8icPu6H8"}], coolDown: [{name:"Box Breathing",yt:"8_86q8Y_Y6E"}] },
+    weightloss: { warmup: [{name:"Jumping Jacks",yt:"1b98WR72isY"}], main: [{name:"Burpees",yt:"dZgVxmf6jkA"},{name:"Mountain Climbers",yt:"nmwgirgXLYM"}], coolDown: [{name:"Psoas Release",yt:"6_v-37p7S9o"}] },
+    joints: { warmup: [{name:"Ankle Rolls",yt:"mI6S-6C6XyM"}], main: [{name:"Wall Sit",yt:"y-wV4Venus"},{name:"Leg Raise",yt:"6IInLsc8w_k"}], coolDown: [{name:"Cat-Cow",yt:"kqnua4rHVp8"}] },
+    physio: { warmup: [{name:"Thoracic Rotation",yt:"Y8ZInX-7O_o"}], main: [{name:"Bird Dog",yt:"wiFNA3sqjCA"},{name:"Dead Bug",yt:"4XLEnwUr1gc"}], coolDown: [{name:"Child Pose",yt:"qYvYs83-7_M"}] },
+    office: { warmup: [{name:"Neck Rolls",yt:"I6A_N_D_V8U"}], main: [{name:"Chin Tucks",yt:"6_v-37p7S9o"},{name:"Seated Twist",yt:"Is7S-H6hS_k"}], coolDown: [{name:"Eye Palming",yt:"8_86q8Y_Y6E"}] }
 };
 
 let weeklyPlan = [];
@@ -16,12 +16,7 @@ let isPaused = false;
 function switchScreen(id) {
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
-}
-
-function formatTime(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    window.scrollTo(0,0);
 }
 
 document.querySelectorAll(".num-btn").forEach(btn => {
@@ -40,7 +35,7 @@ document.querySelectorAll(".num-btn").forEach(btn => {
 
 document.getElementById("main-start-btn").onclick = () => {
     const g = document.querySelector('input[name="goal"]:checked');
-    if (!g) return alert("Select a program!");
+    if (!g) return alert("Select a goal!");
     generateWeeklyPlan(g.value);
     renderPlan();
     switchScreen("plan-screen");
@@ -59,8 +54,9 @@ function generateWeeklyPlan(goal) {
 
 function renderPlan() {
     document.getElementById("weekly-plan-list").innerHTML = weeklyPlan.map((d, i) => `
-        <div class="n-item" onclick="loadDay(${i})" style="cursor:pointer; justify-content:space-between;">
-            DAY ${d.day} <span style="color:var(--p-pink)">VIEW ➔</span>
+        <div class="n-item" onclick="loadDay(${i})" style="justify-content:space-between;">
+            <span>DAY ${d.day}</span>
+            <span style="color:var(--p-pink); font-size:0.7rem;">VIEW ➔</span>
         </div>
     `).join("");
 }
@@ -68,17 +64,19 @@ function renderPlan() {
 function loadDay(i) {
     workoutQueue = weeklyPlan[i].exercises;
     document.getElementById("exercise-list-ul").innerHTML = workoutQueue.map((ex, idx) => `
-        <div class="n-item"><span>${idx+1}. ${ex.name}</span></div>
+        <div class="n-item" onclick="startAt(${idx})">
+            <span style="margin-right:15px; color:#555;">${idx+1}</span>
+            <span>${ex.name}</span>
+        </div>
     `).join("");
     switchScreen("workout-hub");
 }
-
-document.getElementById("start-workout-btn").onclick = () => startAt(0);
 
 function startAt(i) {
     currentIdx = i;
     timeLeft = workoutQueue[i].duration;
     isPaused = false;
+    document.getElementById("play-pause-btn").innerText = "PAUSE";
     switchScreen("dashboard");
     updateDashboard();
     runTimer();
@@ -88,7 +86,7 @@ function updateDashboard() {
     const ex = workoutQueue[currentIdx];
     document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
     document.getElementById("current-ex-name").innerText = ex.name;
-    document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ex.yt}?autoplay=1&mute=1&controls=0&modestbranding=1`;
+    document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ex.yt}?autoplay=1&mute=1&controls=0&modestbranding=1&playlist=${ex.yt}&loop=1`;
 }
 
 function runTimer() {
@@ -101,11 +99,13 @@ function runTimer() {
             document.getElementById("progress-fill").style.width = ((total - timeLeft) / total * 100) + "%";
             if(timeLeft <= 0) {
                 if(currentIdx + 1 < workoutQueue.length) startAt(currentIdx + 1);
-                else { clearInterval(timer); alert("Done!"); switchScreen("plan-screen"); }
+                else { clearInterval(timer); alert("Workout Complete!"); switchScreen("plan-screen"); }
             }
         }
     }, 1000);
 }
+
+function formatTime(s) { return `${Math.floor(s/60).toString().padStart(2,'0')}:${(s%60).toString().padStart(2,'0')}`; }
 
 document.getElementById("play-pause-btn").onclick = function() {
     isPaused = !isPaused;
@@ -117,9 +117,11 @@ document.getElementById("skip-btn").onclick = () => {
 };
 
 document.getElementById("exit-workout-btn").onclick = () => {
-    if(confirm("Exit?")) {
+    if(confirm("Exit session?")) {
         clearInterval(timer);
         document.getElementById("youtube-player").src = "";
         switchScreen("workout-hub");
     }
 };
+
+document.getElementById("start-workout-btn").onclick = () => startAt(0);
