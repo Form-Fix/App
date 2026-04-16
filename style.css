@@ -13,66 +13,55 @@ body {
 .screen.active {display:block;}
 
 .nike-card { background:#0c0c0c; padding:20px; border-radius:24px; border:1px solid #1a1a1a; }
-
-.hero-title {
-    font-family: 'Archivo Black';
-    font-size: 3.5rem;
-    line-height: 0.85;
-    letter-spacing: -2px;
-    margin-bottom: 25px;
-}
+.hero-title { font-family: 'Archivo Black'; font-size: 3.5rem; line-height: 0.85; margin-bottom: 25px; }
 
 .gradient-text {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
 .nike-btn-grad {
-    background: var(--grad); border: none; padding: 22px;
-    border-radius: 14px; font-weight: 900; color: white;
-    width: 100%; cursor: pointer; text-transform: uppercase;
+    background: var(--grad); border: none; padding: 22px; border-radius: 14px;
+    font-weight: 900; color: white; width: 100%; cursor: pointer; text-transform: uppercase;
 }
 
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-
 .stat-card { background: #111; padding: 12px; border-radius: 16px; border: 1px solid #222; }
-
 .stat-card label { font-size: 0.7rem; color: #555; font-weight: 900; display: block; margin-bottom: 8px; }
 
-.number-input { display: flex; align-items: center; background: #000; border-radius: 10px; padding: 4px; }
-
+.number-input { display: flex; align-items: center; background: #000; border-radius: 10px; padding: 4px; border: 1px solid #222; }
 .number-input input { width: 100%; text-align: center; background: transparent; border: none; color: white; font-weight: 900; font-size: 1.1rem; }
-
 .num-btn { background: #222; border: none; color: white; width: 34px; height: 34px; border-radius: 8px; font-weight: 900; cursor: pointer; }
 
-.program-stack { margin: 20px 0; }
-
 .program-btn {
-    display: block; background: #111; padding: 16px;
-    margin: 6px 0; border-radius: 14px; cursor: pointer;
-    border: 1px solid #222; font-weight: 700; transition: 0.2s;
+    display: block; background: #111; padding: 16px; margin: 6px 0;
+    border-radius: 14px; border: 1px solid #222; cursor: pointer; font-weight: 700;
 }
-
 .program-btn input { display: none; }
 .program-btn:has(input:checked) { border-color: var(--p-pink); background: rgba(217,70,239,0.05); }
 
 .n-item {
-    background: #111; padding: 15px; margin-bottom: 10px;
-    border-radius: 16px; border: 1px solid #222;
-    display: flex; align-items: center; font-weight: 800;
+    background: #111; padding: 15px; margin-bottom: 10px; border-radius: 16px;
+    border: 1px solid #222; display: flex; align-items: center; font-weight: 800;
 }
 
 .ex-thumb {
-    width: 50px; height: 50px; border-radius: 8px;
-    margin-right: 15px; border: 1px solid #333; object-fit: cover;
+    width: 70px; height: 70px; border-radius: 10px; margin-right: 15px;
+    border: 1px solid #333; background: #000;
+    object-fit: contain; /* CELA SLIKA SE VIDI */
 }
 
-#exercise-timer { font-size: 5rem; font-weight: 900; text-align: center; font-family: 'Archivo Black'; margin: 10px 0; }
+.timer-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+#exercise-timer { font-size: 4.5rem; font-weight: 900; font-family: 'Archivo Black'; }
+#dashboard-thumb { width: 90px; height: 90px; border-radius: 14px; border: 2px solid var(--p-pink); object-fit: contain; background: #000; display: none; }
 
-.video-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid #222; }
+.video-container { 
+    width: 100%; aspect-ratio: 16/9; border-radius: 18px; 
+    overflow: hidden; border: 1px solid #222; background: #000;
+    position: relative;
+}
+.video-container iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
 
-.n-progress-bar { height: 10px; background: #111; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
+.n-progress-bar { height: 12px; background: #111; border-radius: 20px; overflow: hidden; margin: 20px 0; }
 #progress-fill { height: 100%; width: 0%; background: var(--grad); transition: width 0.3s linear; }
 
 .back-btn { background: none; border: none; color: #555; font-weight: 900; margin-bottom: 20px; cursor: pointer; }
