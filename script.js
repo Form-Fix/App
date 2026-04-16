@@ -1,124 +1,171 @@
 const db = {
-    physio: [
-        { name: "Pelvic Tilt", yt: "O9uInXf2_I4" },
-        { name: "Cat-Cow Stretch", yt: "wT8m5ovS_fA" },
-        { name: "Bird-Dog Balance", yt: "wiFNA3sqjCA" },
-        { name: "Glute Bridge", yt: "wPM8icPu6H8" },
-        { name: "Dead Bug Core", yt: "O7L8F7R9_7U" },
-        { name: "Prone Y-Raise", yt: "6C-774nIn9E" }
-    ],
-    office: [
-        { name: "Neck Release", yt: "I6A7CStZ_f0" },
-        { name: "Wrist Mobility", yt: "u9V9R07-X0k" },
-        { name: "Seated Twist", yt: "6p62S6NAtYQ" },
-        { name: "Shoulder Rolls", yt: "GvG_pA_N26o" },
-        { name: "Desk Chest Opener", yt: "m0vBvYy6Fm0" }
-    ],
     strength: [
-        { name: "Elite Air Squat", yt: "rMvwVtlqjTE" },
-        { name: "Diamond Pushup", yt: "SLoS-XG7Vqc" },
-        { name: "Reverse Lunges", yt: "K6K-v6W9U0Y" },
-        { name: "Standard Plank", yt: "ASdvN_XEl_c" },
-        { name: "Mountain Climbers", yt: "nmwgirg-6pM" }
+        { name: "Push-ups", muscle: "chest", video: "https://www.youtube.com/embed/IODxDxX7oi4" },
+        { name: "Squats", muscle: "legs", video: "https://www.youtube.com/embed/aclHkVaku9U" },
+        { name: "Plank", muscle: "core", video: "https://www.youtube.com/embed/pSHjTRCQxIw" }
+    ],
+    mobility: [
+        { name: "Hip Flow", muscle: "full", video: "https://www.youtube.com/embed/2pLT-olgUJs" }
     ],
     yoga: [
-        { name: "Downward Dog", yt: "EC7RGJ9SUIc" },
-        { name: "Cobra Pose", yt: "fOdrW7nf9gw" },
-        { name: "Warrior II", yt: "nshZ_v_fW_o" },
-        { name: "Sun Salutation", yt: "7U-9_6-7G9o" }
-    ],
-    stretch: [
-        { name: "Deep Hamstring", yt: "L_xrDAtykMI" },
-        { name: "Hip Flexor Stretch", yt: "m9L0f59uWos" },
-        { name: "Butterfly Stretch", yt: "v9057m6-7A8" },
-        { name: "Cobra Stretch", yt: "JD2Wv8vS_A8" }
-    ],
-    pilates: [
-        { name: "Pilates Hundred", yt: "F9LpA-7G8A8" },
-        { name: "Single Leg Circle", yt: "v90R6-7P8A8" },
-        { name: "The Roll Up", yt: "vR9B6-P8A8-o" }
+        { name: "Sun Salutation", muscle: "full", video: "https://www.youtube.com/embed/73sjzvNYyCM" }
     ]
 };
 
+let weeklyPlan = {};
 let workoutQueue = [];
 let currentIdx = 0;
-let timerInterval;
-let timeLeft = 120; // 2 min
-let isPaused = false;
+let timeLeft = 0;
+let timer;
 
-document.getElementById('main-start-btn').onclick = () => {
+/* populate dropdowns */
+for(let i=18;i<=100;i++){
+    age.innerHTML += `<option>${i}</option>`;
+}
+for(let i=40;i<=140;i++){
+    weight.innerHTML += `<option>${i}</option>`;
+}
+
+/* stats */
+let stats = JSON.parse(localStorage.getItem("stats")) || {
+    workouts:0,
+    streak:0,
+    lastDate:null
+};
+
+/* generate */
+document.getElementById("main-start-btn").onclick = ()=>{
     const goal = document.querySelector('input[name="goal"]:checked').value;
-    const totalMin = parseInt(document.getElementById('user-duration').value);
-    const numEx = Math.floor((totalMin * 60) / 120);
-    
-    workoutQueue = [];
-    let pool = db[goal];
-    for(let i = 0; i < numEx; i++) {
-        workoutQueue.push(pool[i % pool.length]);
-    }
-    renderHub();
-    switchScreen('workout-hub');
+    const level = document.getElementById("user-level").value;
+
+    generatePlan(goal, level);
+    renderWeekly();
 };
 
-function renderHub() {
-    const list = document.getElementById('exercise-list-ul');
-    list.innerHTML = workoutQueue.map((ex, i) => `
-        <div class="n-item" onclick="startAt(${i})" style="background:#0c0c0c; padding:20px; border-radius:15px; margin-bottom:10px; border:1px solid #1a1a1a; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-            <div><span style="font-weight:900;">${i+1}. ${ex.name.toUpperCase()}</span><br><small style="color:#555">DURATION: 2:00 MIN</small></div>
-            <div class="gradient-text" style="font-size:1.5rem">▶</div>
-        </div>
-    `).join('');
-}
+/* AI-like plan */
+function generatePlan(goal, level){
+    const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+    const pool = db[goal];
 
-document.getElementById('start-workout-btn').onclick = () => startAt(0);
+    days.forEach(day=>{
+        weeklyPlan[day] = [];
 
-function startAt(idx) {
-    currentIdx = idx;
-    timeLeft = 120;
-    isPaused = false;
-    switchScreen('dashboard');
-    
-    const ytId = workoutQueue[idx].yt;
-    // Ovi linkovi su provereni embed linkovi
-    document.getElementById('video-container').innerHTML = 
-        `<iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&modestbranding=1&rel=0" allow="autoplay"></iframe>`;
-    
-    startTimer();
-}
+        for(let i=0;i<5;i++){
+            let ex = pool[Math.floor(Math.random()*pool.length)];
 
-function startTimer() {
-    clearInterval(timerInterval);
-    document.getElementById('current-ex-name').innerText = workoutQueue[currentIdx].name.toUpperCase();
-    timerInterval = setInterval(() => {
-        if(!isPaused) {
-            timeLeft--;
-            updateUI();
-            if(timeLeft <= 0) {
-                clearInterval(timerInterval);
-                if(currentIdx < workoutQueue.length - 1) startAt(currentIdx + 1);
-                else { alert("TRAINING COMPLETE!"); location.reload(); }
-            }
+            let duration = 60;
+            if(level==="pro") duration=90;
+            if(level==="beginner") duration=45;
+
+            weeklyPlan[day].push({...ex, duration});
         }
-    }, 1000);
+    });
 }
 
-function updateUI() {
-    const m = Math.floor(timeLeft / 60);
-    const s = timeLeft % 60;
-    document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-    document.getElementById('progress-fill').style.width = ((120 - timeLeft) / 120 * 100) + "%";
+/* render */
+function renderWeekly(){
+    weekly-plan.innerHTML = Object.keys(weeklyPlan).map(day=>`
+        <div class="n-item" onclick="loadDay('${day}')">
+            ${day} <span>▶</span>
+        </div>
+    `).join("");
 }
 
-document.getElementById('play-pause-btn').onclick = function() {
-    isPaused = !isPaused;
-    this.innerText = isPaused ? "RESUME" : "PAUSE";
+/* load */
+function loadDay(day){
+    workoutQueue = weeklyPlan[day];
+    renderWorkout();
+    switchScreen("workout-hub");
+}
+
+function renderWorkout(){
+    exercise-list-ul.innerHTML = workoutQueue.map((ex,i)=>`
+        <div class="n-item" onclick="startAt(${i})">
+            ${ex.name} <span>▶</span>
+        </div>
+    `).join("");
+}
+
+/* start */
+function startAt(i){
+    currentIdx=i;
+    timeLeft=workoutQueue[i].duration;
+    switchScreen("dashboard");
+    showVideo(workoutQueue[i].video);
+    renderStats();
+    runTimer();
+}
+
+/* video */
+function showVideo(url){
+    let iframe=document.getElementById("video-frame");
+
+    if(!iframe){
+        iframe=document.createElement("iframe");
+        iframe.id="video-frame";
+        document.getElementById("dashboard").prepend(iframe);
+    }
+
+    iframe.src=url+"?autoplay=1&mute=1";
+}
+
+/* timer */
+function runTimer(){
+    clearInterval(timer);
+
+    timer=setInterval(()=>{
+        timeLeft--;
+
+        exercise-timer.innerText=timeLeft;
+        current-ex-name.innerText=workoutQueue[currentIdx].name;
+
+        let progress=((workoutQueue[currentIdx].duration-timeLeft)/workoutQueue[currentIdx].duration)*100;
+        progress-fill.style.width=progress+"%";
+
+        if(timeLeft<=0){
+            currentIdx++;
+            if(currentIdx<workoutQueue.length) startAt(currentIdx);
+            else finish();
+        }
+
+    },1000);
+}
+
+/* finish */
+function finish(){
+    stats.workouts++;
+
+    const today=new Date().toDateString();
+    if(stats.lastDate!==today) stats.streak++;
+
+    stats.lastDate=today;
+
+    localStorage.setItem("stats",JSON.stringify(stats));
+
+    alert("DONE 🔥");
+    location.reload();
+}
+
+/* stats */
+function renderStats(){
+    stats-box.innerHTML=`
+        <div class="stat-card">🔥 ${stats.streak}</div>
+        <div class="stat-card">💪 ${stats.workouts}</div>
+    `;
+}
+
+/* controls */
+skip-btn.onclick=()=>{
+    currentIdx++;
+    if(currentIdx<workoutQueue.length) startAt(currentIdx);
 };
 
-document.getElementById('skip-btn').onclick = () => {
-    if(currentIdx < workoutQueue.length - 1) startAt(currentIdx + 1);
+play-pause-btn.onclick=()=>{
+    clearInterval(timer);
 };
 
-function switchScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+/* screen */
+function switchScreen(id){
+    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
