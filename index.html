@@ -56,7 +56,6 @@
             <label class="program-btn"><input type="radio" name="goal" value="menopause"> 🌸 HORMONAL BALANCE</label>
             <label class="program-btn"><input type="radio" name="goal" value="joints"> 🦴 JOINT CARE</label>
             <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 OFFICE FIX</label>
-            <label class="program-btn"><input type="radio" name="goal" value="strength"> 🦾 STRENGTH</label>
         </div>
         <button id="main-start-btn" class="nike-btn-grad">GENERATE PROFESSIONAL PLAN</button>
     </div>
@@ -75,16 +74,17 @@
 </section>
 
 <section id="dashboard" class="screen">
-    <div id="exercise-timer">00:00</div>
+    <div class="timer-row">
+        <div id="exercise-timer">00:00</div>
+        <img id="dashboard-thumb" src="" alt="">
+    </div>
     <div class="video-container">
         <iframe id="youtube-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <h2 id="current-ex-name" class="gradient-text"></h2>
     <div class="n-progress-bar"><div id="progress-fill"></div></div>
-    <div class="controls-stack">
-        <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
-        <button id="skip-btn" class="nike-btn-grad" style="margin-top:10px; background:#222;">SKIP ➔</button>
-    </div>
+    <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
+    <button id="skip-btn" class="nike-btn-grad" style="margin-top:10px; background:#222;">SKIP ➔</button>
 </section>
 
 <script src="script.js"></script>
