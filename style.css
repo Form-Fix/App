@@ -1,7 +1,7 @@
 :root {
-    --p-pink: #d946ef;
-    --p-oran: #f97316;
-    --nike-gradient: linear-gradient(135deg, #8b5cf6, #d946ef, #f97316);
+    --p-pink:#d946ef;
+    --p-oran:#f97316;
+    --grad:linear-gradient(135deg,#8b5cf6,#d946ef,#f97316);
 }
 
 body {
@@ -11,27 +11,25 @@ body {
     font-family:'Inter';
 }
 
-/* screens */
-.screen {display:none; padding:20px;}
+.screen {display:none;padding:20px;}
 .screen.active {display:block;}
 
-/* card */
 .nike-card {
     background:#0c0c0c;
     padding:20px;
     border-radius:20px;
 }
 
-/* text */
+/* TEXT */
 .gradient-text {
-    background:var(--nike-gradient);
+    background:var(--grad);
     -webkit-background-clip:text;
     color:transparent;
 }
 
-/* button */
+/* BUTTON */
 .nike-btn-grad {
-    background:var(--nike-gradient);
+    background:var(--grad);
     border:none;
     padding:20px;
     border-radius:12px;
@@ -39,19 +37,7 @@ body {
     width:100%;
 }
 
-/* program */
-input[type="radio"] {display:none;}
-
-.program-btn {
-    display:block;
-    background:#111;
-    padding:15px;
-    margin:5px 0;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-/* input */
+/* GRID */
 .input-grid {
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -61,39 +47,64 @@ input[type="radio"] {display:none;}
 .stat-card {
     background:#111;
     padding:10px;
-    border-radius:10px;
+    border-radius:12px;
     text-align:center;
 }
 
-/* number input */
+/* NUMBER INPUT */
 .number-input {
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     background:#000;
-    border-radius:10px;
+    border-radius:12px;
     padding:5px;
+    border:1px solid #222;
 }
 
 .number-input input {
     width:60px;
     text-align:center;
-    font-size:1.2rem;
     background:transparent;
     border:none;
     color:white;
+    font-weight:900;
+    font-size:1.1rem;
 }
 
-.number-input button {
-    background:var(--nike-gradient);
+.num-btn {
+    background:var(--grad);
     border:none;
     color:white;
-    width:30px;
-    height:30px;
+    width:32px;
+    height:32px;
     border-radius:8px;
+    font-weight:900;
+    cursor:pointer;
 }
 
-/* list */
+/* PROGRAM */
+.program-btn {
+    display:block;
+    background:#111;
+    padding:15px;
+    margin:5px 0;
+    border-radius:12px;
+    cursor:pointer;
+    border:1px solid #222;
+}
+
+.program-btn input {
+    display:none;
+}
+
+/* ACTIVE PROGRAM */
+.program-btn:has(input:checked) {
+    border-color:var(--p-pink);
+    background:rgba(217,70,239,0.1);
+}
+
+/* LIST */
 .n-item {
     background:#111;
     padding:15px;
@@ -101,7 +112,7 @@ input[type="radio"] {display:none;}
     border-radius:10px;
 }
 
-/* progress */
+/* PROGRESS */
 .n-progress-bar {
     height:6px;
     background:#222;
