@@ -64,4 +64,6 @@ body {
 .n-progress-bar { height: 12px; background: #111; border-radius: 20px; overflow: hidden; margin: 20px 0; }
 #progress-fill { height: 100%; width: 0%; background: var(--grad); transition: width 0.3s linear; }
 
-.back-btn { background: none; border: none; color: #555; font-weight: 900; margin-bottom: 20px; cursor: pointer; }
+
+.back-btn { background: none; border: none; color: #555; font-weight: 900; margin-bottom: 20px; cursor: pointer; text-transform: uppercase; }
+#exit-workout-btn { color: #ff4444; } /* Dodata crvena boja za exit da se razlikuje */
