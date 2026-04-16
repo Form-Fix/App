@@ -1,28 +1,77 @@
 const db = {
-    physio:[
-        {name: "Cat-Cow", yt: "kqnua4rHVp8"},
-        {name: "Bird Dog", yt: "wiFNA3sqjCA"},
-        {name: "Glute Bridge", yt: "wPM8icPu6H8"}
+    physio: [
+        { name: "Cat-Cow", yt: "kqnua4rHVp8" },
+        { name: "Bird Dog", yt: "wiFNA3sqjCA" },
+        { name: "Glute Bridge", yt: "wPM8icPu6H8" },
+        { name: "Dead Bug", yt: "g_byZ__EisM" },
+        { name: "Child's Pose", yt: "qYvYs83-7_M" },
+        { name: "Scapular Push-ups", yt: "H33H65-0GIs" },
+        { name: "Thoracic Rotation", yt: "Y8ZInX-7O_o" },
+        { name: "Pelvic Tilts", yt: "L_X6_mX0-8A" },
+        { name: "Clamshells", yt: "mI6S-6C6XyM" },
+        { name: "Wall Slides", yt: "42S_f9S_Uas" }
     ],
-    office:[
-        {name: "Neck Stretch", yt: "I6A_N_D_V8U"},
-        {name: "Wrist Rolls", yt: "E-9vVvM_Y_Y"}
+    office: [
+        { name: "Neck Stretch", yt: "I6A_N_D_V8U" },
+        { name: "Wrist Rolls", yt: "E-9vVvM_Y_Y" },
+        { name: "Seated Twist", yt: "Is7S-H6hS_k" },
+        { name: "Shoulder Shrugs", yt: "7mPz8pGf8p8" },
+        { name: "Desk Chest Stretch", yt: "M_0M9fWmsEw" },
+        { name: "Seated Leg Extensions", yt: "6IInLsc8w_k" },
+        { name: "Eye Palming", yt: "8_86q8Y_Y6E" },
+        { name: "Chin Tucks", yt: "6_v-37p7S9o" },
+        { name: "Finger Stretches", yt: "2Zk_6R2yP5c" },
+        { name: "Standing Calf Stretch", yt: "7m7p-08o0m0" }
     ],
-    strength:[
-        {name: "Push-ups", yt: "IODxDxX7oi4"},
-        {name: "Squats", yt: "gcNh17Ckjgg"},
-        {name: "Plank", yt: "ASdvN_XEl_c"}
+    strength: [
+        { name: "Push-ups", yt: "IODxDxX7oi4" },
+        { name: "Squats", yt: "gcNh17Ckjgg" },
+        { name: "Plank", yt: "ASdvN_XEl_c" },
+        { name: "Lunges", yt: "wrwwXE_67p0" },
+        { name: "Mountain Climbers", yt: "nmwgirgXLYM" },
+        { name: "Burpees", yt: "dZgVxmf6jkA" },
+        { name: "Diamond Push-ups", yt: "J0DnGzESSHk" },
+        { name: "Jumping Jacks", yt: "1b98WR72isY" },
+        { name: "Hollow Body Hold", yt: "LlV7W_N-G_E" },
+        { name: "Superman", yt: "z6PJn2z3120" },
+        { name: "Side Plank", yt: "XpS-C6E8Xps" },
+        { name: "Tricep Dips", yt: "0326dbS-8_o" }
     ],
-    yoga:[
-        {name: "Downward Dog", yt: "j97SSGzqhxQ"},
-        {name: "Cobra", yt: "fOdrW7nfPrg"}
+    yoga: [
+        { name: "Downward Dog", yt: "j97SSGzqhxQ" },
+        { name: "Cobra Pose", yt: "fOdrW7nfPrg" },
+        { name: "Warrior I", yt: "osXj67EIsyM" },
+        { name: "Warrior II", yt: "4Ejz7IgAnlU" },
+        { name: "Tree Pose", yt: "wdln9qWYloU" },
+        { name: "Pigeon Pose", yt: "W2P6L6mG7S8" },
+        { name: "Triangle Pose", yt: "S6S7G-O-X60" },
+        { name: "Plough Pose", yt: "S6S7G-O-X60" },
+        { name: "Bridge Pose", yt: "wPM8icPu6H8" },
+        { name: "Crow Pose", yt: "8S7_G_O-X60" }
     ],
-    stretch:[
-        {name: "Hamstring Stretch", yt: "SshM9770mX0"}
+    stretch: [
+        { name: "Hamstring Stretch", yt: "SshM9770mX0" },
+        { name: "Butterfly Stretch", yt: "MdX6pL-Z-O4" },
+        { name: "Quad Stretch", yt: "1oI9q60-m8A" },
+        { name: "Cobra Stretch", yt: "fOdrW7nfPrg" },
+        { name: "Lizard Stretch", yt: "i7A_N_D_V8U" },
+        { name: "Shoulder Stretch", yt: "mI6S-H6hS_k" },
+        { name: "Lat Stretch", yt: "i7A_N_D_V8U" },
+        { name: "Hip Flexor Stretch", yt: "6_v-37p7S9o" },
+        { name: "Spinal Twist", yt: "S6S7G-O-X60" },
+        { name: "Toe Touch", yt: "MdX6pL-Z-O4" }
     ],
-    pilates:[
-        {name: "Hundred", yt: "lCg_gh_fppI"},
-        {name: "Roll Up", yt: "fK26MvL1sK4"}
+    pilates: [
+        { name: "Hundred", yt: "lCg_gh_fppI" },
+        { name: "Roll Up", yt: "fK26MvL1sK4" },
+        { name: "Single Leg Stretch", yt: "lCg_gh_fppI" },
+        { name: "Double Leg Stretch", yt: "fK26MvL1sK4" },
+        { name: "Criss Cross", yt: "lCg_gh_fppI" },
+        { name: "Scissors", yt: "fK26MvL1sK4" },
+        { name: "Teaser", yt: "lCg_gh_fppI" },
+        { name: "Leg Circles", yt: "fK26MvL1sK4" },
+        { name: "Swimming", yt: "lCg_gh_fppI" },
+        { name: "Saw", yt: "fK26MvL1sK4" }
     ]
 };
 
@@ -38,7 +87,15 @@ function getCleanYtUrl(videoId) {
     return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&autoplay=1&mute=1&playsinline=1`;
 }
 
-/* UI SETUP CONTROLS (+ i -) */
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+/* UI KONTROLE */
 document.querySelectorAll(".num-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         const id = btn.dataset.target;
@@ -59,10 +116,10 @@ document.querySelectorAll(".num-btn").forEach(btn => {
     });
 });
 
-/* GENERATE PLAN ACTION */
+/* GENERATE PLAN */
 document.getElementById("main-start-btn").onclick = () => {
     const goalInput = document.querySelector('input[name="goal"]:checked');
-    if(!goalInput) return alert("Select program");
+    if (!goalInput) return alert("Select program");
     
     generateWeeklyPlan(goalInput.value);
     renderPlanScreen();
@@ -74,12 +131,16 @@ function generateWeeklyPlan(goal) {
     const pool = db[goal];
     const totalMin = parseInt(document.getElementById("user-duration").value) || 20;
 
-    for(let i = 1; i <= 7; i++) {
-        let dayExercises = [];
-        for(let j = 0; j < 5; j++) {
-            let ex = pool[Math.floor(Math.random() * pool.length)];
-            dayExercises.push({...ex, duration: (totalMin * 60) / 5});
-        }
+    for (let i = 1; i <= 7; i++) {
+        let shuffledExercises = shuffle([...pool]);
+        const numExercises = shuffledExercises.length;
+        const durationPerEx = Math.floor((totalMin * 60) / numExercises);
+
+        let dayExercises = shuffledExercises.map(ex => ({
+            ...ex,
+            duration: durationPerEx
+        }));
+
         weeklyPlan.push({ dayNumber: i, exercises: dayExercises });
     }
 }
@@ -105,7 +166,7 @@ function loadDay(idx) {
     switchScreen("workout-hub");
 }
 
-/* WORKOUT ENGINE */
+/* TIMER ENGINE */
 function formatTime(s) {
     return `${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
 }
@@ -154,7 +215,7 @@ function nextExercise() {
     }
 }
 
-/* DASHBOARD CONTROLS */
+/* KONTROLE */
 document.getElementById("skip-btn").onclick = () => nextExercise();
 document.getElementById("play-pause-btn").onclick = function() {
     isPaused = !isPaused;
