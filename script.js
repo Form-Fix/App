@@ -12,7 +12,7 @@ const db = {
             { name: "Dead Bug Core", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" },
             { name: "Clamshells", yt: "VlwBJE1wtOQ" },
             { name: "Superman Spine", yt: "z6PJn2z3120" },
-            { name: "Plank Hold", yt: "ASdvN_XEl_c" },
+            { name: "Plank Hold", yt: "ASdvN_Y_Y_c" },
             { name: "Side Leg Raise", yt: "VlwBJE1wtOQ" },
             { name: "Wall Sit Hold", yt: "y-wV4Venus" }
         ],
@@ -141,7 +141,6 @@ function generateWeeklyPlan(goal) {
             ...shuffle([...cat.main]), 
             ...cat.coolDown
         ];
-        
         const durationPerEx = Math.floor((totalMin * 60) / session.length);
         weeklyPlan.push({ 
             day: i, 
@@ -218,12 +217,8 @@ function updateDashboard() {
     const ex = workoutQueue[currentIdx];
     document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
     document.getElementById("current-ex-name").innerText = ex.name;
-    
-    // Video fiks: dodata playlist i loop parametar za stabilnost
     const ytId = ex.yt;
     document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&rel=0&playlist=${ytId}&loop=1&modestbranding=1`;
-    
-    // Thumbnail desno na dashboardu
     const dashThumb = document.getElementById("dashboard-thumb");
     if(ex.img) {
         dashThumb.src = ex.img;
@@ -240,7 +235,6 @@ function runTimer() {
             timeLeft--;
             document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
             
-            // Progress bar update
             const total = workoutQueue[currentIdx].duration;
             document.getElementById("progress-fill").style.width = ((total - timeLeft) / total * 100) + "%";
             
