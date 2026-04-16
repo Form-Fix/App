@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FormFix Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="stat-card">
-                <label>MINUTES</label>
+                <label>DURATION</label>
                 <div class="number-input">
                     <button type="button" class="num-btn" data-target="user-duration" data-step="-5">−</button>
                     <input type="number" id="user-duration" value="20" readonly>
@@ -49,9 +49,9 @@
 
         <div class="goal-selector">
             <label class="program-btn"><input type="radio" name="goal" value="menopause"> 🌸 Menopause Strength</label>
-            <label class="program-btn"><input type="radio" name="goal" value="weightloss"> 🔥 Weight Loss Focus</label>
-            <label class="program-btn"><input type="radio" name="goal" value="joints"> 🦴 Joint Care</label>
-            <label class="program-btn"><input type="radio" name="goal" value="physio"> 🩹 Rehab / Back Fix</label>
+            <label class="program-btn"><input type="radio" name="goal" value="weightloss"> 🔥 Fat Burn Focus</label>
+            <label class="program-btn"><input type="radio" name="goal" value="joints"> 🦴 Joint Mobility</label>
+            <label class="program-btn"><input type="radio" name="goal" value="physio"> 🩹 Rehab / Back Care</label>
             <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 Office Recovery</label>
         </div>
         <button id="main-start-btn" class="nike-btn-grad">Generate Plan</button>
@@ -59,30 +59,28 @@
 </section>
 
 <section id="plan-screen" class="screen">
-    <button onclick="switchScreen('home-screen')" class="back-btn">← BACK</button>
-    <h2 class="gradient-text">WEEKLY PROGRAM</h2>
+    <button onclick="switchScreen('home-screen')" class="back-btn">← GO BACK</button>
+    <h2 class="gradient-text">WEEKLY<br>PLAN</h2>
     <div id="weekly-plan-list"></div>
 </section>
 
 <section id="workout-hub" class="screen">
-    <button onclick="switchScreen('plan-screen')" class="back-btn">← BACK</button>
+    <button onclick="switchScreen('plan-screen')" class="back-btn">← BACK TO PLAN</button>
     <div id="exercise-list-ul"></div>
-    <button id="start-workout-btn" class="nike-btn-grad">START SESSION</button>
+    <button id="start-workout-btn" class="nike-btn-grad" style="margin-top:20px;">START ALL</button>
 </section>
 
 <section id="dashboard" class="screen">
-    <button id="exit-workout-btn" class="back-btn">✕ EXIT SESSION</button>
+    <button id="exit-workout-btn" class="back-btn">✕ EXIT</button>
     <div id="exercise-timer" class="gradient-text">00:00</div>
     <div class="video-container">
         <iframe id="youtube-player" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
-    <h2 id="current-ex-name" style="text-align: center; margin-bottom: 20px;"></h2>
-    <div class="n-progress-bar" style="background:#111; height:8px; border-radius:10px; overflow:hidden; margin-bottom:20px;">
-        <div id="progress-fill" style="background:var(--grad); height:100%; width:0%; transition:0.3s;"></div>
-    </div>
-    <div class="controls-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <button id="play-pause-btn" style="padding:20px; background:#222; border:none; color:white; border-radius:15px; font-weight:900;">PAUSE</button>
-        <button id="skip-btn" style="padding:20px; background:var(--p-pink); border:none; color:white; border-radius:15px; font-weight:900;">SKIP ➔</button>
+    <h2 id="current-ex-name" style="text-align:center; font-weight:900;"></h2>
+    <div class="n-progress-bar"><div id="progress-fill"></div></div>
+    <div class="controls-row" style="display: grid; grid-template-columns: 1fr 1fr; gap:15px;">
+        <button id="play-pause-btn" class="num-btn" style="width:100%; height:60px;">PAUSE</button>
+        <button id="skip-btn" class="num-btn" style="width:100%; height:60px; background:var(--p-pink)">SKIP ➔</button>
     </div>
 </section>
 
