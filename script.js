@@ -27,23 +27,18 @@ const db = {
 };
 
 const levels = ["BEGINNER", "INTERMEDIATE", "PRO"];
-let weeklyPlan = {};
+let weeklyPlan = [];
 let workoutQueue = [];
 let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 let isPaused = false;
 
-/* FUNKCIJA ZA ČIŠĆENJE VIDEA */
 function getCleanYtUrl(videoId) {
-    // rel=0 (sugestije samo sa istog kanala)
-    // modestbranding=1 (manje YT oznaka)
-    // iv_load_policy=3 (isključuje anotacije na videu)
-    // playsinline=1 (bitno za mobilne da ne otvara full screen automatski)
     return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&autoplay=1&mute=1&playsinline=1`;
 }
 
-/* UI KONTROLE */
+/* UI SETUP CONTROLS */
 document.querySelectorAll(".num-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         const id = btn.dataset.target;
@@ -62,44 +57,49 @@ document.querySelectorAll(".num-btn").forEach(btn => {
     });
 });
 
+/* GENERATE PLAN */
 document.getElementById("main-start-btn").onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked');
     if(!goal) return alert("Select program");
-    generatePlan(goal.value);
-    renderWeekly();
+    
+    generateWeeklyPlan(goal.value);
+    renderPlanScreen();
+    switchScreen("plan-screen");
 };
 
-function generatePlan(goal) {
-    const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+function generateWeeklyPlan(goal) {
+    weeklyPlan = [];
     const pool = db[goal];
     const totalMin = parseInt(document.getElementById("user-duration").value) || 20;
-    days.forEach(day => {
-        weeklyPlan[day] = [];
-        for(let i=0; i<5; i++) {
+
+    for(let i = 1; i <= 7; i++) {
+        let dayExercises = [];
+        for(let j = 0; j < 5; j++) {
             let ex = pool[Math.floor(Math.random() * pool.length)];
-            weeklyPlan[day].push({...ex, duration: (totalMin * 60) / 5});
+            dayExercises.push({...ex, duration: (totalMin * 60) / 5});
         }
-    });
+        weeklyPlan.push({ dayNumber: i, exercises: dayExercises });
+    }
 }
 
-function renderWeekly() {
-    const container = document.getElementById("weekly-plan-container");
-    container.innerHTML = `<h3 style="font-size:0.7rem; color:#666;">DAILY PLANS</h3>` + 
-        Object.keys(weeklyPlan).map(day => `
-            <div class="n-item" onclick="loadDay('${day}')" style="cursor:pointer; display:flex; justify-content:space-between;">
-                ${day} <span style="color:var(--p-pink)">➔</span>
-            </div>
-        `).join("");
+function renderPlanScreen() {
+    const container = document.getElementById("weekly-plan-list");
+    container.innerHTML = weeklyPlan.map((day, idx) => `
+        <div class="n-item" onclick="loadDay(${idx})" style="cursor:pointer; display:flex; justify-content:space-between;">
+            DAY ${day.dayNumber} <span style="color:var(--p-pink)">➔</span>
+        </div>
+    `).join("");
 }
 
-function loadDay(day) {
-    workoutQueue = weeklyPlan[day];
+function loadDay(idx) {
+    workoutQueue = weeklyPlan[idx].exercises;
     const container = document.getElementById("exercise-list-ul");
-    container.innerHTML = workoutQueue.map((ex, i) => `<div class="n-item" onclick="startAt(${i})">${i+1}. ${ex.name}</div>`).join("");
+    container.innerHTML = `<h3 style="margin-bottom:15px; font-size:0.8rem; color:#666;">DAY ${idx+1} EXERCISES</h3>` + 
+        workoutQueue.map((ex, i) => `<div class="n-item" onclick="startAt(${i})">${i+1}. ${ex.name}</div>`).join("");
     switchScreen("workout-hub");
 }
 
-/* TIMER LOGIKA */
+/* WORKOUT ENGINE */
 function formatTime(s) {
     return `${Math.floor(s/60).toString().padStart(2,'0')}:${Math.floor(s%60).toString().padStart(2,'0')}`;
 }
@@ -117,12 +117,10 @@ function updateDashboard() {
     const ex = workoutQueue[currentIdx];
     document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
     document.getElementById("current-ex-name").innerText = ex.name;
-    
-    // PRIMENA ČISTOG URL-A
     document.getElementById("youtube-player").src = getCleanYtUrl(ex.yt);
 
     const next = document.getElementById("next-ex-preview");
-    next.innerText = (currentIdx + 1 < workoutQueue.length) ? "NEXT: " + workoutQueue[currentIdx+1].name : "LAST ONE!";
+    next.innerText = (currentIdx + 1 < workoutQueue.length) ? "NEXT: " + workoutQueue[currentIdx+1].name : "FINAL EXERCISE";
 }
 
 function runTimer() {
@@ -145,12 +143,12 @@ function nextExercise() {
         startAt(currentIdx + 1);
     } else {
         clearInterval(timer);
-        alert("GOAL REACHED!");
-        location.reload();
+        alert("DAY COMPLETED!");
+        switchScreen("plan-screen");
     }
 }
 
-/* DASHBOARD KONTROLE */
+/* DASHBOARD CONTROLS */
 document.getElementById("skip-btn").onclick = () => nextExercise();
 document.getElementById("play-pause-btn").onclick = function() {
     isPaused = !isPaused;
