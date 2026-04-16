@@ -1,5 +1,5 @@
 :root {
-    --accent: #a370f7; /* Nike Purple */
+    --accent: #a370f7;
     --bg: #000000;
     --card-bg: #111111;
     --text: #ffffff;
@@ -32,7 +32,6 @@ body {
     display: block;
 }
 
-/* Typography */
 .hero-title {
     font-family: 'Archivo Black', sans-serif;
     font-size: 4rem;
@@ -47,7 +46,6 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* Cards & Inputs */
 .nike-card {
     background: var(--card-bg);
     border-radius: 24px;
@@ -96,14 +94,13 @@ body {
     background: #333;
     border: none;
     color: white;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
 }
 
-/* Goal Selection Stack */
 .program-stack {
     display: flex;
     flex-direction: column;
@@ -128,7 +125,6 @@ body {
 
 .program-btn input { display: none; }
 
-/* Buttons */
 .nike-btn-grad {
     width: 100%;
     padding: 18px;
@@ -149,15 +145,14 @@ body {
     font-weight: 900;
     margin-bottom: 20px;
     cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
 #exit-workout-btn {
-    color: var(--danger); /* Exit je crven */
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    color: var(--danger);
 }
 
-/* List Items */
 .n-item {
     background: #111;
     margin-bottom: 10px;
@@ -179,7 +174,6 @@ body {
     background: #1a1a1a;
 }
 
-/* Dashboard & Video */
 .timer-row {
     display: flex;
     justify-content: space-between;
@@ -197,6 +191,7 @@ body {
     width: 100px;
     border-radius: 12px;
     border: 1px solid #333;
+    display: none;
 }
 
 .video-container {
@@ -227,9 +222,4 @@ body {
     background: var(--accent);
     width: 0%;
     transition: 0.3s;
-}
-
-#play-pause-btn {
-    background: var(--accent);
-    color: #000;
 }
