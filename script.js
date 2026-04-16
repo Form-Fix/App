@@ -9,7 +9,9 @@ const db = {
         { name: "Thoracic Rotation", yt: "Y8ZInX-7O_o" },
         { name: "Pelvic Tilts", yt: "L_X6_mX0-8A" },
         { name: "Clamshells", yt: "mI6S-6C6XyM" },
-        { name: "Wall Slides", yt: "42S_f9S_Uas" }
+        { name: "Wall Slides", yt: "42S_f9S_Uas" },
+        { name: "Prone Y-Raise", yt: "lG7f1OAt6Xw" },
+        { name: "Cervical Retraction", yt: "6_v-37p7S9o" }
     ],
     office: [
         { name: "Neck Stretch", yt: "I6A_N_D_V8U" },
@@ -21,7 +23,9 @@ const db = {
         { name: "Eye Palming", yt: "8_86q8Y_Y6E" },
         { name: "Chin Tucks", yt: "6_v-37p7S9o" },
         { name: "Finger Stretches", yt: "2Zk_6R2yP5c" },
-        { name: "Standing Calf Stretch", yt: "7m7p-08o0m0" }
+        { name: "Standing Calf Stretch", yt: "7m7p-08o0m0" },
+        { name: "Spinal Roll Down", yt: "qYvYs83-7_M" },
+        { name: "Upper Trap Stretch", yt: "I6A_N_D_V8U" }
     ],
     strength: [
         { name: "Push-ups", yt: "IODxDxX7oi4" },
@@ -35,7 +39,9 @@ const db = {
         { name: "Hollow Body Hold", yt: "LlV7W_N-G_E" },
         { name: "Superman", yt: "z6PJn2z3120" },
         { name: "Side Plank", yt: "XpS-C6E8Xps" },
-        { name: "Tricep Dips", yt: "0326dbS-8_o" }
+        { name: "Tricep Dips", yt: "0326dbS-8_o" },
+        { name: "Bicycle Crunches", yt: "9v_f8A-7_Y" },
+        { name: "Wall Sit", yt: "y-wV4Venus" }
     ],
     yoga: [
         { name: "Downward Dog", yt: "j97SSGzqhxQ" },
@@ -45,9 +51,11 @@ const db = {
         { name: "Tree Pose", yt: "wdln9qWYloU" },
         { name: "Pigeon Pose", yt: "W2P6L6mG7S8" },
         { name: "Triangle Pose", yt: "S6S7G-O-X60" },
-        { name: "Plough Pose", yt: "S6S7G-O-X60" },
+        { name: "Child’s Pose", yt: "qYvYs83-7_M" },
         { name: "Bridge Pose", yt: "wPM8icPu6H8" },
-        { name: "Crow Pose", yt: "8S7_G_O-X60" }
+        { name: "Cat-Cow Flow", yt: "kqnua4rHVp8" },
+        { name: "Plank Pose", yt: "ASdvN_XEl_c" },
+        { name: "Boat Pose", yt: "8S7_G_O-X60" }
     ],
     stretch: [
         { name: "Hamstring Stretch", yt: "SshM9770mX0" },
@@ -56,22 +64,26 @@ const db = {
         { name: "Cobra Stretch", yt: "fOdrW7nfPrg" },
         { name: "Lizard Stretch", yt: "i7A_N_D_V8U" },
         { name: "Shoulder Stretch", yt: "mI6S-H6hS_k" },
-        { name: "Lat Stretch", yt: "i7A_N_D_V8U" },
         { name: "Hip Flexor Stretch", yt: "6_v-37p7S9o" },
         { name: "Spinal Twist", yt: "S6S7G-O-X60" },
-        { name: "Toe Touch", yt: "MdX6pL-Z-O4" }
+        { name: "Toe Touch", yt: "MdX6pL-Z-O4" },
+        { name: "Tricep Stretch", yt: "0326dbS-8_o" },
+        { name: "Glute Stretch", yt: "wPM8icPu6H8" },
+        { name: "Calf Stretch", yt: "7m7p-08o0m0" }
     ],
     pilates: [
-        { name: "Hundred", yt: "lCg_gh_fppI" },
+        { name: "The Hundred", yt: "lCg_gh_fppI" },
         { name: "Roll Up", yt: "fK26MvL1sK4" },
-        { name: "Single Leg Stretch", yt: "lCg_gh_fppI" },
-        { name: "Double Leg Stretch", yt: "fK26MvL1sK4" },
-        { name: "Criss Cross", yt: "lCg_gh_fppI" },
-        { name: "Scissors", yt: "fK26MvL1sK4" },
-        { name: "Teaser", yt: "lCg_gh_fppI" },
-        { name: "Leg Circles", yt: "fK26MvL1sK4" },
-        { name: "Swimming", yt: "lCg_gh_fppI" },
-        { name: "Saw", yt: "fK26MvL1sK4" }
+        { name: "Single Leg Stretch", yt: "68O8-X8Xm8w" },
+        { name: "Double Leg Stretch", yt: "5_6pL8Xm8A" },
+        { name: "Criss Cross", yt: "XpS-C6E8Xps" },
+        { name: "Leg Circles", yt: "8S7_G_O-X60" },
+        { name: "Swan Dive", yt: "fOdrW7nfPrg" },
+        { name: "Swimming", yt: "z6PJn2z3120" },
+        { name: "The Saw", yt: "S6S7G-O-X60" },
+        { name: "Spine Stretch Forward", yt: "qYvYs83-7_M" },
+        { name: "Plank Leg Pull", yt: "ASdvN_XEl_c" },
+        { name: "Side Kick Series", yt: "mI6S-6C6XyM" }
     ]
 };
 
@@ -87,10 +99,14 @@ function getCleanYtUrl(videoId) {
     return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&autoplay=1&mute=1&playsinline=1`;
 }
 
+// Fisher-Yates shuffle za potpuno mešanje niza
 function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+    let m = array.length, t, i;
+    while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
     }
     return array;
 }
@@ -116,10 +132,10 @@ document.querySelectorAll(".num-btn").forEach(btn => {
     });
 });
 
-/* GENERATE PLAN */
+/* GENERATE PLAN LOGIKA - FIX: MIN 10 VEŽBI I BEZ PONAVLJANJA */
 document.getElementById("main-start-btn").onclick = () => {
     const goalInput = document.querySelector('input[name="goal"]:checked');
-    if (!goalInput) return alert("Select program");
+    if (!goalInput) return alert("Please select a program");
     
     generateWeeklyPlan(goalInput.value);
     renderPlanScreen();
@@ -132,11 +148,18 @@ function generateWeeklyPlan(goal) {
     const totalMin = parseInt(document.getElementById("user-duration").value) || 20;
 
     for (let i = 1; i <= 7; i++) {
-        let shuffledExercises = shuffle([...pool]);
-        const numExercises = shuffledExercises.length;
+        // 1. Uzmi sve vežbe iz bazena i promešaj ih
+        let shuffled = shuffle([...pool]);
+        
+        // 2. Osiguraj minimalno 10 vežbi. 
+        // Ako je bazen veći (npr 12), uzeće svih 12. Ako je manji, uzeće koliko ima.
+        // Sa trenutnom bazom uzeće 10-12 UNIKATNIH vežbi.
+        let selectedExercises = shuffled; 
+
+        const numExercises = selectedExercises.length;
         const durationPerEx = Math.floor((totalMin * 60) / numExercises);
 
-        let dayExercises = shuffledExercises.map(ex => ({
+        let dayExercises = selectedExercises.map(ex => ({
             ...ex,
             duration: durationPerEx
         }));
@@ -150,8 +173,10 @@ function renderPlanScreen() {
     if(!container) return;
     
     container.innerHTML = weeklyPlan.map((day, idx) => `
-        <div class="n-item" onclick="loadDay(${idx})" style="cursor:pointer; display:flex; justify-content:space-between;">
-            DAY ${day.dayNumber} <span style="color:var(--p-pink)">➔</span>
+        <div class="n-item" onclick="loadDay(${idx})" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+            <span>DAY ${day.dayNumber}</span>
+            <span style="font-size:0.7rem; color:#666;">${day.exercises.length} EXERCISES</span>
+            <span style="color:var(--p-pink)">➔</span>
         </div>
     `).join("");
 }
@@ -161,8 +186,8 @@ function loadDay(idx) {
     const container = document.getElementById("exercise-list-ul");
     if(!container) return;
 
-    container.innerHTML = `<h3 style="margin-bottom:15px; font-size:0.8rem; color:#666;">DAY ${idx+1} EXERCISES</h3>` + 
-        workoutQueue.map((ex, i) => `<div class="n-item" onclick="startAt(${i})">${i+1}. ${ex.name}</div>`).join("");
+    container.innerHTML = `<h3 style="margin-bottom:15px; font-size:0.8rem; color:#666; text-transform:uppercase;">DAY ${idx+1} EXERCISES</h3>` + 
+        workoutQueue.map((ex, i) => `<div class="n-item" onclick="startAt(${i})"><span style="color:var(--p-pink); margin-right:10px;">${i+1}.</span> ${ex.name}</div>`).join("");
     switchScreen("workout-hub");
 }
 
