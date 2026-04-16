@@ -45,7 +45,7 @@ const db = {
     },
     joints: {
         warmup: [
-            { name: "Ankle Rolls", yt: "mqz6bhQFJe8" },
+            { name: "Ankle Rolls", yt: "mI6S-6C6XyM" },
             { name: "Wrist Mobility", yt: "E-9vVvM_Y_Y" }
         ],
         main: [
@@ -141,6 +141,7 @@ function generateWeeklyPlan(goal) {
             ...shuffle([...cat.main]), 
             ...cat.coolDown
         ];
+        
         const durationPerEx = Math.floor((totalMin * 60) / session.length);
         weeklyPlan.push({ 
             day: i, 
@@ -217,8 +218,12 @@ function updateDashboard() {
     const ex = workoutQueue[currentIdx];
     document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
     document.getElementById("current-ex-name").innerText = ex.name;
+    
+    // Video fiks: dodata playlist i loop parametar za stabilnost
     const ytId = ex.yt;
     document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&rel=0&playlist=${ytId}&loop=1&modestbranding=1`;
+    
+    // Thumbnail desno na dashboardu
     const dashThumb = document.getElementById("dashboard-thumb");
     if(ex.img) {
         dashThumb.src = ex.img;
@@ -235,6 +240,7 @@ function runTimer() {
             timeLeft--;
             document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
             
+            // Progress bar update
             const total = workoutQueue[currentIdx].duration;
             document.getElementById("progress-fill").style.width = ((total - timeLeft) / total * 100) + "%";
             
