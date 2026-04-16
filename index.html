@@ -29,15 +29,12 @@
                     <button type="button" class="num-btn" data-target="weight" data-step="1">+</button>
                 </div>
             </div>
-        </div>
-
-        <div class="input-grid">
             <div class="stat-card">
                 <label>LEVEL</label>
                 <div class="number-input">
-                    <button type="button" class="num-btn" data-target="user-level" data-type="list" data-step="-1">−</button>
-                    <input type="text" id="user-level" value="BEGINNER" readonly>
-                    <button type="button" class="num-btn" data-target="user-level" data-type="list" data-step="1">+</button>
+                    <button type="button" class="num-btn" data-target="user-level" data-step="-1" data-type="list">−</button>
+                    <input type="text" id="user-level" value="BEGINNER" readonly style="font-size: 0.7rem;">
+                    <button type="button" class="num-btn" data-target="user-level" data-step="1" data-type="list">+</button>
                 </div>
             </div>
             <div class="stat-card">
@@ -50,11 +47,11 @@
             </div>
         </div>
 
-        <div class="program-stack">
-            <label class="program-btn"><input type="radio" name="goal" value="physio" checked> 🧘 PHYSIO</label>
-            <label class="program-btn"><input type="radio" name="goal" value="weightloss"> ⚡ METABOLIC / WEIGHT</label>
-            <label class="program-btn"><input type="radio" name="goal" value="menopause"> 🌸 HORMONAL BALANCE</label>
+        <div class="goal-selector">
+            <label class="program-btn"><input type="radio" name="goal" value="menopause"> 🌸 MENOPAUSE</label>
+            <label class="program-btn"><input type="radio" name="goal" value="weightloss"> 🔥 WEIGHT LOSS</label>
             <label class="program-btn"><input type="radio" name="goal" value="joints"> 🦴 JOINT CARE</label>
+            <label class="program-btn"><input type="radio" name="goal" value="physio"> 🩹 REHAB / BACK</label>
             <label class="program-btn"><input type="radio" name="goal" value="office"> 💻 OFFICE FIX</label>
         </div>
         <button id="main-start-btn" class="nike-btn-grad">GENERATE PROFESSIONAL PLAN</button>
@@ -84,8 +81,10 @@
     </div>
     <h2 id="current-ex-name" class="gradient-text"></h2>
     <div class="n-progress-bar"><div id="progress-fill"></div></div>
-    <button id="play-pause-btn" class="nike-btn-grad">PAUSE</button>
-    <button id="skip-btn" class="nike-btn-grad" style="margin-top:10px; background:#222;">SKIP ➔</button>
+    <div class="controls-row">
+        <button id="play-pause-btn">PAUSE</button>
+        <button id="skip-btn">SKIP ➔</button>
+    </div>
 </section>
 
 <script src="script.js"></script>
