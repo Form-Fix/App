@@ -7,13 +7,11 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
 </head>
 
 <body>
 
 <section id="onboarding" class="screen active">
-<div class="main-content">
 
 <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
 
@@ -52,15 +50,27 @@
 </div>
 </div>
 
+<!-- SVE KATEGORIJE -->
 <div class="program-stack">
-<input type="radio" name="goal" value="strength" id="strength" checked>
-<label for="strength" class="program-btn">⚡ STRENGTH</label>
 
-<input type="radio" name="goal" value="mobility" id="mobility">
-<label for="mobility" class="program-btn">🧘 MOBILITY</label>
+<input type="radio" name="goal" value="physio" id="physio" checked>
+<label for="physio" class="program-btn">🧘 PHYSIO</label>
+
+<input type="radio" name="goal" value="office" id="office">
+<label for="office" class="program-btn">💻 OFFICE</label>
+
+<input type="radio" name="goal" value="strength" id="strength">
+<label for="strength" class="program-btn">⚡ STRENGTH</label>
 
 <input type="radio" name="goal" value="yoga" id="yoga">
 <label for="yoga" class="program-btn">☯ YOGA</label>
+
+<input type="radio" name="goal" value="stretch" id="stretch">
+<label for="stretch" class="program-btn">↔ STRETCH</label>
+
+<input type="radio" name="goal" value="pilates" id="pilates">
+<label for="pilates" class="program-btn">⭕ PILATES</label>
+
 </div>
 
 <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
@@ -69,26 +79,24 @@
 
 <div id="weekly-plan"></div>
 
-</div>
 </section>
 
 <section id="workout-hub" class="screen">
-<button class="back-minimal" onclick="location.reload()">←</button>
+<button onclick="location.reload()">←</button>
 <div id="exercise-list-ul"></div>
 <button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
 </section>
 
 <section id="dashboard" class="screen">
-<div id="stats-box"></div>
-<div id="exercise-timer" class="gradient-text">00</div>
+<div id="exercise-timer">00</div>
 <h2 id="current-ex-name"></h2>
 
 <div class="n-progress-bar">
-<div id="progress-fill" class="gradient-bg"></div>
+<div id="progress-fill"></div>
 </div>
 
-<button id="play-pause-btn" class="ctrl-btn main">PAUSE</button>
-<button id="skip-btn" class="ctrl-btn">SKIP</button>
+<button id="play-pause-btn">PAUSE</button>
+<button id="skip-btn">SKIP</button>
 </section>
 
 <script src="script.js"></script>
