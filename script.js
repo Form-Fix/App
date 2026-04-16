@@ -13,32 +13,25 @@ let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 
-/* FIX DROPDOWN */
-window.onload = () => {
-    const ageSelect = document.getElementById("age");
-    const weightSelect = document.getElementById("weight");
+/* change input */
+function changeValue(id, delta){
+    const input = document.getElementById(id);
+    let val = parseInt(input.value) || 0;
 
-    for(let i=18;i<=100;i++){
-        let opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = i;
-        ageSelect.appendChild(opt);
-    }
+    val += delta;
 
-    for(let i=40;i<=140;i++){
-        let opt = document.createElement("option");
-        opt.value = i;
-        opt.textContent = i;
-        weightSelect.appendChild(opt);
-    }
-};
+    if(id==="age") val = Math.max(10, Math.min(100, val));
+    if(id==="weight") val = Math.max(30, Math.min(200, val));
 
-/* GENERATE PLAN */
+    input.value = val;
+}
+
+/* start */
 document.getElementById("main-start-btn").onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked');
 
     if(!goal){
-        alert("Select category");
+        alert("Select program");
         return;
     }
 
@@ -46,7 +39,7 @@ document.getElementById("main-start-btn").onclick = () => {
     renderWeekly();
 };
 
-/* PLAN */
+/* plan */
 function generatePlan(goal){
     const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
     const pool = db[goal];
@@ -63,7 +56,7 @@ function generatePlan(goal){
     });
 }
 
-/* WEEK UI */
+/* render */
 function renderWeekly(){
     const el = document.getElementById("weekly-plan");
 
@@ -74,14 +67,14 @@ function renderWeekly(){
     `).join("");
 }
 
-/* LOAD DAY */
+/* load */
 function loadDay(day){
     workoutQueue = weeklyPlan[day];
     renderWorkout();
     switchScreen("workout-hub");
 }
 
-/* WORKOUT LIST */
+/* workout */
 function renderWorkout(){
     const el = document.getElementById("exercise-list-ul");
 
@@ -92,7 +85,7 @@ function renderWorkout(){
     `).join("");
 }
 
-/* START */
+/* start */
 document.getElementById("start-workout-btn").onclick = () => startAt(0);
 
 function startAt(i){
@@ -102,7 +95,7 @@ function startAt(i){
     runTimer();
 }
 
-/* TIMER */
+/* timer */
 function runTimer(){
     clearInterval(timer);
 
@@ -121,7 +114,17 @@ function runTimer(){
     },1000);
 }
 
-/* SCREEN */
+/* controls */
+document.getElementById("skip-btn").onclick = ()=>{
+    currentIdx++;
+    if(currentIdx < workoutQueue.length) startAt(currentIdx);
+};
+
+document.getElementById("play-pause-btn").onclick = ()=>{
+    clearInterval(timer);
+};
+
+/* screen */
 function switchScreen(id){
     document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
