@@ -1,8 +1,20 @@
 const db = {
-    strength: ["Push-ups","Squats","Plank","Lunges","Burpees"],
-    mobility: ["Hip Flow","Spine Rotation","Deep Squat Hold"],
-    office: ["Neck Stretch","Wrist Rolls","Shoulder Rolls"],
-    yoga: ["Sun Salutation","Warrior Flow","Tree Pose"]
+    strength: [
+        { name: "Push-ups", muscle: "chest", video: "https://www.youtube.com/embed/IODxDxX7oi4" },
+        { name: "Squats", muscle: "legs", video: "https://www.youtube.com/embed/aclHkVaku9U" },
+        { name: "Lunges", muscle: "legs", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" },
+        { name: "Plank", muscle: "core", video: "https://www.youtube.com/embed/pSHjTRCQxIw" },
+        { name: "Burpees", muscle: "full", video: "https://www.youtube.com/embed/TU8QYVW0gDU" }
+    ],
+
+    mobility: [
+        { name: "Hip Flow", muscle: "hips", video: "https://www.youtube.com/embed/2pLT-olgUJs" },
+        { name: "Spine Rotation", muscle: "spine", video: "https://www.youtube.com/embed/SNNKQlkoPqQ" }
+    ],
+
+    yoga: [
+        { name: "Sun Salutation", muscle: "full", video: "https://www.youtube.com/embed/73sjzvNYyCM" }
+    ]
 };
 
 let weeklyPlan = {};
@@ -11,33 +23,54 @@ let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 
-/* GENERATE PLAN */
+/* USER DATA */
+let stats = JSON.parse(localStorage.getItem("stats")) || {
+    workouts: 0,
+    streak: 0,
+    lastDate: null
+};
+
+/* GENERATE SMART PLAN */
 document.getElementById('main-start-btn').onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked').value;
-    generateWeeklyPlan(goal);
+    const level = document.getElementById('user-level').value;
+
+    generateSmartPlan(goal, level);
     renderWeekly();
 };
 
-/* WEEK PLAN */
-function generateWeeklyPlan(goal) {
+/* AI PLAN */
+function generateSmartPlan(goal, level) {
     const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+    const muscles = ["legs","chest","core","full"];
 
-    days.forEach(day => {
+    days.forEach((day,i)=>{
         weeklyPlan[day] = [];
 
-        for(let i=0;i<5;i++) {
+        let focus = muscles[i % muscles.length];
+
+        let pool = db[goal].filter(e => e.muscle === focus || e.muscle === "full");
+
+        for(let j=0;j<5;j++){
+            let ex = pool[Math.floor(Math.random()*pool.length)];
+
+            let duration = 60;
+            if(level === "pro") duration = 90;
+            if(level === "beginner") duration = 45;
+
             weeklyPlan[day].push({
-                name: db[goal][Math.floor(Math.random()*db[goal].length)],
-                duration: 60 + Math.random()*60
+                ...ex,
+                duration
             });
         }
     });
 }
 
+/* RENDER WEEK */
 function renderWeekly() {
-    const container = document.getElementById('weekly-plan');
+    const el = document.getElementById('weekly-plan');
 
-    container.innerHTML = Object.keys(weeklyPlan).map(day => `
+    el.innerHTML = Object.keys(weeklyPlan).map(day => `
         <div class="n-item" onclick="loadDay('${day}')">
             <b>${day}</b>
             <span>▶</span>
@@ -52,28 +85,47 @@ function loadDay(day) {
     switchScreen('workout-hub');
 }
 
-/* RENDER EXERCISES */
+/* RENDER EX */
 function renderWorkout() {
-    const list = document.getElementById('exercise-list-ul');
+    const el = document.getElementById('exercise-list-ul');
 
-    list.innerHTML = workoutQueue.map((ex,i)=>`
+    el.innerHTML = workoutQueue.map((ex,i)=>`
         <div class="n-item" onclick="startAt(${i})">
-            ${ex.name}
+            <div>
+                ${ex.name}
+                <br><small>${ex.duration}s</small>
+            </div>
             <span>▶</span>
         </div>
     `).join('');
 }
 
 /* START */
-document.getElementById('start-workout-btn').onclick = () => {
-    startAt(0);
-};
+document.getElementById('start-workout-btn').onclick = () => startAt(0);
 
 function startAt(i) {
     currentIdx = i;
     timeLeft = workoutQueue[i].duration;
     switchScreen('dashboard');
+
+    showVideo(workoutQueue[i].video);
     runTimer();
+}
+
+/* VIDEO */
+function showVideo(url) {
+    let iframe = document.getElementById("video-frame");
+
+    if(!iframe){
+        iframe = document.createElement("iframe");
+        iframe.id = "video-frame";
+        iframe.style.width = "100%";
+        iframe.style.height = "200px";
+        iframe.style.marginBottom = "10px";
+        document.getElementById("dashboard").prepend(iframe);
+    }
+
+    iframe.src = url;
 }
 
 /* TIMER */
@@ -83,19 +135,41 @@ function runTimer() {
     timer = setInterval(()=>{
         timeLeft--;
 
-        document.getElementById('exercise-timer').innerText = Math.floor(timeLeft);
+        document.getElementById('exercise-timer').innerText = timeLeft;
         document.getElementById('current-ex-name').innerText = workoutQueue[currentIdx].name;
 
-        let progress = ((60 - timeLeft)/60)*100;
-        document.getElementById('progress-fill').style.width = progress+"%";
+        let progress = ((workoutQueue[currentIdx].duration - timeLeft) / workoutQueue[currentIdx].duration) * 100;
+        document.getElementById('progress-fill').style.width = progress + "%";
 
-        if(timeLeft <= 0) {
+        if(timeLeft <= 0){
             currentIdx++;
-            if(currentIdx < workoutQueue.length) startAt(currentIdx);
-            else location.reload();
+
+            if(currentIdx < workoutQueue.length){
+                startAt(currentIdx);
+            } else {
+                finishWorkout();
+            }
         }
 
     },1000);
+}
+
+/* FINISH */
+function finishWorkout() {
+    stats.workouts++;
+
+    const today = new Date().toDateString();
+
+    if(stats.lastDate !== today){
+        stats.streak++;
+    }
+
+    stats.lastDate = today;
+
+    localStorage.setItem("stats", JSON.stringify(stats));
+
+    alert(`DONE 🔥\nWorkouts: ${stats.workouts}\nStreak: ${stats.streak}`);
+    location.reload();
 }
 
 /* CONTROLS */
@@ -108,7 +182,7 @@ document.getElementById('play-pause-btn').onclick = ()=>{
     clearInterval(timer);
 };
 
-/* SCREEN SWITCH */
+/* SCREEN */
 function switchScreen(id) {
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
