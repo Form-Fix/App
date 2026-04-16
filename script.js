@@ -1,99 +1,115 @@
 const db = {
-    physio: ["Cat-Cow", "Bird-Dog", "Glute Bridge", "Pelvic Tilt", "Dead Bug"],
-    office: ["Neck Stretch", "Wrist Rolls", "Shoulder Shrugs", "Thoracic Twist", "Desk Plank"],
-    strength: ["Air Squats", "Pushups", "Lunges", "Plank", "Burpees"],
-    yoga: ["Downward Dog", "Cobra", "Warrior I", "Warrior II", "Tree Pose"],
-    stretch: ["Hamstring Stretch", "Cobra Stretch", "Quad Stretch", "Butterfly"],
-    pilates: ["The Hundred", "Leg Circles", "Roll Up", "Plank Leg Lift"]
+    strength: ["Push-ups","Squats","Plank","Lunges","Burpees"],
+    mobility: ["Hip Flow","Spine Rotation","Deep Squat Hold"],
+    office: ["Neck Stretch","Wrist Rolls","Shoulder Rolls"],
+    yoga: ["Sun Salutation","Warrior Flow","Tree Pose"]
 };
 
+let weeklyPlan = {};
 let workoutQueue = [];
 let currentIdx = 0;
-let timerInterval;
 let timeLeft = 0;
-let isPaused = false;
+let timer;
 
-// Generisanje plana
+/* GENERATE PLAN */
 document.getElementById('main-start-btn').onclick = () => {
     const goal = document.querySelector('input[name="goal"]:checked').value;
-    const totalMin = parseInt(document.getElementById('user-duration').value);
-    
-    const exDuration = 120; // 2 minuta = 120 sekundi
-    const numEx = Math.floor((totalMin * 60) / exDuration);
-    
-    workoutQueue = [];
-    let pool = db[goal];
-    
-    for(let i = 0; i < numEx; i++) {
-        workoutQueue.push({ name: pool[i % pool.length], duration: exDuration });
-    }
-
-    renderHub();
-    switchScreen('workout-hub');
+    generateWeeklyPlan(goal);
+    renderWeekly();
 };
 
-// Render liste i popravka strelica
-function renderHub() {
-    const list = document.getElementById('exercise-list-ul');
-    list.innerHTML = workoutQueue.map((ex, i) => `
-        <div class="n-item" onclick="startAt(${i})" style="background:#0c0c0c; padding:20px; border-radius:15px; margin-bottom:10px; border:1px solid #1a1a1a; display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-            <div>
-                <span style="font-weight:900;">${i+1}. ${ex.name.toUpperCase()}</span>
-                <br><small style="color:#555">DURATION: 2:00 MIN</small>
-            </div>
-            <div class="gradient-text" style="font-size:1.5rem">▶</div>
+/* WEEK PLAN */
+function generateWeeklyPlan(goal) {
+    const days = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+
+    days.forEach(day => {
+        weeklyPlan[day] = [];
+
+        for(let i=0;i<5;i++) {
+            weeklyPlan[day].push({
+                name: db[goal][Math.floor(Math.random()*db[goal].length)],
+                duration: 60 + Math.random()*60
+            });
+        }
+    });
+}
+
+function renderWeekly() {
+    const container = document.getElementById('weekly-plan');
+
+    container.innerHTML = Object.keys(weeklyPlan).map(day => `
+        <div class="n-item" onclick="loadDay('${day}')">
+            <b>${day}</b>
+            <span>▶</span>
         </div>
     `).join('');
 }
 
-// Popravka START ALL tastera
+/* LOAD DAY */
+function loadDay(day) {
+    workoutQueue = weeklyPlan[day];
+    renderWorkout();
+    switchScreen('workout-hub');
+}
+
+/* RENDER EXERCISES */
+function renderWorkout() {
+    const list = document.getElementById('exercise-list-ul');
+
+    list.innerHTML = workoutQueue.map((ex,i)=>`
+        <div class="n-item" onclick="startAt(${i})">
+            ${ex.name}
+            <span>▶</span>
+        </div>
+    `).join('');
+}
+
+/* START */
 document.getElementById('start-workout-btn').onclick = () => {
-    if(workoutQueue.length > 0) startAt(0);
+    startAt(0);
 };
 
-function startAt(idx) {
-    currentIdx = idx;
-    timeLeft = workoutQueue[idx].duration;
-    isPaused = false;
+function startAt(i) {
+    currentIdx = i;
+    timeLeft = workoutQueue[i].duration;
     switchScreen('dashboard');
-    startTimer();
+    runTimer();
 }
 
-function startTimer() {
-    clearInterval(timerInterval);
-    document.getElementById('current-ex-name').innerText = workoutQueue[currentIdx].name.toUpperCase();
-    
-    timerInterval = setInterval(() => {
-        if(!isPaused) {
-            timeLeft--;
-            updateUI();
-            if(timeLeft <= 0) {
-                clearInterval(timerInterval);
-                if(currentIdx < workoutQueue.length - 1) startAt(currentIdx + 1);
-                else { alert("DONE!"); location.reload(); }
-            }
+/* TIMER */
+function runTimer() {
+    clearInterval(timer);
+
+    timer = setInterval(()=>{
+        timeLeft--;
+
+        document.getElementById('exercise-timer').innerText = Math.floor(timeLeft);
+        document.getElementById('current-ex-name').innerText = workoutQueue[currentIdx].name;
+
+        let progress = ((60 - timeLeft)/60)*100;
+        document.getElementById('progress-fill').style.width = progress+"%";
+
+        if(timeLeft <= 0) {
+            currentIdx++;
+            if(currentIdx < workoutQueue.length) startAt(currentIdx);
+            else location.reload();
         }
-    }, 1000);
+
+    },1000);
 }
 
-function updateUI() {
-    const m = Math.floor(timeLeft / 60);
-    const s = timeLeft % 60;
-    document.getElementById('exercise-timer').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-    const progress = ((120 - timeLeft) / 120) * 100;
-    document.getElementById('progress-fill').style.width = progress + "%";
-}
-
-document.getElementById('play-pause-btn').onclick = function() {
-    isPaused = !isPaused;
-    this.innerText = isPaused ? "RESUME" : "PAUSE";
+/* CONTROLS */
+document.getElementById('skip-btn').onclick = ()=>{
+    currentIdx++;
+    if(currentIdx < workoutQueue.length) startAt(currentIdx);
 };
 
-document.getElementById('skip-btn').onclick = () => {
-    if(currentIdx < workoutQueue.length - 1) startAt(currentIdx + 1);
+document.getElementById('play-pause-btn').onclick = ()=>{
+    clearInterval(timer);
 };
 
+/* SCREEN SWITCH */
 function switchScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
 }
