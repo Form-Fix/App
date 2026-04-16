@@ -1,0 +1,8 @@
+{
+  "name": "FormFix Pro",
+  "short_name": "FormFix",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#d946ef"
+}
