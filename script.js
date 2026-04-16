@@ -38,12 +38,14 @@ function getCleanYtUrl(videoId) {
     return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&autoplay=1&mute=1&playsinline=1`;
 }
 
-/* UI SETUP CONTROLS */
+/* UI SETUP CONTROLS (+ i -) */
 document.querySelectorAll(".num-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         const id = btn.dataset.target;
         const step = parseInt(btn.dataset.step);
         const input = document.getElementById(id);
+        if (!input) return;
+
         if (btn.dataset.type === "list") {
             let idx = (levels.indexOf(input.value) + step + levels.length) % levels.length;
             input.value = levels[idx];
@@ -51,18 +53,18 @@ document.querySelectorAll(".num-btn").forEach(btn => {
             let val = (parseInt(input.value) || 0) + step;
             if(id === "age") val = Math.max(10, Math.min(100, val));
             if(id === "weight") val = Math.max(30, Math.min(200, val));
-            if(id === "user-duration") val = Math.max(5, Math.min(60, val));
+            if(id === "user-duration") val = Math.max(5, Math.min(120, val));
             input.value = val;
         }
     });
 });
 
-/* GENERATE PLAN */
+/* GENERATE PLAN ACTION */
 document.getElementById("main-start-btn").onclick = () => {
-    const goal = document.querySelector('input[name="goal"]:checked');
-    if(!goal) return alert("Select program");
+    const goalInput = document.querySelector('input[name="goal"]:checked');
+    if(!goalInput) return alert("Select program");
     
-    generateWeeklyPlan(goal.value);
+    generateWeeklyPlan(goalInput.value);
     renderPlanScreen();
     switchScreen("plan-screen");
 };
@@ -84,6 +86,8 @@ function generateWeeklyPlan(goal) {
 
 function renderPlanScreen() {
     const container = document.getElementById("weekly-plan-list");
+    if(!container) return;
+    
     container.innerHTML = weeklyPlan.map((day, idx) => `
         <div class="n-item" onclick="loadDay(${idx})" style="cursor:pointer; display:flex; justify-content:space-between;">
             DAY ${day.dayNumber} <span style="color:var(--p-pink)">➔</span>
@@ -94,6 +98,8 @@ function renderPlanScreen() {
 function loadDay(idx) {
     workoutQueue = weeklyPlan[idx].exercises;
     const container = document.getElementById("exercise-list-ul");
+    if(!container) return;
+
     container.innerHTML = `<h3 style="margin-bottom:15px; font-size:0.8rem; color:#666;">DAY ${idx+1} EXERCISES</h3>` + 
         workoutQueue.map((ex, i) => `<div class="n-item" onclick="startAt(${i})">${i+1}. ${ex.name}</div>`).join("");
     switchScreen("workout-hub");
@@ -158,5 +164,6 @@ document.getElementById("start-workout-btn").onclick = () => startAt(0);
 
 function switchScreen(id) {
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+    const target = document.getElementById(id);
+    if(target) target.classList.add("active");
 }
