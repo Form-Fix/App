@@ -11,8 +11,7 @@
 
 <body>
 
-<!-- ONBOARDING -->
-<section id="onboarding" class="screen active">
+<section class="screen active">
 
 <h1 class="hero-title gradient-text">FORM<br>FIX</h1>
 
@@ -23,18 +22,18 @@
 <div class="stat-card">
 <label>AGE</label>
 <div class="number-input">
-<button onclick="changeValue('age', -1)">−</button>
-<input type="number" id="age" value="25" min="10" max="100">
-<button onclick="changeValue('age', 1)">+</button>
+<button type="button" class="num-btn" data-target="age" data-step="-1">−</button>
+<input type="number" id="age" value="25">
+<button type="button" class="num-btn" data-target="age" data-step="1">+</button>
 </div>
 </div>
 
 <div class="stat-card">
 <label>KG</label>
 <div class="number-input">
-<button onclick="changeValue('weight', -1)">−</button>
-<input type="number" id="weight" value="70" min="30" max="200">
-<button onclick="changeValue('weight', 1)">+</button>
+<button type="button" class="num-btn" data-target="weight" data-step="-1">−</button>
+<input type="number" id="weight" value="70">
+<button type="button" class="num-btn" data-target="weight" data-step="1">+</button>
 </div>
 </div>
 
@@ -64,23 +63,35 @@
 <!-- PROGRAMI -->
 <div class="program-stack">
 
-<input type="radio" name="goal" value="physio" id="physio" checked>
-<label for="physio" class="program-btn">🧘 PHYSIO</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="physio" checked>
+🧘 PHYSIO
+</label>
 
-<input type="radio" name="goal" value="office" id="office">
-<label for="office" class="program-btn">💻 OFFICE</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="office">
+💻 OFFICE
+</label>
 
-<input type="radio" name="goal" value="strength" id="strength">
-<label for="strength" class="program-btn">⚡ STRENGTH</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="strength">
+⚡ STRENGTH
+</label>
 
-<input type="radio" name="goal" value="yoga" id="yoga">
-<label for="yoga" class="program-btn">☯ YOGA</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="yoga">
+☯ YOGA
+</label>
 
-<input type="radio" name="goal" value="stretch" id="stretch">
-<label for="stretch" class="program-btn">↔ STRETCH</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="stretch">
+↔ STRETCH
+</label>
 
-<input type="radio" name="goal" value="pilates" id="pilates">
-<label for="pilates" class="program-btn">⭕ PILATES</label>
+<label class="program-btn">
+<input type="radio" name="goal" value="pilates">
+⭕ PILATES
+</label>
 
 </div>
 
@@ -92,14 +103,12 @@
 
 </section>
 
-<!-- WORKOUT HUB -->
 <section id="workout-hub" class="screen">
 <button onclick="location.reload()">←</button>
 <div id="exercise-list-ul"></div>
 <button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
 </section>
 
-<!-- DASHBOARD -->
 <section id="dashboard" class="screen">
 <div id="exercise-timer">00</div>
 <h2 id="current-ex-name"></h2>
