@@ -12,7 +12,7 @@ const db = {
             { name: "Dead Bug Core", yt: "4XLEnwUr1gc", img: "img/dead-bug.png" },
             { name: "Clamshells", yt: "VlwBJE1wtOQ" },
             { name: "Superman Spine", yt: "z6PJn2z3120" },
-            { name: "Plank Hold", yt: "ASdvN_Y_Y_c" },
+            { name: "Plank Hold", yt: "ASdvN_XEl_c" },
             { name: "Side Leg Raise", yt: "VlwBJE1wtOQ" },
             { name: "Wall Sit Hold", yt: "y-wV4Venus" }
         ],
@@ -118,6 +118,15 @@ let timeLeft = 0;
 let timer;
 let isPaused = false;
 
+// Funkcija za promenu ekrana (Ovo je falilo!)
+function switchScreen(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    const target = document.getElementById(id);
+    if (target) {
+        target.classList.add("active");
+    }
+}
+
 // Helpers
 function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -219,6 +228,7 @@ function updateDashboard() {
     document.getElementById("current-ex-name").innerText = ex.name;
     const ytId = ex.yt;
     document.getElementById("youtube-player").src = `https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&rel=0&playlist=${ytId}&loop=1&modestbranding=1`;
+    
     const dashThumb = document.getElementById("dashboard-thumb");
     if(ex.img) {
         dashThumb.src = ex.img;
@@ -259,8 +269,3 @@ document.getElementById("play-pause-btn").onclick = function() {
 document.getElementById("skip-btn").onclick = () => {
     if(currentIdx + 1 < workoutQueue.length) startAt(currentIdx + 1);
 };
-
-function switchScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-}
