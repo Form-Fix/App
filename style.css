@@ -7,34 +7,32 @@
 
 body { margin: 0; background: var(--nike-black); color: white; font-family: 'Inter', sans-serif; text-transform: uppercase; overflow: hidden; }
 
-/* SCROLLBAR SA SLIKE */
+/* Premium Scrollbar */
 .custom-scroll-bar { overflow-y: auto; scrollbar-gutter: stable; }
 .custom-scroll-bar::-webkit-scrollbar { width: 16px; }
 .custom-scroll-bar::-webkit-scrollbar-track { background: #0a0a0a; border-radius: 10px; }
 .custom-scroll-bar::-webkit-scrollbar-thumb { background: var(--nike-gradient); border-radius: 20px; border: 3px solid #0a0a0a; }
 .custom-scroll-bar::-webkit-scrollbar-button:single-button:vertical { background-color: var(--p-oran); display: block; border-radius: 4px; height: 12px; }
 
-/* VIDEO CONTAINER */
-#video-container {
-    width: 100%; aspect-ratio: 16/9; background: #111; border-radius: 20px; overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px;
-}
+/* Video styling */
+#video-container { width: 100%; aspect-ratio: 16/9; background: #111; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
 #video-container iframe { width: 100%; height: 100%; border: none; }
 
-/* OSTATAK STILA */
+/* UI */
 .gradient-text { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; display: inline-block; font-weight: 900; }
 .gradient-bg { background: var(--nike-gradient); }
 .hero-title { font-family: 'Archivo Black', sans-serif; font-size: 3.5rem; line-height: 0.8; margin: 20px 0; }
 .screen { display: none; height: 100vh; padding: 20px; flex-direction: column; box-sizing: border-box; }
 .screen.active { display: flex; }
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.stat-card { background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 12px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; }
-.stat-card label { font-size: 0.6rem; color: #555; font-weight: 900; margin-bottom: 5px; }
-.modern-select { background: transparent; border: none; color: white; font-size: 1rem; font-weight: 900; width: 100%; outline: none; text-align-last: center; }
+.stat-card { background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 15px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; }
+.stat-card label { font-size: 0.65rem; color: #555; font-weight: 900; margin-bottom: 8px; }
+.modern-select, .stat-card input { background: transparent; border: none; color: white; font-size: 1.1rem; font-weight: 900; width: 100%; outline: none; text-align: center; }
+
 input[type="radio"] { display: none; }
-.program-btn { background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-bottom: 10px; cursor: pointer; }
+.program-btn { background: var(--nike-grey); border: 1px solid #1a1a1a; padding: 22px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; margin-bottom: 10px; cursor: pointer; }
 input[type="radio"]:checked + .program-btn { border-color: var(--p-pink); background: rgba(217, 70, 239, 0.1); }
-.nike-btn-grad { background: var(--nike-gradient); color: white; border: none; padding: 22px; font-weight: 900; border-radius: 12px; cursor: pointer; width: 100%; }
+.nike-btn-grad { background: var(--nike-gradient); color: white; border: none; padding: 22px; font-weight: 900; border-radius: 12px; cursor: pointer; }
 .nike-btn-grad.pill { border-radius: 50px; width: 85%; align-self: center; }
 .back-minimal { background: var(--nike-gradient); -webkit-background-clip: text; color: transparent; border: none; font-size: 2.5rem; font-weight: 900; cursor: pointer; }
 .n-progress-bar { background: #111; height: 6px; border-radius: 10px; margin: 20px 0; overflow: hidden; }
