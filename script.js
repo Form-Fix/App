@@ -1,28 +1,28 @@
 const db = {
     physio:[
-        {name: "Cat-Cow", yt: "https://www.youtube.com/embed/kqnua4rHVp8"},
-        {name: "Bird Dog", yt: "https://www.youtube.com/embed/wiFNA3sqjCA"},
-        {name: "Glute Bridge", yt: "https://www.youtube.com/embed/wPM8icPu6H8"}
+        {name: "Cat-Cow", yt: "kqnua4rHVp8"},
+        {name: "Bird Dog", yt: "wiFNA3sqjCA"},
+        {name: "Glute Bridge", yt: "wPM8icPu6H8"}
     ],
     office:[
-        {name: "Neck Stretch", yt: "https://www.youtube.com/embed/I6A_N_D_V8U"},
-        {name: "Wrist Rolls", yt: "https://www.youtube.com/embed/E-9vVvM_Y_Y"}
+        {name: "Neck Stretch", yt: "I6A_N_D_V8U"},
+        {name: "Wrist Rolls", yt: "E-9vVvM_Y_Y"}
     ],
     strength:[
-        {name: "Push-ups", yt: "https://www.youtube.com/embed/IODxDxX7oi4"},
-        {name: "Squats", yt: "https://www.youtube.com/embed/gcNh17Ckjgg"},
-        {name: "Plank", yt: "https://www.youtube.com/embed/ASdvN_XEl_c"}
+        {name: "Push-ups", yt: "IODxDxX7oi4"},
+        {name: "Squats", yt: "gcNh17Ckjgg"},
+        {name: "Plank", yt: "ASdvN_XEl_c"}
     ],
     yoga:[
-        {name: "Downward Dog", yt: "https://www.youtube.com/embed/j97SSGzqhxQ"},
-        {name: "Cobra", yt: "https://www.youtube.com/embed/fOdrW7nfPrg"}
+        {name: "Downward Dog", yt: "j97SSGzqhxQ"},
+        {name: "Cobra", yt: "fOdrW7nfPrg"}
     ],
     stretch:[
-        {name: "Hamstring Stretch", yt: "https://www.youtube.com/embed/SshM9770mX0"}
+        {name: "Hamstring Stretch", yt: "SshM9770mX0"}
     ],
     pilates:[
-        {name: "Hundred", yt: "https://www.youtube.com/embed/lCg_gh_fppI"},
-        {name: "Roll Up", yt: "https://www.youtube.com/embed/fK26MvL1sK4"}
+        {name: "Hundred", yt: "lCg_gh_fppI"},
+        {name: "Roll Up", yt: "fK26MvL1sK4"}
     ]
 };
 
@@ -33,6 +33,15 @@ let currentIdx = 0;
 let timeLeft = 0;
 let timer;
 let isPaused = false;
+
+/* FUNKCIJA ZA ČIŠĆENJE VIDEA */
+function getCleanYtUrl(videoId) {
+    // rel=0 (sugestije samo sa istog kanala)
+    // modestbranding=1 (manje YT oznaka)
+    // iv_load_policy=3 (isključuje anotacije na videu)
+    // playsinline=1 (bitno za mobilne da ne otvara full screen automatski)
+    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&iv_load_policy=3&autoplay=1&mute=1&playsinline=1`;
+}
 
 /* UI KONTROLE */
 document.querySelectorAll(".num-btn").forEach(btn => {
@@ -108,7 +117,9 @@ function updateDashboard() {
     const ex = workoutQueue[currentIdx];
     document.getElementById("exercise-timer").innerText = formatTime(timeLeft);
     document.getElementById("current-ex-name").innerText = ex.name;
-    document.getElementById("youtube-player").src = ex.yt + "?autoplay=1&mute=1";
+    
+    // PRIMENA ČISTOG URL-A
+    document.getElementById("youtube-player").src = getCleanYtUrl(ex.yt);
 
     const next = document.getElementById("next-ex-preview");
     next.innerText = (currentIdx + 1 < workoutQueue.length) ? "NEXT: " + workoutQueue[currentIdx+1].name : "LAST ONE!";
@@ -139,7 +150,7 @@ function nextExercise() {
     }
 }
 
-/* KONTROLE */
+/* DASHBOARD KONTROLE */
 document.getElementById("skip-btn").onclick = () => nextExercise();
 document.getElementById("play-pause-btn").onclick = function() {
     isPaused = !isPaused;
