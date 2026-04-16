@@ -60,13 +60,18 @@
             </div>
             <button id="main-start-btn" class="nike-btn-grad">GENERATE PLAN</button>
         </div>
-        <div id="weekly-plan-container" style="margin-top: 20px;"></div>
+    </section>
+
+    <section id="plan-screen" class="screen">
+        <button onclick="switchScreen('home-screen')" class="back-btn">← BACK</button>
+        <h2 class="gradient-text" style="font-size: 1.5rem; margin-bottom: 20px;">YOUR WEEKLY PLAN</h2>
+        <div id="weekly-plan-list"></div>
     </section>
 
     <section id="workout-hub" class="screen">
-        <button onclick="location.reload()" class="back-btn">← NAZAD</button>
+        <button onclick="switchScreen('plan-screen')" class="back-btn">← BACK</button>
         <div id="exercise-list-ul"></div>
-        <button id="start-workout-btn" class="nike-btn-grad">START ALL</button>
+        <button id="start-workout-btn" class="nike-btn-grad">START WORKOUT</button>
     </section>
 
     <section id="dashboard" class="screen">
