@@ -4,9 +4,7 @@
 }
 
 body {
-    margin:0;
-    background:#000;
-    color:white;
+    margin:0; background:#000; color:white;
     font-family:'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
 }
@@ -17,7 +15,7 @@ body {
 .nike-card { background:#0c0c0c; padding:20px; border-radius:24px; border:1px solid #1a1a1a; }
 
 .hero-title {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Archivo Black';
     font-size: 3.5rem;
     line-height: 0.85;
     letter-spacing: -2px;
@@ -31,16 +29,9 @@ body {
 }
 
 .nike-btn-grad {
-    background: var(--grad);
-    border: none;
-    padding: 22px;
-    border-radius: 14px;
-    font-weight: 900;
-    color: white;
-    width: 100%;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    background: var(--grad); border: none; padding: 22px;
+    border-radius: 14px; font-weight: 900; color: white;
+    width: 100%; cursor: pointer; text-transform: uppercase;
 }
 
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -58,33 +49,30 @@ body {
 .program-stack { margin: 20px 0; }
 
 .program-btn {
-    display: block;
-    background: #111;
-    padding: 16px;
-    margin: 6px 0;
-    border-radius: 14px;
-    cursor: pointer;
-    border: 1px solid #222;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: 0.2s;
+    display: block; background: #111; padding: 16px;
+    margin: 6px 0; border-radius: 14px; cursor: pointer;
+    border: 1px solid #222; font-weight: 700; transition: 0.2s;
 }
 
 .program-btn input { display: none; }
+.program-btn:has(input:checked) { border-color: var(--p-pink); background: rgba(217,70,239,0.05); }
 
-.program-btn:has(input:checked) {
-    border-color: var(--p-pink);
-    background: rgba(217,70,239,0.05);
+.n-item {
+    background: #111; padding: 15px; margin-bottom: 10px;
+    border-radius: 16px; border: 1px solid #222;
+    display: flex; align-items: center; font-weight: 800;
 }
 
-.video-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid #222; }
+.ex-thumb {
+    width: 50px; height: 50px; border-radius: 8px;
+    margin-right: 15px; border: 1px solid #333; object-fit: cover;
+}
 
 #exercise-timer { font-size: 5rem; font-weight: 900; text-align: center; font-family: 'Archivo Black'; margin: 10px 0; }
 
-.n-item { background: #111; padding: 20px; margin-bottom: 10px; border-radius: 16px; font-weight: 800; border: 1px solid #222; }
+.video-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 16px; overflow: hidden; border: 1px solid #222; }
 
 .n-progress-bar { height: 10px; background: #111; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
-
 #progress-fill { height: 100%; width: 0%; background: var(--grad); transition: width 0.3s linear; }
 
 .back-btn { background: none; border: none; color: #555; font-weight: 900; margin-bottom: 20px; cursor: pointer; }
