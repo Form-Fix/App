@@ -9,6 +9,7 @@ body {
     background:#000;
     color:white;
     font-family:'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 .screen {display:none; padding:20px;}
@@ -118,6 +119,7 @@ body {
     border-radius:12px;
     cursor:pointer;
     border:1px solid #222;
+    font-weight: 700;
 }
 
 .program-btn input { display:none; }
@@ -175,4 +177,5 @@ body {
     font-weight: 800;
     margin-bottom: 15px;
     padding: 0;
+    text-transform: uppercase;
 }
